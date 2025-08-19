@@ -1,11 +1,39 @@
-import React from 'react';
+import { useRouteError } from "react-router-dom";
 
 const NotFound = () => {
+   const listenErr = useRouteError();
+
    return (
-      <div>
-         <h1 className="text-4xl font-bold">404 - Not Found</h1>
-         <p className="mt-4 text-lg">Sorry, the page you are looking for does not exist.</p>
-      </div>
+      <>
+         {listenErr?.status === 404 ? (
+            <div className="bg-[#0F172A] h-screen flex justify-center items-center space-x-3">
+               <p className="text-lg sm:text-2xl font-bold border-e pe-2 sm:pe-4 text-gray-400">
+                  404
+               </p>
+               <p className="text-lg sm:text-xl font-semibold text-gray-300">
+                  This page could not be found.
+               </p>
+            </div>
+         ) : (
+            <div className="bg-[#0F172A] h-screen flex flex-col justify-center items-center text-center px-4">
+               <p className="text-3xl font-bold text-red-500 mb-3">
+                  {listenErr?.status || "Error"}
+               </p>
+               <p className="text-sm sm:text-base md:text-lg font-medium text-gray-300 max-w-xl">
+                  Oops! Something went wrong.
+                  <br />
+                  An unexpected client-side exception has occurred. Please check the
+                  browser console for more details or try refreshing the page.
+               </p>
+               <button
+                  onClick={() => window.location.reload()}
+                  className="mt-5 px-6 py-2 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-700 transition-all"
+               >
+                  Refresh Page
+               </button>
+            </div>
+         )}
+      </>
    );
 };
 
