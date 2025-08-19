@@ -1,8 +1,13 @@
+import Banner from "./Components/Banner";
+import Services from "./Components/Services";
+
 const App = () => {
   return (
     <div>
-      <h1 className="text-4xl font-bold">Welcome to Sharevite</h1>
-      <p className="mt-4 text-lg">Your one-stop solution for sharing files effortlessly.</p>
+      <Banner />
+      <div className="md:w-11/12 mx-auto p-4">
+        <Services />
+      </div>
     </div>
   );
 };

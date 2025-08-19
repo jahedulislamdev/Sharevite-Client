@@ -1,4 +1,4 @@
-const ProtectedRoute = () => {
+const Protected = () => {
    return (
       <div>
          <h1 className="text-2xl font-bold">Protected Route</h1>
@@ -7,4 +7,4 @@ const ProtectedRoute = () => {
    );
 };
 
-export default ProtectedRoute;
+export default Protected;

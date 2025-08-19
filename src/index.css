@@ -1,15 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
+@plugin "daisyui";
 
-@import "preline/variants.css";
-@source "../../node_modules/preline/dist/*.js";
-
-/* Adds pointer cursor to buttons */
-@layer base {
-    button:not(:disabled),
-    [role="button"]:not(:disabled) {
-        cursor: pointer;
-    }
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark, cupcake, dim, coffee;
 }
-
-/* Defaults hover styles on all devices */
-@custom-variant hover (&:hover);
+@theme {
+    --font-hind: "Hind Siliguri", sans-serif;
+}
+/* .active {
+    color: green;
+    font-weight: 600;
+} */
