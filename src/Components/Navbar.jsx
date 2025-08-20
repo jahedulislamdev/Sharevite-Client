@@ -22,7 +22,7 @@ const Navbar = () => {
       </>
 
    return (
-      <div className="navbar bg-base-100 shadow-sm font-hind">
+      <div className="navbar bg-base-100 shadow-sm font-hind sticky top-0 overflow-hidden z-50">
          <div className="navbar-start ">
             <div className="hidden md:flex flex-nowrap">
                {logoOrText.logoUrl ?
@@ -36,7 +36,7 @@ const Navbar = () => {
                </div>
                <ul
                   tabIndex={0}
-                  className="menu uppercase text-lg menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 py-6 ps-5 shadow">
+                  className="menu uppercase text-lg menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 py-6 shadow">
                   {navLinks}
                </ul>
             </div>
