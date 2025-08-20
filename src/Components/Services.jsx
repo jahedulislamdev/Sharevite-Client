@@ -6,24 +6,55 @@ import { Link } from "react-router-dom";
 
 const Services = () => {
    return (
-      <div className="font-hind py-7 md:py-10">
-         <div className="grid grid-cols-2 md:grid-cols-4 w-full justify-between items-center gap-3">
-            <Link to="/food-assistance" className="flex justify-center items-center space-x-3 bg-green-50 p-5 rounded-xl max-h-22">
-               <IoFastFoodSharp className="size-10 md:size-16 text-green-400" />
-               <p className="text-md md:text-xl text-black">খাদ্য সহায়তা</p>
-            </Link>
-            <Link to="/education-assistance" className="flex justify-center items-center space-x-3 bg-green-50 p-5 rounded-xl max-h-22">
-               <MdMenuBook className="size-10 md:size-16 text-green-400" />
-               <p className="text-md md:text-xl text-black">শিক্ষা সহায়তা</p>
-            </Link>
-            <Link to="/medical-assistance" className="flex justify-center items-center space-x-3 bg-green-50 p-5 rounded-xl max-h-22">
-               <TbFirstAidKit className="size-10 md:size-16 text-green-400" />
-               <p className="text-md md:text-xl text-black">চিকিৎসা সহায়তা</p>
-            </Link>
-            <Link to="/financial-assistance" className="flex justify-center items-center space-x-3 bg-green-50 p-5 rounded-xl max-h-22">
-               <GiMoneyStack className="size-10 md:size-16 text-green-400" />
-               <p className="text-md md:text-xl text-black">আর্থিক সহায়তা</p>
-            </Link>
+      <div className="font-hind py-10 sm:py-16 md:py-20 bg-gradient-to-b from-white to-green-50 rounded-t-2xl">
+         <div className="max-w-6xl mx-auto px-6">
+            {/* Title */}
+            <h2 className="text-2xl md:text-4xl font-bold text-center text-green-800 mb-8">
+               আমাদের সেবাসমূহ
+            </h2>
+
+            {/* Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+               <Link
+                  to="/food-assistance"
+                  className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
+               >
+                  <IoFastFoodSharp className="size-12 md:size-16 text-green-500 mb-3" />
+                  <p className="text-lg md:text-xl font-medium text-gray-800">
+                     খাদ্য সহায়তা
+                  </p>
+               </Link>
+
+               <Link
+                  to="/education-assistance"
+                  className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
+               >
+                  <MdMenuBook className="size-12 md:size-16 text-green-500 mb-3" />
+                  <p className="text-lg md:text-xl font-medium text-gray-800">
+                     শিক্ষা সহায়তা
+                  </p>
+               </Link>
+
+               <Link
+                  to="/medical-assistance"
+                  className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
+               >
+                  <TbFirstAidKit className="size-12 md:size-16 text-green-500 mb-3" />
+                  <p className="text-lg md:text-xl font-medium text-gray-800">
+                     চিকিৎসা সহায়তা
+                  </p>
+               </Link>
+
+               <Link
+                  to="/financial-assistance"
+                  className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
+               >
+                  <GiMoneyStack className="size-12 md:size-16 text-green-500 mb-3" />
+                  <p className="text-lg md:text-xl font-medium text-gray-800">
+                     আর্থিক সহায়তা
+                  </p>
+               </Link>
+            </div>
          </div>
       </div>
    );
