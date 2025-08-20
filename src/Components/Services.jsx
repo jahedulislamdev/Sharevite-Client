@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 
 const Services = () => {
    return (
-      <div className="font-hind py-10 sm:py-16 md:py-20 bg-gradient-to-b from-white to-green-50 rounded-t-2xl">
+      <div className="font-hind py-10 sm:py-16 md:py-20 rounded-t-2xl">
          <div className="max-w-6xl mx-auto px-6">
             {/* Title */}
-            <h2 className="text-2xl md:text-4xl font-bold text-center text-green-800 mb-8">
+            <h2 className="text-2xl md:text-4xl font-bold text-center title mb-8">
                আমাদের সেবাসমূহ
             </h2>
 

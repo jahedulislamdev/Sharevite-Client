@@ -13,9 +13,9 @@ const Gallery = () => {
    const [selectedImg, setSelectedImg] = useState(null);
 
    return (
-      <section className="py-16 bg-gray-50 font-hind ">
+      <section className="py-16 font-hind bg-base-100">
          <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
+            <h2 className="text-4xl font-bold text-center mb-12 title">
                আমাদের গ্যালারি
             </h2>
             <div className="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">

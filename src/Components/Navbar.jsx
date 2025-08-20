@@ -3,31 +3,29 @@ import { Link, NavLink } from "react-router-dom";
 import UseTheme from "../hooks/useTheme";
 import UseSearch from "../hooks/useSearch";
 import { GoSearch } from "react-icons/go";
+import { useContext } from "react";
+import GlobalContext from "../contexts/create_context";
 // import Link from "next/link";
 
 const Navbar = () => {
-   const logoOrText = {
-      logoUrl: "https://i.postimg.cc/qvfxTK2g/Rimberio-1.png",
-      logoText: "শেয়ারবাইট"
-   };
-
+   const { navElements } = useContext(GlobalContext)
    const navLinks =
       <>
-         <NavLink to={''} className="hover:text-green-600 transition-colors duration-300 py-2 px-3 rounded-xl">হোম</NavLink>
-         <NavLink to={''} className="hover:text-green-600 transition-colors duration-300 py-2 px-3 rounded-xl">খাবারের তালিকা</NavLink>
-         <NavLink to={''} className="hover:text-green-600 transition-colors duration-300 py-2 px-3 rounded-xl">আমার খাবার</NavLink>
-         <NavLink to={''} className="hover:text-green-600 transition-colors duration-300 py-2 px-3 rounded-xl">আমার অনুরোধসমূহ</NavLink>
-         <NavLink to={''} className="hover:text-green-600 transition-colors duration-300 py-2 px-3 rounded-xl">নতুন খাবার যোগ করুন</NavLink>
-         <NavLink to={''} className="hover:text-green-600 transition-colors duration-300 py-2 px-3 rounded-xl">লগইন / রেজিস্ট্রেশন</NavLink>
+         <NavLink to={'/'} className=" transition-colors duration-300 py-1 px-3 rounded-xl">হোম</NavLink>
+         <NavLink to={'/available-projects'} className=" transition-colors duration-300 py-1 px-3 rounded-xl">চলমান প্রকল্প</NavLink>
+         <NavLink to={'/my-donations'} className=" transition-colors duration-300 py-1 px-3 rounded-xl">আমার দান</NavLink>
+         <NavLink to={'/my-requests'} className=" transition-colors duration-300 py-1 px-3 rounded-xl">আমার অনুরোধসমূহ</NavLink>
+         <NavLink to={'/add-food'} className=" transition-colors duration-300 py-1 px-3 rounded-xl">নতুন খাবার যোগ করুন</NavLink>
+         <NavLink to={'/login'} className=" transition-colors duration-300 py-1 px-3 rounded-xl">লগইন / রেজিস্ট্রেশন</NavLink>
       </>
 
    return (
-      <div className="navbar bg-base-100 shadow-sm font-hind sticky top-0 overflow-hidden z-50">
+      <div className="navbar bg-base-100 shadow-sm font-hind sticky top-0 backdrop-blur-3xl z-50">
          <div className="navbar-start ">
             <div className="hidden md:flex flex-nowrap">
-               {logoOrText.logoUrl ?
-                  <Link><img className="w-16 h-16" src={logoOrText.logoUrl} alt={logoOrText.logoText} /></Link> :
-                  <Link className="btn btn-ghost text-xl hidden md:flex">{logoOrText.logoText}</Link>
+               {navElements.logoUrl ?
+                  <Link><img className="w-16 h-16 rounded-full" src={navElements.logoUrl} alt={navElements.logoText} /></Link> :
+                  <Link className="btn btn-ghost text-xl hidden md:flex">{navElements.logoText}</Link>
                }
             </div>
             <div className="dropdown md:hidden">

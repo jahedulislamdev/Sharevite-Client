@@ -8,7 +8,13 @@
 @theme {
     --font-hind: "Hind Siliguri", sans-serif;
 }
-/* .active {
-    color: green;
-    font-weight: 600;
-} */
+.title {
+    @apply bg-gradient-to-r from-green-800 to-green-400 bg-clip-text text-transparent;
+}
+.subtitle {
+    @apply opacity-70;
+}
+.active {
+    font-weight: 900;
+    color: rgb(63, 220, 63);
+}

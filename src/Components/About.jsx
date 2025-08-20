@@ -1,12 +1,12 @@
 const About = () => {
    return (
-      <section className="bg-gradient-to-b from-green-50 to-green-100 py-20 px-6 sm:px-12 font-hind border border-green-100">
+      <section className="py-20 px-6 sm:px-12 font-hind">
          <div className="max-w-6xl mx-auto text-center">
             {/* Heading */}
-            <h2 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent mb-6">
+            <h2 className="text-4xl sm:text-5xl font-extrabold title mb-6">
                আমাদের সম্পর্কে
             </h2>
-            <p className="text-lg sm:text-xl text-gray-700 leading-relaxed mb-12 max-w-3xl mx-auto ">
+            <p className="text-lg sm:text-xl leading-relaxed mb-12 max-w-4xl mx-auto subtitle">
                আমরা বিশ্বাস করি, পৃথিবীতে কারও ক্ষুধার্ত থাকার কথা নয়। প্রতিদিন অসংখ্য
                খাবার অপচয় হয়, অথচ হাজারো মানুষ একবেলা খাবারের জন্য সংগ্রাম করে। আমাদের
                এই ফুড ডোনেশন প্ল্যাটফর্ম সেই সেতুবন্ধন তৈরি করে—যেখানে অতিরিক্ত খাবার
@@ -43,7 +43,7 @@ const About = () => {
             </div>
 
             {/* Closing Line */}
-            <p className="mt-14 text-xl font-semibold text-green-800 max-w-2xl mx-auto">
+            <p className="mt-14 text-xl font-semibold title max-w-2xl mx-auto">
                ✨ একসাথে আমরা পরিবর্তন আনতে পারি। ছোট্ট একটি দানই কারও জীবনে বড় পরিবর্তন
                আনতে পারে।
             </p>
