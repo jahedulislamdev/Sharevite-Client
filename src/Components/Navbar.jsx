@@ -1,10 +1,9 @@
-import { MdMenu } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import UseTheme from "../hooks/useTheme";
-import UseSearch from "../hooks/useSearch";
 import { GoSearch } from "react-icons/go";
 import { useContext } from "react";
 import GlobalContext from "../contexts/create_context";
+import OpenSearchBox from "./OpenSearchBox";
 // import Link from "next/link";
 
 const Navbar = () => {
@@ -46,7 +45,7 @@ const Navbar = () => {
             <button className="btn btn-ghost btn-circle" onClick={() => document.getElementById("searchMe").showModal()}>
                <GoSearch className="size-6" />
             </button>
-            <UseSearch />
+            <OpenSearchBox />
             <button className="btn btn-ghost btn-circle">
                <UseTheme />
             </button>

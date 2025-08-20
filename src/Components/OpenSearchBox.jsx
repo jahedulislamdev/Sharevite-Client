@@ -1,4 +1,4 @@
-const UseSearch = () => {
+const OpenSearchBox = () => {
    return (
       <dialog id="searchMe" className="modal">
          <div className="modal-box min-h-80">
@@ -14,4 +14,4 @@ const UseSearch = () => {
    );
 };
 
-export default UseSearch;
+export default OpenSearchBox;
