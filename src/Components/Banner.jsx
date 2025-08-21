@@ -5,7 +5,7 @@ const Banner = () => {
          <img
             className="w-full h-[35vh] sm:h-[45vh] md:h-[85vh] object-cover object-center"
             // src="https://unlockdesizn.com/html/nonprofit/be-ahand/images/home/h1.jpg"
-            src="https://i.postimg.cc/HxBrPXYV/Copilot-20250820-181206.png"
+            src="https://i.pinimg.com/1200x/9a/35/6e/9a356ebe3fb44414441a1138f80ab20e.jpg"
             alt="Banner"
          />
 

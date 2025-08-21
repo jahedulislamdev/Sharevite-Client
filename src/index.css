@@ -19,6 +19,6 @@
     background: rgba(1, 84, 5, 0.146);
     padding: 10px;
     /* border-left: 4px solid rgba(1, 84, 5, 0.5); */
-    border-right: 7px solid rgba(1, 84, 5, 0.5);
+    /* border-right: 7px solid rgba(1, 84, 5, 0.5); */
     transition: all 0.3s ease-in-out;
 }

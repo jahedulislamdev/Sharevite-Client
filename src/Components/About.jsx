@@ -16,27 +16,27 @@ const About = () => {
 
             {/* Mission Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-10 cursor-default">
-               <div className="bg-white shadow-lg p-8 rounded-2xl hover:shadow-2xl transition duration-500">
-                  <h3 className="text-2xl font-semibold text-green-700">
+               <div className="bg-base-200 shadow-lg p-8 rounded-2xl hover:shadow-2xl transition duration-500">
+                  <h3 className="text-2xl font-semibold title">
                      🍛 ক্ষুধামুক্তি
                   </h3>
-                  <p className="text-gray-600 mt-3">
+                  <p className="text-gray-500 mt-3">
                      ক্ষুধার্ত মানুষের মুখে হাসি ফোটানো আমাদের প্রথম লক্ষ্য।
                   </p>
                </div>
-               <div className="bg-white shadow-lg p-8 rounded-2xl hover:shadow-2xl transition duration-500">
-                  <h3 className="text-2xl font-semibold text-green-700">
+               <div className="bg-base-200 shadow-lg p-8 rounded-2xl hover:shadow-2xl transition duration-500">
+                  <h3 className="text-2xl font-semibold title">
                      🌱 টেকসই সমাজ
                   </h3>
-                  <p className="text-gray-600 mt-3">
+                  <p className="text-gray-500 mt-3">
                      অপচয় রোধ করে পরিবেশবান্ধব ও টেকসই সমাজ গঠন।
                   </p>
                </div>
-               <div className="bg-white shadow-lg p-8 rounded-2xl hover:shadow-2xl transition duration-500">
-                  <h3 className="text-2xl font-semibold text-green-700">
+               <div className="bg-base-200 shadow-lg p-8 rounded-2xl hover:shadow-2xl transition duration-500">
+                  <h3 className="text-2xl font-semibold title">
                      🤝 সহমর্মিতা
                   </h3>
-                  <p className="text-gray-600 mt-3">
+                  <p className="text-gray-500 mt-3">
                      মানুষে মানুষে ভালোবাসা ও সহযোগিতার বন্ধন ছড়িয়ে দেওয়া।
                   </p>
                </div>

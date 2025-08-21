@@ -32,10 +32,10 @@ const JoinUsSection = () => {
    return (
       <section className="py-7 md:py-16 font-hind border border-dashed border-green-200 rounded-xl">
          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold title mb-2">
+            <h2 className="text-3xl md:text-4xl font-bold title mb-7">
                আমাদের সাথে যুক্ত হন
             </h2>
-            <p className=" mb-10">
+            <p className="text-gray-500 mb-10">
                নিচের যে কোনো পদক্ষেপে আমাদের সাথে যুক্ত হয়ে আত্মমানবতার সেবায় ভূমিকা রাখতে পারেন।
             </p>
 

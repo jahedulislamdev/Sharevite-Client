@@ -7,50 +7,50 @@ import { Link } from "react-router-dom";
 const Services = () => {
    return (
       <div className="font-hind py-10 sm:py-16 md:py-20 rounded-t-2xl">
-         <div className="max-w-6xl mx-auto px-6">
+         <div className="max-w-6xl mx-auto px-2 md:px-6">
             {/* Title */}
             <h2 className="text-2xl md:text-4xl font-bold text-center title mb-8">
                আমাদের সেবাসমূহ
             </h2>
 
             {/* Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                <Link
                   to="/food-assistance"
-                  className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
+                  className="flex flex-col items-center justify-center bg-base-200 p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
                >
                   <IoFastFoodSharp className="size-12 md:size-16 text-green-500 mb-3" />
-                  <p className="text-lg md:text-xl font-medium text-gray-800">
+                  <p className="text-lg md:text-xl font-medium ">
                      খাদ্য সহায়তা
                   </p>
                </Link>
 
                <Link
                   to="/education-assistance"
-                  className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
+                  className="flex flex-col items-center justify-center bg-base-200 p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
                >
                   <MdMenuBook className="size-12 md:size-16 text-green-500 mb-3" />
-                  <p className="text-lg md:text-xl font-medium text-gray-800">
+                  <p className="text-lg md:text-xl font-medium ">
                      শিক্ষা সহায়তা
                   </p>
                </Link>
 
                <Link
                   to="/medical-assistance"
-                  className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
+                  className="flex flex-col items-center justify-center bg-base-200 p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
                >
                   <TbFirstAidKit className="size-12 md:size-16 text-green-500 mb-3" />
-                  <p className="text-lg md:text-xl font-medium text-gray-800">
+                  <p className="text-lg md:text-xl font-medium ">
                      চিকিৎসা সহায়তা
                   </p>
                </Link>
 
                <Link
                   to="/financial-assistance"
-                  className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
+                  className="flex flex-col items-center justify-center bg-base-200 p-6 rounded-xl shadow hover:shadow-xl transition duration-500 transform hover:-translate-y-1"
                >
                   <GiMoneyStack className="size-12 md:size-16 text-green-500 mb-3" />
-                  <p className="text-lg md:text-xl font-medium text-gray-800">
+                  <p className="text-lg md:text-xl font-medium ">
                      আর্থিক সহায়তা
                   </p>
                </Link>

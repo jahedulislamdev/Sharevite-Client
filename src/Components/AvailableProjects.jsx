@@ -125,16 +125,16 @@ const projects = [
 const AvailableProjects = () => {
    return (
       <section className="py-14 font-hind">
-         <div className="max-w-6xl mx-auto px-6">
+         <div className=" px-4">
             <div className="flex justify-between items-center mb-12">
                <h2 className="text-lg sm:text-xl md:text-4xl font-bold text-center title">আমাদের চলমান প্রজেক্টসমূহ</h2>
                <Link to="/projects" className="text-white bg-green-600 sm:text-xs md:text-base py-1 px-2 btn-soft md:p-3 rounded-lg">সব প্রজেক্ট দেখুন</Link>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                {projects.slice(0, 6).map((project) => (
                   <div
                      key={project.id}
-                     className="relative bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-700 transform"
+                     className="relative bg-base-300 rounded-2xl overflow-hidden shadow-md transition-all duration-700 transform"
                   >
                      {/* Image with overlay */}
                      <div className="relative">
@@ -152,12 +152,12 @@ const AvailableProjects = () => {
                            {project.title}
                            <span className="absolute left-0 -bottom-2 w-12 h-1 bg-green-500 rounded-full"></span>
                         </h3>
-                        <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                        <p className="text-gray-500 text-sm md:text-base leading-relaxed">
                            {project.description}
                         </p>
                         {/* collected amount tracking */}
-                        <div className="w-full bg-gray-100 pe-5 ps-2 py-3 rounded-2xl">
-                           <div className="text-gray-600 text-xs md:text-sm leading-relaxed flex justify-between items-center" >
+                        <div className="w-full bg-base-200 pe-5 ps-2 py-3 rounded-2xl">
+                           <div className="text-gray-500 text-xs md:text-sm leading-relaxed flex justify-between items-center" >
                               <p className="font-bold">সংগ্রহিত: ৳{project.collect}</p>
                               <p className="font-bold">টার্গেট: ৳{project.target}</p>
                            </div>
