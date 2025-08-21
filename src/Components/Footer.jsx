@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import { FaFacebook, FaYoutube, FaLinkedin } from "react-icons/fa";
 import GlobalContext from "../contexts/create_context";
-import { Link } from "react-router-dom";
 
 export default function Footer() {
-   const { navElements } = useContext(GlobalContext)
+   const { navBrand } = useContext(GlobalContext)
    return (
       <footer className="bg-green-950 text-gray-300 py-10 font-hind">
          <div className="container mx-auto grid md:grid-cols-4 gap-8 px-6">
@@ -12,13 +11,13 @@ export default function Footer() {
             <div className="space-y-4">
                <div className="flex items-center space-x-2">
                   <img
-                     src={navElements.logoUrl}
-                     alt={navElements.logoText}
+                     src={navBrand.logoUrl}
+                     alt={navBrand.logoText}
                      className="w-12 h-12 rounded-full"
                   />
                   <div>
                      <h2 className="text-lg font-bold text-white">
-                        {navElements.logoText}
+                        {navBrand.logoText}
                      </h2>
                      <p className="text-xs">একটি সমাজ সেবা মূলক প্রতিষ্ঠান</p>
                   </div>
@@ -78,7 +77,7 @@ export default function Footer() {
 
          {/* Bottom Text */}
          <div className="text-center text-gray-400 text-sm mt-10 border-t border-dashed border-gray-700 pt-4">
-            All rights reserved © {new Date().getFullYear()} {navElements.logoText}. Designed with ❤️ by <a target="_blank" href="https://jahedulislam.dev">JahedulIslamdev</a>
+            All rights reserved © {new Date().getFullYear()} {navBrand.logoText}. Designed with ❤️ by <a target="_blank" href="https://jahedulislam.dev">JahedulIslamdev</a>
          </div>
       </footer>
    );
