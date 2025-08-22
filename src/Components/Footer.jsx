@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { FaFacebook, FaYoutube, FaLinkedin } from "react-icons/fa";
-import GlobalContext from "../contexts/create_context";
+import GlobalContext from "../contexts/create_global_context";
 
 export default function Footer() {
    const { navBrand } = useContext(GlobalContext)

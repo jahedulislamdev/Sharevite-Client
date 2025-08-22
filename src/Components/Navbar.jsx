@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import UseTheme from "../hooks/useTheme";
 import { GoSearch } from "react-icons/go";
 import { useContext } from "react";
-import GlobalContext from "../contexts/create_context";
+import GlobalContext from "../contexts/create_global_context";
 import OpenSearchBox from "./OpenSearchBox";
 import Sidebar from "./Sidebar";
 // import Link from "next/link";
@@ -23,9 +23,9 @@ const Navbar = () => {
 
             </div>
          </div>
-         <div className="navbar-center space-x-1 hidden md:flex">
+         <div className="navbar-center space-x-2 hidden md:flex">
             {
-               navLinks?.map((link, idx) => <NavLink key={idx} to={link.path} className=" transition-colors duration-300 py-1 px-3 rounded-xl">{link.label}</NavLink>)
+               navLinks?.map((link, idx) => <NavLink key={idx} to={link.path} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl">{link.label}</NavLink>)
             }
          </div>
          <div className="navbar-end">

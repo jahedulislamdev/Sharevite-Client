@@ -1,4 +1,4 @@
-import GlobalContext from "./create_context";
+import GlobalContext from "./create_global_context";
 
 const SiteConfigContext = ({ children }) => {
    // navbar logo or text it will be dynami later,  data will comes from API.

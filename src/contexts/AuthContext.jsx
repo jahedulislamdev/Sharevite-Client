@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import GlobalContext from "./create_context";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import app from "../services/firebase.config";
+import AuthProvider from "./create_auth_context";
 
 const AuthContext = ({ children }) => {
    const [user, setUser] = useState(null);
    const [loading, setLoading] = useState(true);
    const auth = getAuth(app);
+   const admin = { name: "Jishan", email: "jahedulislamdev@gamil.com" }
 
    // register with email and password =
    const registerUser = async (email, password) => {
       setLoading(true);
-      return await createUserWithEmailAndPassword(auth, email, password)
+      return createUserWithEmailAndPassword(auth, email, password)
          .finally(() => setLoading(false));
    }
 
@@ -50,12 +51,12 @@ const AuthContext = ({ children }) => {
    }, [auth]);
 
    // provider data
-   const data = { user, loading, registerUser, loginUser, loginWithGoogle };
+   const data = { user, loading, registerUser, loginUser, loginWithGoogle, admin };
 
    return (
-      <GlobalContext.Provider value={data}>
+      <AuthProvider.Provider value={data}>
          {children}
-      </GlobalContext.Provider>
+      </AuthProvider.Provider>
    );
 };
 

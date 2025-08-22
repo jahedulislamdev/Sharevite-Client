@@ -134,7 +134,7 @@ const AvailableProjects = () => {
                {projects.slice(0, 6).map((project) => (
                   <div
                      key={project.id}
-                     className="relative bg-base-300 rounded-2xl overflow-hidden shadow-md transition-all duration-700 transform"
+                     className="relative bg-[#0080000c] rounded-2xl overflow-hidden shadow-xs shadow-green-600 transition-all duration-700 transform"
                   >
                      {/* Image with overlay */}
                      <div className="relative">

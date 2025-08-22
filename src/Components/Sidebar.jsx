@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { HiXMark } from "react-icons/hi2";
-import GlobalContext from "../contexts/create_context";
+import GlobalContext from "../contexts/create_global_context";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
