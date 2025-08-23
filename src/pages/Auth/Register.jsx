@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaUser, FaEnvelope, FaLock, FaImage, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../../hooks/useContext";
+import { useAuthContext, useGlobalContext } from "../../hooks/useContext";
 import { toast } from "sonner";
 import usePostData from "../../hooks/usePostData";
 
@@ -11,16 +11,8 @@ const Registration = () => {
    const [showPassword, setShowPassword] = useState(false);
    const { register, handleSubmit, formState: { errors } } = useForm();
    const saveUser = usePostData('users', "Registration Successfull", "users")
+   const { toastStyle } = useGlobalContext();
 
-   // toaststyle 
-   const toastStyle = {
-      success: {
-         style: { backgroundColor: "#00800012", color: "#2c662d", border: "1px solid green" },
-      },
-      error: {
-         style: { backgroundColor: "#ff00000a", color: "#eb3434", border: "1px solid #ff000071" },
-      },
-   }
    const onSubmitForm = (data) => {
       // create an user credential obj without secret password for sending our db
       const userCredential = {
