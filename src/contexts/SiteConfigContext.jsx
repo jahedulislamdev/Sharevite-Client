@@ -24,7 +24,16 @@ const SiteConfigContext = ({ children }) => {
          }, 400);
       }
    };
-   const data = { navLinks, navBrand, autoCloseSidebar }
+   // soft toast message style
+   const toastStyle = {
+      success: {
+         style: { backgroundColor: "#00800012", color: "#2c662d", border: "1px solid green" },
+      },
+      error: {
+         style: { backgroundColor: "#ff00000a", color: "#eb3434", border: "1px solid #ff000071" },
+      },
+   }
+   const data = { navLinks, navBrand, autoCloseSidebar, toastStyle }
    return (
       <GlobalContext.Provider value={data}>
          {children}

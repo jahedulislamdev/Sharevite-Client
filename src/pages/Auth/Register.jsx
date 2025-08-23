@@ -3,21 +3,48 @@ import { useForm } from "react-hook-form";
 import { FaUser, FaEnvelope, FaLock, FaImage, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useContext";
+import { toast } from "sonner";
+import usePostData from "../../hooks/usePostData";
 
 const Registration = () => {
-   const { registerUser, admin } = useAuthContext();
+   const { registerUser } = useAuthContext();
    const [showPassword, setShowPassword] = useState(false);
    const { register, handleSubmit, formState: { errors } } = useForm();
+   const saveUser = usePostData('users', "Registration Successfull", "users")
 
-   // console.log(errors)
+   // toaststyle 
+   const toastStyle = {
+      success: {
+         style: { backgroundColor: "#00800012", color: "#2c662d", border: "1px solid green" },
+      },
+      error: {
+         style: { backgroundColor: "#ff00000a", color: "#eb3434", border: "1px solid #ff000071" },
+      },
+   }
    const onSubmitForm = (data) => {
-      console.log(admin)
+      // create an user credential obj without secret password for sending our db
+      const userCredential = {
+         name: data.userName, email: data.userEmail, profileUrl: data.profileUrl
+      }
+
+      //call firebse register
       registerUser(data.userEmail, data.password)
-         .then(res => {
-            console.log(res);
+         .then(() => {
+            // we post userCredential to DB (if registration successfull)
+            // console.log('bd user info :', userCredential)
+            saveUser.mutate(userCredential)
+
          })
-         .catch(err => console.log(err));
-      console.log(data);
+         .catch(err => {
+            console.log(err)
+            if (err.code === "auth/email-already-in-use") {
+               toast.error("You Already Have An Account", toastStyle.error) // 
+            } else if (err.code === "auth/network-request-failed") {
+               toast.error("Network busy.", toastStyle.error) // 
+            } else {
+               toast.error("Registration Faid! Please Try Again.", toastStyle.error) // 
+            }
+         });
    };
 
    // js url checker api
@@ -29,6 +56,7 @@ const Registration = () => {
          return false;
       }
    }
+
    return (
       <div className="flex items-center justify-center my-5 font-hind">
          <div className="w-full max-w-sm md:max-w-md bg-[#0080000a] rounded-xl shadow shadow-green-400 p-8">
@@ -80,7 +108,7 @@ const Registration = () => {
                         type={showPassword ? "text" : "password"}
                         placeholder="একটি শক্তিশালী পাসওয়ার্ড দিন"
                         className={`input focus:outline-0 w-full ${errors.password ? "border-red-700" : ""}`}
-                        {...register("password", { required: "একটি শক্তিশালী পাসওয়ার্ড দিন", pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, message: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষর, ১টি সংখ্যা ও ১টি বড় হাতের অক্ষর দিন।" } })}
+                        {...register("password", { required: "একটি শক্তিশালী পাসওয়ার্ড দিন", pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, message: "পাসওয়ার্ড নূন্যতম ৬ অক্ষর এবং কমপক্ষে ১টি সংখ্যা দিন।" } })}
                      />
                      <p className="mt-1 text-red-600 font-extralight text-sm">{errors.password?.message}</p>
                      <span
