@@ -4,6 +4,8 @@ import App from "../App";
 import NotFound from "../pages/Error/NotFound";
 import Login from "../pages/Auth/Login";
 import Registration from "../pages/Auth/Register";
+import Users from "../pages/Dashboard/Users";
+
 
 const router = createBrowserRouter([
    {
@@ -17,6 +19,10 @@ const router = createBrowserRouter([
          },
          {
             path: "/register", element: <Registration />
+         },
+         {
+            path: "/users", element: <Users />,
+            hydrateFallbackElement: <div>Loading..</div>
          }
       ]
    }
