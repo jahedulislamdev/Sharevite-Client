@@ -8,7 +8,7 @@ import { useAuthContext } from "../../hooks/useContext";
 import { toast } from "sonner";
 
 const Login = () => {
-   const { loginUser } = useAuthContext();
+   const { loginUser, loginWithGoogle } = useAuthContext();
    const [showPassword, setShowPassword] = useState(false);
    const { register, handleSubmit, formState: { errors } } = useForm();
    const onSubmitForm = (data) => {
@@ -27,11 +27,11 @@ const Login = () => {
 
    return (
       <div className="flex items-start justify-center my-9 md:h-screen font-hind">
-         <div className="w-full max-w-sm md:max-w-md bg-[#00800009] rounded-xl shadow shadow-green-400 p-8">
+         <div className="w-full max-w-sm md:max-w-md bg-[#07440718] rounded-xl shadow shadow-green-400 p-8">
             {/* Title */}
             <h2 className="text-2xl font-semibold text-center mb-6 title">লগইন</h2>
             {/* Google Button */}
-            <button className="btn w-full mb-4 transition-colors duration-500 bg-[#0080000e]">
+            <button onClick={loginWithGoogle} className="btn w-full mb-4 transition-colors duration-500 bg-[#0080000e]">
                <FcGoogle className="mr-2 text-red-500 size-6" />
                Continue with Google
             </button>
