@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaUser, FaEnvelope, FaLock, FaImage, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useAuthContext, useGlobalContext } from "../../hooks/useContext";
+import { useAuthContext } from "../../hooks/useContext";
 import { toast } from "sonner";
 import usePostData from "../../hooks/usePostData";
 
@@ -11,7 +11,6 @@ const Registration = () => {
    const [showPassword, setShowPassword] = useState(false);
    const { register, handleSubmit, formState: { errors } } = useForm();
    const saveUser = usePostData('users', "Registration Successfull", "users")
-   const { toastStyle } = useGlobalContext();
 
    const onSubmitForm = (data) => {
       // create an user credential obj without secret password for sending our db
@@ -30,11 +29,11 @@ const Registration = () => {
          .catch(err => {
             console.log(err)
             if (err.code === "auth/email-already-in-use") {
-               toast.error("You Already Have An Account", toastStyle.error) // 
+               toast.error("You Already Have An Account") // 
             } else if (err.code === "auth/network-request-failed") {
-               toast.error("Network busy.", toastStyle.error) // 
+               toast.error("Network busy.") // 
             } else {
-               toast.error("Registration Faid! Please Try Again.", toastStyle.error) // 
+               toast.error("Registration Faid! Please Try Again.") // 
             }
          });
    };

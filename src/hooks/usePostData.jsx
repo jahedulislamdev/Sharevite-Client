@@ -1,17 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postRequest } from "../utils/apiClent";
 import { toast } from "sonner";
-import { useGlobalContext } from "./useContext";
 
 const usePostData = (urlEndpoint, successMsg, queryKey) => {
    const queryClient = useQueryClient();
-   const { toastStyle } = useGlobalContext();
    return useMutation({
       mutationFn: (data) => postRequest(urlEndpoint, data),
       onSuccess: (res) => {
          // console.log(res);
          if (res.insertedId) {
-            toast.success(successMsg, toastStyle.success)
+            toast.success(successMsg)
          }
          // this key cash our fetched data and refetch it automaticaly afer changing response.
          if (queryKey) {
@@ -26,7 +24,7 @@ const usePostData = (urlEndpoint, successMsg, queryKey) => {
       },
       onError: (err) => {
          console.log(err)
-         toast.error(err.response?.data?.message || "Request Faild! Please Try Again.", toastStyle.error)
+         toast.error(err.response?.data?.message || "Request Faild! Please Try Again.")
       }
    })
 };

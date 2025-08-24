@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStat
 import app from "../services/firebase.config";
 import AuthProvider from "./create_auth_context";
 import { postRequest } from "../utils/apiClent";
+import { toast } from "sonner";
 
 const AuthContext = ({ children }) => {
    const [user, setUser] = useState(null);
@@ -24,14 +25,14 @@ const AuthContext = ({ children }) => {
    }
 
    // login with google
-   const loginWithGoogle = async () => {
+   const loginWithGoogle = async (navigate, location) => {
       setLoading(true);
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
          .then(res => {
             setUser(res.user)
-            console.log("User Logged In:", res.user);
-            alert("User Logged In Successfully");
+            toast.success("Login Successfull!");
+            navigate(location.state ? location.state : '/')
          })
          .catch((err) => {
             console.log("Error Logging In:", err);
@@ -46,8 +47,11 @@ const AuthContext = ({ children }) => {
          .then(() => {
             postRequest("logout")
             setUser(null)
+            toast.success("Logout Successfull!")
          })
-         .catch(err => console.error(err))
+         .catch(() => {
+            toast.error("Logout Faild! please try again.")
+         })
          .finally(() => setLoading(false))
    }
 

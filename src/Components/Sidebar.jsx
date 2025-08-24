@@ -2,13 +2,13 @@ import { useContext } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { HiXMark } from "react-icons/hi2";
 import GlobalContext from "../contexts/create_global_context";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useContext";
 
 const Sidebar = () => {
-   const { user } = useAuthContext();
-   const { navLinks, navBrand, autoCloseSidebar, loginLink, logoutLink } = useContext(GlobalContext);
-
+   const { user, logoutUser } = useAuthContext();
+   const { navLinks, navBrand, autoCloseSidebar } = useContext(GlobalContext);
+   const navigate = useNavigate();
    return (
       <div className="drawer">
          {/* Drawer controller */}
@@ -47,7 +47,9 @@ const Sidebar = () => {
                            {link.label}
                         </NavLink>)
                   }
-                  {user ? logoutLink : loginLink}
+                  {!user ?
+                     <li onClick={autoCloseSidebar}><NavLink to={'/login'} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl">লগইন/ রেজিষ্ট্রেশন</NavLink></li> :
+                     <li onClick={autoCloseSidebar}><button onClick={() => logoutUser(navigate)} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl cursor-pointer">লগআউট</button></li>}
                </ul>
             </div>
          </div>

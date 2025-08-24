@@ -1,14 +1,15 @@
-import { Link, NavLink } from "react-router-dom";
-import UseTheme from "../hooks/useTheme";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import UseTheme from "../../hooks/useTheme";
 import { GoSearch } from "react-icons/go";
-import OpenSearchBox from "./OpenSearchBox";
-import Sidebar from "./Sidebar";
-import { useAuthContext, useGlobalContext } from "../hooks/useContext";
+import Sidebar from "../Sidebar";
+import OpenSearchBox from "../OpenSearchBox";
+import { useAuthContext, useGlobalContext } from "../../hooks/useContext";
 // import Link from "next/link";
 
 const Navbar = () => {
-   const { navBrand, navLinks, logoutLink, loginLink } = useGlobalContext();
-   const { user } = useAuthContext();
+   const { navBrand, navLinks } = useGlobalContext();
+   const { user, logoutUser } = useAuthContext();
+   const navigate = useNavigate();
    return (
       <div className="navbar bg-base-100 shadow-sm font-hind sticky top-0 backdrop-blur-3xl z-50">
          <div className="navbar-start ">
@@ -26,7 +27,9 @@ const Navbar = () => {
             {
                navLinks?.map((link, idx) => <NavLink key={idx} to={link.path} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl">{link.label}</NavLink>)
             }
-            {user ? logoutLink : loginLink}
+            {!user ?
+               <li><NavLink to={'/login'} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl">লগইন/ রেজিষ্ট্রেশন</NavLink></li> :
+               <li><button onClick={() => logoutUser(navigate)} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl cursor-pointer" >লগআউট</button></li>}
          </ul>
          <div className="navbar-end">
             <button className="btn btn-ghost btn-circle" onClick={() => document.getElementById("searchMe").showModal()}>

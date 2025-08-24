@@ -2,9 +2,9 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash, FaEnvelope, FaLock } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import OpenForgetPassBox from "../../Components/OpenForgetPassBox";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAuthContext, useGlobalContext } from "../../hooks/useContext";
+import { useAuthContext } from "../../hooks/useContext";
 import { toast } from "sonner";
 import { postRequest } from "../../utils/apiClent";
 
@@ -12,21 +12,30 @@ const Login = () => {
    const { loginUser, loginWithGoogle } = useAuthContext();
    const [showPassword, setShowPassword] = useState(false);
    const { register, handleSubmit, formState: { errors } } = useForm();
-   const { toastStyle } = useGlobalContext();
+   const navigate = useNavigate();
+   const location = useLocation();
+
    const onSubmitForm = (data) => {
       loginUser(data.email, data.password)
          .then(res => {
             const userImpl = { email: res.user.email } // must be an object
             // console.log(userImpl)
             // send user credential to server and verirfy it to jwt access token
-            postRequest("/jwt", userImpl)
-            toast.success("Login Successfully", toastStyle.success)
+            postRequest("/jwt", userImpl);
+            toast.message('Login Successfull!', {
+               description: 'Wecolme to this journy!',
+            })
+            navigate(location.state ? location.state : "/");
          })
          .catch(err => {
             if (err.code === "auth/invalid-credential") {
-               toast.error("Wrong Email or Password", toastStyle.error)
+               toast.error("Wrong Email or Password");
+            } else if (err.code === 'auth/network-request-failed') {
+               toast.error("Netwok connection error!", { duration: 4000 })
+            } else {
+               toast.error("Login Falid! Please Try Again Later.")
             }
-            console.error(err)
+            console.error(err);
          })
    };
 
@@ -36,7 +45,7 @@ const Login = () => {
             {/* Title */}
             <h2 className="text-2xl font-semibold text-center mb-6 title">লগইন</h2>
             {/* Google Button */}
-            <button onClick={loginWithGoogle} className="btn w-full mb-4 transition-colors duration-500 bg-[#0080000e]">
+            <button onClick={() => loginWithGoogle(navigate, location)} className="btn w-full mb-4 transition-colors duration-500 bg-[#0080000e]">
                <FcGoogle className="mr-2 text-red-500 size-6" />
                Continue with Google
             </button>

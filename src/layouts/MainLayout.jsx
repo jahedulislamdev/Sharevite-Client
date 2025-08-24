@@ -1,17 +1,19 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../Components/Footer";
-import Nav from "../Components/Navbar";
+// import Footer from "../Components/Footer";
+// import Nav from "../Components/Navbar";
 import UseScroll from "../hooks/useScroll";
 import { Toaster } from "sonner";
+import Footer from "../Components/Shared/Footer";
+import Navbar from "../Components/Shared/Navbar";
 
 const MainLayout = () => {
    return (
-      <div className="">
+      <div>
          <UseScroll />
-         <Nav />
+         <Navbar />
          <Outlet />
          <Footer />
-         <Toaster position="top-center" />
+         <Toaster position="top-right" richColors />
       </div>
    );
 };
