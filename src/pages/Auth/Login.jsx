@@ -4,24 +4,29 @@ import { FcGoogle } from "react-icons/fc";
 import OpenForgetPassBox from "../../Components/OpenForgetPassBox";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAuthContext } from "../../hooks/useContext";
+import { useAuthContext, useGlobalContext } from "../../hooks/useContext";
 import { toast } from "sonner";
+import { postRequest } from "../../utils/apiClent";
 
 const Login = () => {
    const { loginUser, loginWithGoogle } = useAuthContext();
    const [showPassword, setShowPassword] = useState(false);
    const { register, handleSubmit, formState: { errors } } = useForm();
+   const { toastStyle } = useGlobalContext();
    const onSubmitForm = (data) => {
       loginUser(data.email, data.password)
          .then(res => {
-            console.log(res)
-            toast.success("Login Successfully", { style: { backgroundColor: "#00800012", color: "#aecbae", border: "1px solid green" } })
+            const userImpl = { email: res.user.email } // must be an object
+            // console.log(userImpl)
+            // send user credential to server and verirfy it to jwt access token
+            postRequest("/jwt", userImpl)
+            toast.success("Login Successfully", toastStyle.success)
          })
          .catch(err => {
             if (err.code === "auth/invalid-credential") {
-               toast.error("Wrong Email or Password", { style: { backgroundColor: "#ff00000a", color: "#eb3434", border: "1px solid #ff000071" } })
+               toast.error("Wrong Email or Password", toastStyle.error)
             }
-            console.log(err)
+            console.error(err)
          })
    };
 
