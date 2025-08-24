@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const projects = [
-   // আগের 4 প্রজেক্ট
    {
       id: 1,
       title: "খাদ্য বিতরণ কার্যক্রম",
@@ -38,7 +37,6 @@ const projects = [
       collect: 5040,
       target: 15000,
    },
-   // নতুন 10 প্রজেক্ট
    {
       id: 5,
       title: "বৃক্ষ রোপণ অভিযান",

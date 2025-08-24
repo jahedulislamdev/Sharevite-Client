@@ -10,7 +10,7 @@ const Registration = () => {
    const { registerUser } = useAuthContext();
    const [showPassword, setShowPassword] = useState(false);
    const { register, handleSubmit, formState: { errors } } = useForm();
-   const saveUser = usePostData('users', "Registration Successfull", "users")
+   const saveUser = usePostData('users', "রেজিস্ট্রেশন সম্পন্ন হয়েছে!", "users")
 
    const onSubmitForm = (data) => {
       // create an user credential obj without secret password for sending our db
@@ -52,7 +52,7 @@ const Registration = () => {
       <div className="flex items-center justify-center my-5 font-hind">
          <div className="w-full max-w-sm md:max-w-md bg-[#0080000a] rounded-xl shadow shadow-green-400 p-8">
             {/* Title */}
-            <h2 className="text-2xl font-bold text-center mb-6 title">নিবন্ধন</h2>
+            <h2 className="text-2xl font-bold text-center mb-6 title">রেজিস্ট্রেশন</h2>
 
             <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-7">
                {/* Name */}
@@ -129,7 +129,7 @@ const Registration = () => {
 
                {/* Register Button */}
                <button className="btn w-full bg-green-500 text-white hover:bg-green-600">
-                  নিবন্ধন করুন
+                  রেজিস্ট্রেশন করুন
                </button>
             </form>
 

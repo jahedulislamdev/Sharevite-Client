@@ -6,6 +6,8 @@ import Login from "../pages/Auth/Login";
 import Registration from "../pages/Auth/Register";
 import Users from "../pages/Dashboard/Users";
 import Private from "./Private";
+import AllCampaigns from "../pages/Projects/AllCampaign";
+import AddCampaign from "../pages/Dashboard/AddCampaign";
 
 
 const router = createBrowserRouter([
@@ -20,6 +22,12 @@ const router = createBrowserRouter([
          },
          {
             path: "/register", element: <Registration />
+         },
+         {
+            path: "/all_campaign", element: <AllCampaigns />
+         },
+         {
+            path: '/add-campaign', element: <AddCampaign />
          },
          {
             path: "/users", element: <Private><Users /></Private>,

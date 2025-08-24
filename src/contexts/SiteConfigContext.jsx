@@ -20,12 +20,13 @@ const SiteConfigContext = ({ children }) => {
    // navbar links it will be dynami later,  data will comes from API.
    const navLinks = [
       { path: '/', label: 'হোম' },
-      { path: '/available-projects', label: ' চলমান প্রকল্প' },
-      { path: '/my-donations', label: 'আমাদের কার্যক্রম' },
-      { path: '/my-requests', label: 'গ্যালারি' },
-      { path: '/add-food', label: 'আমাদের সাথে যুক্ত হোন' },
-      { path: '/add-food', label: 'ব্লগ' },
-      { path: '/add-food', label: 'যোগাযোগ' },
+      { path: '/all_campaign', label: ' চলমান প্রকল্প' },
+      // { path: '/my-donations', label: 'আমাদের কার্যক্রম' },
+      // { path: '/my-requests', label: 'গ্যালারি' },
+      // { path: '/add-food', label: 'আমাদের সাথে যুক্ত হোন' },
+      // { path: '/add-food', label: 'ব্লগ' },
+      // { path: '/add-food', label: 'যোগাযোগ' },
+      { path: '/add-campaign', label: 'ক্যম্পেইন যুক্ত করুন' },
    ];
 
    // soft toast message style
