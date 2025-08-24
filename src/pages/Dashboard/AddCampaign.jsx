@@ -38,7 +38,7 @@ const AddCampaign = () => {
                   <option value="Others">Others</option>
                </select>
             </div>
-            {/* location */}
+            {/* location  it can be multiple*/}
             <div>
                <label className="block mb-2 font-semibold">Locaiton</label>
                <input
@@ -97,7 +97,7 @@ const AddCampaign = () => {
                />
             </div>
 
-            {/* Image URL */}
+            {/* Image URL  it can be multiple*/}
             <div className="md:col-span-2">
                <label className="block mb-2 font-semibold">Image URL</label>
                <input
