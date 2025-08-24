@@ -16,9 +16,10 @@
 }
 .active {
     font-weight: 900;
-    background: rgba(1, 84, 5, 0.146);
-    padding: 10px;
-    /* border-left: 4px solid rgba(1, 84, 5, 0.5); */
-    /* border-right: 7px solid rgba(1, 84, 5, 0.5); */
+    background: rgba(14, 195, 23, 0.192);
+    padding: 5px 9px;
     transition: all 0.3s ease-in-out;
+}
+.active:hover {
+    background: rgba(14, 195, 23, 0.192);
 }

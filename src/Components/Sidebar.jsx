@@ -3,9 +3,11 @@ import { CiMenuBurger } from "react-icons/ci";
 import { HiXMark } from "react-icons/hi2";
 import GlobalContext from "../contexts/create_global_context";
 import { NavLink } from "react-router-dom";
+import { useAuthContext } from "../hooks/useContext";
 
 const Sidebar = () => {
-   const { navLinks, navBrand, autoCloseSidebar } = useContext(GlobalContext);
+   const { user } = useAuthContext();
+   const { navLinks, navBrand, autoCloseSidebar, loginLink, logoutLink } = useContext(GlobalContext);
 
    return (
       <div className="drawer">
@@ -45,6 +47,7 @@ const Sidebar = () => {
                            {link.label}
                         </NavLink>)
                   }
+                  {user ? logoutLink : loginLink}
                </ul>
             </div>
          </div>

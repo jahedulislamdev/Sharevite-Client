@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
 import app from "../services/firebase.config";
 import AuthProvider from "./create_auth_context";
+import { postRequest } from "../utils/apiClent";
 
 const AuthContext = ({ children }) => {
    const [user, setUser] = useState(null);
    const [loading, setLoading] = useState(true);
    const auth = getAuth(app);
-   const admin = { name: "Jishan", email: "jahedulislamdev@gamil.com" }
 
    // register with email and password =
    const registerUser = async (email, password) => {
@@ -39,6 +39,17 @@ const AuthContext = ({ children }) => {
          })
          .finally(() => setLoading(false));
    }
+   // logout user
+   const logoutUser = () => {
+      setLoading(true);
+      signOut(auth)
+         .then(() => {
+            postRequest("logout")
+            setUser(null)
+         })
+         .catch(err => console.error(err))
+         .finally(() => setLoading(false))
+   }
 
    // user observer spy
    useEffect(() => {
@@ -51,7 +62,7 @@ const AuthContext = ({ children }) => {
    }, [auth]);
 
    // provider data
-   const data = { user, loading, registerUser, loginUser, loginWithGoogle, admin };
+   const data = { user, loading, registerUser, loginUser, loginWithGoogle, logoutUser };
 
    return (
       <AuthProvider.Provider value={data}>
