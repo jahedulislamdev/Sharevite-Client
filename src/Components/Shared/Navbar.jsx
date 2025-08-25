@@ -23,7 +23,7 @@ const Navbar = () => {
                <Sidebar />
             </div>
          </div>
-         <ul className="navbar-center space-x-2 hidden md:flex">
+         <ul className="navbar-center space-x-2 hidden md:flex bg-base-200 py-3 px-6 rounded-3xl">
             {
                navLinks?.map((link, idx) => <NavLink key={idx} to={link.path} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl">{link.label}</NavLink>)
             }
@@ -32,10 +32,10 @@ const Navbar = () => {
                <li><button onClick={() => logoutUser(navigate)} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl cursor-pointer" >লগআউট</button></li>}
          </ul>
          <div className="navbar-end">
-            <button className="btn btn-ghost btn-circle" onClick={() => document.getElementById("searchMe").showModal()}>
+            {/* <button className="btn btn-ghost btn-circle" onClick={() => document.getElementById("searchMe").showModal()}>
                <GoSearch className="size-6" />
             </button>
-            <OpenSearchBox />
+            <OpenSearchBox /> */}
             <button className="btn btn-ghost btn-circle">
                <UseTheme />
             </button>
