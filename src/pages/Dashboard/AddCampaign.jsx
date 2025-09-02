@@ -3,14 +3,16 @@ import { FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { toast } from "sonner";
 
-
 const AddCampaign = () => {
    const { register, handleSubmit, control, formState: { errors }, getValues, reset } = useForm({
       defaultValues: {
-         imgUrl: [{ url: "" }]
+         imgUrl: [{ url: "" }],
+         location: []
       }
    });
-   const { fields, append, remove } = useFieldArray({
+
+   // Control images urls
+   const { fields: imagesUrl, append: addImages, remove: removeImages } = useFieldArray({
       control,
       name: "imgUrl",
       rules: {
@@ -18,32 +20,52 @@ const AddCampaign = () => {
       }
    });
 
-   // add img
+   // Add image
    const addImg = () => {
-      // cann't add more then 6 img
-      if (fields.length >= 6) {
+      if (imagesUrl.length >= 6) {
          return toast.warning("৬ টির বেশি ছবি দেওয়া যাবে না।");
       }
-      // cannn't add new field before compleate the past 
-      const hasUncomplete = fields.some((_, idx) => {
+      const hasUncomplete = imagesUrl.some((_, idx) => {
          const value = getValues(`imgUrl.${idx}.url`);
-         return !value || value.trim() === ""
-      })
+         return !value || value.trim() === "";
+      });
       if (hasUncomplete) {
-         return toast.error("নতুন ছবি যুক্ত করার আগে পূর্বেরটি সম্পন্ন করুন")
+         return toast.error("নতুন ছবি যুক্ত করার আগে পূর্বেরটি সম্পন্ন করুন");
       }
-      // call apped 
-      append({ url: "" })
-   }
+      addImages({ url: "" });
+   };
 
+   // Control tags
+   const { append: addLocation, fields: locations, remove: removeLocation } = useFieldArray({
+      control,
+      name: "location",
+      rules: {
+         required: { message: "কমপক্ষে একটি লোকেশন দিন" }
+      }
+   });
 
-   // console.log(errors)
+   // Handle key down events for location input
+   const handleKeyDown = (e) => {
+      const inputValues = e.target.value.trim();
 
-   // submit and send data to db
+      if ((e.key === "Enter" || e.key === ",") && inputValues !== "") {
+         e.preventDefault();
+         if (!locations.some(loc => loc.tag === inputValues)) {
+            addLocation({ tag: inputValues });
+         }
+         e.target.value = "";
+      }
+
+      if (e.key === "Backspace" && inputValues === "" && locations.length > 0) {
+         e.preventDefault();
+         removeLocation(locations.length - 1);
+      }
+   };
+
+   // Submit form
    const onSubmitForm = (data) => {
       try {
-         // postrequest  
-         console.log("sumitted", data);
+         console.log("submitted", data);
          toast.success("নতুন ক্যাম্পেইন সফল ভাবে তৈরি হয়েছে!");
          reset();
       } catch (err) {
@@ -64,7 +86,7 @@ const AddCampaign = () => {
                <label className="block mb-2 font-semibold">টাইটেল</label>
                <input
                   type="text"
-                  className={`border  ${errors.title ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0`}
+                  className={`border ${errors.title ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0`}
                   placeholder="ক্যাম্পেইনের একটি টাইটেল দিন"
                   {...register("title", { required: "ক্যাম্পেইনের টাইটেল দিন" })}
                />
@@ -90,22 +112,49 @@ const AddCampaign = () => {
 
             {/* Location */}
             <div className="md:col-span-2">
-               <label className="block mb-2 font-semibold">অঞ্চলের নাম</label>
-               <input
-                  type="text"
-                  className={`border  ${errors.location ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0`}
-                  placeholder="অঞ্চলের নাম "
-                  {...register("location", { required: "ক্যাম্পেইনের অঞ্চল দিন" })}
-               />
-               {errors.location && <p className="text-red-600 text-sm mt-1">{errors.location.message}</p>}
+               <label className="block mb-2 font-semibold">
+                  অঞ্চলের নাম <span className="text-xs text-green-300">(একাধিক হতে পারে)</span>
+               </label>
+
+               <div className={` flex flex-wrap items-center gap-2 border ${errors.location ? "border-red-600" : "border-gray-400"} rounded-md`}>
+                  {locations.map((loc, idx) => (
+                     <span
+                        key={loc.id}
+                        className="bg-base-300 text-white px-3 py-1 rounded-full flex items-center gap-2"
+                     >
+                        <button
+                           type="button"
+                           className="text-red-900 hover:text-red-700"
+                           onClick={() => removeLocation(idx)}
+                        >
+                           ✖
+                        </button>
+                     </span>
+                  ))}
+
+                  {/* New Location input */}
+                  <input
+                     onKeyDown={handleKeyDown}
+                     type="text"
+                     className="p-3 rounded flex-1 focus:outline-0"
+                     placeholder="অঞ্চলের নাম "
+                  />
+               </div>
+
+               {/* Error দেখানোর জায়গা */}
+               {errors.location && (
+                  <p className="text-red-600 text-sm mt-1">{errors.location.message}</p>
+               )}
             </div>
+
+
 
             {/* Goal */}
             <div>
                <label className="block mb-2 font-semibold">আনুদানের লক্ষ্যমাত্রা (পরিমান)</label>
                <input
                   type="number"
-                  className={`border  ${errors.goal ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0`}
+                  className={`border ${errors.goal ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0`}
                   placeholder="e.g. ৫০০০"
                   {...register("goal", { required: "আনুদানের লক্ষ্যমাত্রার পরিমান নির্ধারন করুন" })}
                />
@@ -117,7 +166,7 @@ const AddCampaign = () => {
                <label className="block mb-2 font-semibold">সমাপ্তির তারিখ</label>
                <input
                   type="date"
-                  className={`border  ${errors.lastDate ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0`}
+                  className={`border ${errors.lastDate ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0`}
                   {...register("lastDate", { required: "আনুদানের সমাপ্তির তারিখ নির্ধারন করুন" })}
                />
                {errors.lastDate && <p className="text-red-600 text-sm mt-1">{errors.lastDate.message}</p>}
@@ -149,17 +198,16 @@ const AddCampaign = () => {
             </div>
 
             {/* Image URL (multiple) */}
-
-            <div className="md:col-span-2 ">
+            <div className="md:col-span-2">
                <label className="block mb-2 font-semibold">ছবি</label>
-               {fields.map((field, index) => (
+               {imagesUrl.map((field, index) => (
                   <div key={field.id} className="w-full">
                      <div className="flex justify-center items-center gap-2 my-1 w-full">
                         <input
                            type="text"
-                           defaultValue={field.url} // array of strings
+                           defaultValue={field.url}
                            placeholder="ক্যাম্পেইনের ছবির লিংক"
-                           className={`border  ${errors.imgUrl ? "border-red-600" : "border-gray-400"} p-2 rounded w-full focus:outline-0`}
+                           className={`border ${errors.imgUrl?.[index]?.url ? "border-red-600" : "border-gray-400"} p-2 rounded w-full focus:outline-0`}
                            {...register(`imgUrl.${index}.url`, {
                               required: "ছবির লিংক (url) দিন",
                               pattern: {
@@ -169,11 +217,10 @@ const AddCampaign = () => {
                            })}
                         />
                         <button
-                           type="button "
-                           onClick={() => remove(index)}
-                           className=" "
+                           type="button"
+                           onClick={() => removeImages(index)}
                         >
-                           <MdDelete className=" size-7 text-red-600 cursor-pointer" />
+                           <MdDelete className="size-7 text-red-600 cursor-pointer" />
                         </button>
                      </div>
                      {errors.imgUrl?.[index]?.url && (
@@ -187,7 +234,6 @@ const AddCampaign = () => {
                {errors.imgUrl && <p className="text-red-500 mt-1">{errors.imgUrl.root?.message}</p>}
             </div>
 
-
             {/* Description */}
             <div className="md:col-span-2">
                <label className="block mb-2 font-semibold">বর্ণনা</label>
@@ -195,7 +241,8 @@ const AddCampaign = () => {
                   className={`textarea border ${errors.description ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0 h-28`}
                   placeholder="Write a short description..."
                   {...register("description", {
-                     required: "ক্যাম্পেইন সম্পর্কে সংক্ষেপে লিখুন", validate: (value) => {
+                     required: "ক্যাম্পেইন সম্পর্কে সংক্ষেপে লিখুন",
+                     validate: (value) => {
                         if (value.trim() === "") {
                            return "শুধু ফাঁকা স্পেস গ্রহণযোগ্য নয়";
                         }
@@ -208,6 +255,7 @@ const AddCampaign = () => {
                ></textarea>
                {errors.description && <p className="text-red-600 text-sm mt-1">{errors.description.message}</p>}
             </div>
+
             {/* Submit Button */}
             <div className="md:col-span-2">
                <button
@@ -218,7 +266,6 @@ const AddCampaign = () => {
                </button>
             </div>
          </form>
-
       </div>
    );
 };
