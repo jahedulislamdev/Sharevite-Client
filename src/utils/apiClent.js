@@ -31,13 +31,13 @@ const postRequest = async (endpoint, data) => {
     }
 };
 
-const putRequest = async (endpoint, data) => {
+const patchRequest = async (endpoint, data) => {
     try {
         const response = await instance.put(endpoint, data);
         return response.data;
     } catch (error) {
         console.error(
-            "PUT request failed:",
+            "PATCH request failed:",
             error.response?.data || error.message,
         );
         throw error;
@@ -57,4 +57,6 @@ const deleteRequest = async (endpoint) => {
     }
 };
 
-export { getRequest, postRequest, putRequest, deleteRequest };
+// post image to hostinger
+
+export { getRequest, postRequest, patchRequest, deleteRequest };

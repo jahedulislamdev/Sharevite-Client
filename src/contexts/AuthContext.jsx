@@ -66,7 +66,7 @@ const AuthContext = ({ children }) => {
    }, [auth]);
 
    // provider data
-   const data = { user, loading, registerUser, loginUser, loginWithGoogle, logoutUser };
+   const data = { user, loading, setLoading, registerUser, loginUser, loginWithGoogle, logoutUser };
 
    return (
       <AuthProvider.Provider value={data}>

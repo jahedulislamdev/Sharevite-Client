@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
 
@@ -7,6 +9,8 @@
 }
 @theme {
     --font-hind: "Hind Siliguri", sans-serif;
+    --font-noto: "Noto Serif Bengali", serif;
+    --font-onset: "Onest", sans-serif;
 }
 .title {
     @apply bg-gradient-to-r from-green-400 to-green-800 bg-clip-text text-transparent;

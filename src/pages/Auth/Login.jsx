@@ -23,7 +23,7 @@ const Login = () => {
             // send user credential to server and verirfy it to jwt access token
             postRequest("/jwt", userImpl);
             toast.message('Login Successfull!', {
-               description: 'Wecolme to this journy!',
+               description: 'Wecolme to The Holy Journy!',
             })
             navigate(location.state ? location.state : "/");
          })
