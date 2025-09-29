@@ -25,6 +25,7 @@ const ImgUpload = () => {
       }
       setValue("images", totalFiles, { shouldValidate: true, shouldDirty: true });
    }
+
    // remove image from preview
    const removeImage = (index) => {
       const currentImageList = Array.from(getValues("images"));
@@ -32,12 +33,10 @@ const ImgUpload = () => {
       setValue("images", updatedImageList, { shouldDirty: true, shouldValidate: true });
    }
 
-
-
    return (
       <div>
          {/* Image Upload */}
-         <div className="md:col-span-2">
+         <div className="">
             <label htmlFor="imageFileUpload" className="block mb-2 font-semibold">ক্যাম্পেইনের ছবি *</label>
             {/* drag or upload section */}
             <div className="md:flex items-center gap-3">
@@ -55,10 +54,9 @@ const ImgUpload = () => {
                   accept="image/*"
                   multiple
                   className="hidden"
-
+                  onChange={handleImageChange}
                   {...register("images", {
                      required: "ছবি আপলোড করুন",
-                     onChange: handleImageChange
                   })}
                />
                {/* preview section */}

@@ -64,7 +64,8 @@ const AddCampaign = () => {
       try {
          setLoading(true);
          // (convert FileList to array) bcz sometimes we need to add single and sometimes multiple images.
-         const imgFiles = Array.from(data.images)
+         const imgFiles = data.images ? Array.from(data.images) : [];
+         // console.log(imgFiles)
 
          // make automatic boundary for image file upload using formData (formData make a proper multipart stracture like seperate text,file,type etc for using in img hosting api like imgbb)
          const uploadedImages = await Promise.all(
@@ -90,6 +91,7 @@ const AddCampaign = () => {
          setLoading(false);
       } catch (err) {
          setLoading(false);
+         console.log(err);
          toast.error(err.response?.data?.message || "কিছু ভুল হয়েছে");
       }
    };
@@ -220,7 +222,9 @@ const AddCampaign = () => {
             </div>
 
             {/* Image Upload */}
-            <ImgUpload />
+            <div className="md:col-span-2">
+               <ImgUpload />
+            </div>
 
             {/* Description */}
             <div className="md:col-span-2">
