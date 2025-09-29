@@ -1,5 +1,6 @@
 const useHostImg = () => {
-   const handleImageChange = (e, onChange) => {
+   // handle image change for preview and react-hook-form image field
+   const handleImageChange = () => {
       // get selected image from input file 
       // implement a checking for max images quantity
       // make a state for image preview
@@ -9,7 +10,8 @@ const useHostImg = () => {
       // reset input value to allow re-uploading the same file if removed
 
    }
-   const removeImage = (index, onChange) => {
+   // remove images form preview and files from react-hook-form image field  
+   const removeImage = () => {
       // get current images for preview
       // get current files from react-hook-form image field
 
@@ -20,8 +22,11 @@ const useHostImg = () => {
       // store it to onchage handler for update react-hook-form image field
       // if no image left reset input value to allow re-uploading the same file if removed 
    }
-   // return necessary things
 
+   // return necessary things
+   return {
+      handleImageChange, removeImage
+   }
 };
 
 export default useHostImg;
