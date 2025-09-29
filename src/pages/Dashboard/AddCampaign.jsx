@@ -1,23 +1,66 @@
-import { useFieldArray, useForm } from "react-hook-form";
-import { FaPlus } from "react-icons/fa";
-import { TiDelete } from "react-icons/ti";
-
-import { toast } from "sonner";
-import usePostData from "../../hooks/usePostData";
-import axios from "axios";
+import { useController, useFieldArray, useForm } from "react-hook-form";
+import { TiDelete } from "react-icons/ti"; import { toast } from "sonner";
 import { useAuthContext } from "../../hooks/useContext";
-import ImgUpload from "./ImgUpload";
+import usePostData from "../../hooks/usePostData";
+import { BsUpload } from "react-icons/bs";
+import { FaPlus } from "react-icons/fa";
+import axios from "axios";
 
 const AddCampaign = () => {
    const { loading, setLoading } = useAuthContext();
 
    // campaign register form
-   const { register, handleSubmit, control, formState: { errors } } = useForm({
+   const { register, handleSubmit, control, formState: { errors }, getValues, reset } = useForm({
       defaultValues: {
          location: []
       }
    });
 
+   // image controller
+   const {
+      field: { value: images = [], onChange },
+      fieldState: { error: imageError }
+   } = useController({
+      name: "images",
+      control,
+      rules: { required: "ছবি আপলোড করুন" }
+   });
+
+   // img field controlled observer spy
+   const handleImageChange = (e) => {
+      // console.log(e.target.files)
+      let newFiles = Array.from(e.target.files);
+      let existingFiles = getValues("images") ? Array.from(getValues("images")) : [];
+
+      // I use watch and onchange handler fn , both are fire same time thats why
+      // it's possible to duplicate image file, so we should check before adding.
+      const filterdFiles = newFiles.filter(file =>
+         !existingFiles.some(f => f.name === file.name && f.size === file.size)
+      );
+
+      let totalFiles = [...existingFiles, ...filterdFiles];
+      // console.log(totalFiles)
+
+      if (totalFiles.length > 5) {
+         toast.error("সর্বোচ্চ ৫ টি ছবি আপলোড করা যাবে");
+         totalFiles = totalFiles.slice(0, 5);
+      }
+      onChange(totalFiles);
+
+      // Reset the input value to allow re-uploading the same file if removed
+      e.target.value = null;
+   }
+
+   // remove image from preview
+   const removeImage = (index) => {
+      const updatedImages = images.filter((_, i) => i !== index);
+      onChange(updatedImages);
+
+      if (updatedImages.length === 0) {
+         const input = document.getElementById("imageFileUpload");
+         if (input) input.value = null;
+      }
+   }
 
    // Image hosting api
    const imgHostingSecret = import.meta.env.VITE_IMG_HOSTING_KEY;
@@ -25,12 +68,17 @@ const AddCampaign = () => {
    const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingSecret}`;
 
 
-   // Control tags (there was a problem we can't seem to fix (location required)) . we already use rules but this is not working cause it's a child property of location field that's why is couldn't track properly.
+   // Control tags (there was a problem we can't seem to fix (location required)) 
+   // we already use rules but this is not working cause it's a child property of location field that's why is couldn't track properly.
    const { append: addLocation, fields: locations, remove: removeLocation } = useFieldArray({
       control,
       name: "location",
       rules: {
-         required: { message: "কমপক্ষে একটি লোকেশন দিন" }
+         required: { message: "কমপক্ষে একটি লোকেশন দিন" },
+         validate: values => {
+            if (values[0]?.tag !== undefined) return true;
+            else return "কমপক্ষে একটি লোকেশন দিন";
+         }
       }
    });
 
@@ -63,11 +111,12 @@ const AddCampaign = () => {
       }
       try {
          setLoading(true);
-         // (convert FileList to array) bcz sometimes we need to add single and sometimes multiple images.
-         const imgFiles = data.images ? Array.from(data.images) : [];
-         // console.log(imgFiles)
+         // filelist must be an array 
+         const imgFiles = data.images || [];
+         console.log(imgFiles)
 
          // make automatic boundary for image file upload using formData (formData make a proper multipart stracture like seperate text,file,type etc for using in img hosting api like imgbb)
+         // send multiple images at a time for speedly upload
          const uploadedImages = await Promise.all(
             imgFiles.map(async (img) => {
                const formData = new FormData();
@@ -83,12 +132,17 @@ const AddCampaign = () => {
             })
          );
 
-         // postCampaign(data);
+         // combine uploaded image url with form data
          const updatedData = { ...data, images: uploadedImages };
-         postCampaign(updatedData);
          console.log("submitted", updatedData);
-         // reset(); 
+
+         // postCampaign(data);
+         postCampaign(updatedData);
+
+         // stop loading and reset form
          setLoading(false);
+         reset();
+
       } catch (err) {
          setLoading(false);
          console.log(err);
@@ -167,7 +221,7 @@ const AddCampaign = () => {
 
                {/* Error */}
                {errors.location && (
-                  <p className="text-red-500 text-sm mt-1">{errors.location.message}</p>
+                  <p className="text-red-500 text-sm mt-1">{errors?.location?.root?.message}</p>
                )}
             </div>
 
@@ -221,10 +275,71 @@ const AddCampaign = () => {
                />
             </div>
 
+
+
+
+
+
+
+
+
+
+
             {/* Image Upload */}
             <div className="md:col-span-2">
-               <ImgUpload />
+               <label htmlFor="imageFileUpload" className="block mb-2 font-semibold">ক্যাম্পেইনের ছবি *</label>
+               {/* drag or upload section */}
+               <div className="md:flex items-center gap-3">
+                  <div onClick={() => document.getElementById("imageFileUpload").click()}
+                     className="border border-gray-600/50 shadow-xs p-7 rounded-md flex justify-center items-center flex-col gap-3  cursor-pointer text-center w-[200px]">
+                     <BsUpload className="size-7" />
+                     <p className="text-gray-500 font-medium">
+                        ছবি ড্র্যাগ করুন অথবা <span className="text-green-600 font-semibold">ব্রাউজ করুন</span>
+                     </p>
+                  </div>
+                  {/* A hidden input field */}
+                  <input
+                     type="file"
+                     id="imageFileUpload"
+                     accept="image/*"
+                     multiple
+                     className="hidden"
+                     onChange={handleImageChange}
+
+                  />
+                  {/* preview section */}
+                  {images.length > 0 && (
+                     <div className="flex flex-wrap gap-3 mt-5 md:mt-0">
+                        {
+                           Array.from(images).map((file, idx) => (
+                              <div key={idx} className="indicator">
+                                 <button onClick={() => removeImage(idx)} type="button" className="indicator-item cursor-pointer"><TiDelete className="size-7 text-red-800" /></button>
+                                 <img
+                                    src={file instanceof File ? URL.createObjectURL(file) : file}
+                                    alt="preview"
+                                    className="w-30 h-28 object-cover rounded-xl"
+                                 />
+                              </div>
+                           ))
+                        }
+                     </div>
+                  )}
+               </div>
+               {errors.images && (
+                  <p className="text-red-500 text-sm m-1">{imageError.message}</p>
+               )}
             </div>
+
+
+
+
+
+
+
+
+
+
+
 
             {/* Description */}
             <div className="md:col-span-2">
