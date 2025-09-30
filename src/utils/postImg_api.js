@@ -9,15 +9,20 @@ const postImg = async (data) => {
     console.log(images);
     const uploadedImages = await Promise.all(
         images.map(async (img) => {
-            const formData = new FormData();
-            formData.append("image", img);
+            try {
+                const formData = new FormData();
+                formData.append("image", img);
 
-            const res = await axios.post(imgHostingApi, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            return res.data.data.display_url;
+                const res = await axios.post(imgHostingApi, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+                return res.data.data.display_url;
+            } catch (err) {
+                console.error("faild to post image :", err);
+                return null;
+            }
         }),
     );
     return uploadedImages;

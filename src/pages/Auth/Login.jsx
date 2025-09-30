@@ -40,7 +40,7 @@ const Login = () => {
    };
 
    return (
-      <div className="flex items-start justify-center my-9 md:h-screen font-hind">
+      <div className="flex items-start justify-center my-9 md:h-screen font-noto">
          <div className="w-full max-w-sm md:max-w-md bg-[#07440718] rounded-xl shadow shadow-green-400 p-8">
             {/* Title */}
             <h2 className="text-2xl font-semibold text-center mb-6 title">লগইন</h2>
@@ -65,7 +65,7 @@ const Login = () => {
                   </label>
                   <input
                      placeholder="you@example.com"
-                     className={`input focus:outline-0 w-full ${errors.email ? "border-red-500" : "border-green-800"}`}
+                     className={`font-onset input focus:outline-0 w-full ${errors.email ? "border-red-500" : "border-green-800"}`}
                      {...register("email", {
                         required: "Email is required",
                      })}
@@ -84,8 +84,8 @@ const Login = () => {
                   <div className="relative">
                      <input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Enter your password"
-                        className={`input focus:outline-0 w-full pr-10 ${errors.password ? "border-red-500" : "border-green-700"}`}
+                        placeholder="শক্তিশালী পাসয়ার্ড দিন"
+                        className={`font-onset input focus:outline-0 w-full pr-10 ${errors.password ? "border-red-500" : "border-green-700"}`}
                         {...register("password", { required: "Password is required" })}
                      />
                      {errors?.password?.message && <p className="text-red-700">{errors.password?.message}</p>}

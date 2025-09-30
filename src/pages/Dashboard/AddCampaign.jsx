@@ -1,6 +1,7 @@
 import { useController, useFieldArray, useForm } from "react-hook-form";
 import { TiDelete } from "react-icons/ti"; import { toast } from "sonner";
 import { useAuthContext } from "../../hooks/useContext";
+import handleKeyDown from "../../utils/makeTagInput";
 import usePostData from "../../hooks/usePostData";
 import useHostImg from "../../hooks/useHostImg";
 import postImg from "../../utils/postImg_api";
@@ -28,8 +29,7 @@ const AddCampaign = () => {
    });
 
 
-   // Control tags (there was a problem we can't seem to fix (location required)) 
-   // we already use rules but this is not working cause it's a child property of location field that's why is couldn't track properly.
+   // location fieldArray controller
    const { append: addLocation, fields: locations, remove: removeLocation } = useFieldArray({
       control,
       name: "location",
@@ -42,42 +42,21 @@ const AddCampaign = () => {
       }
    });
 
-   // Handle key down events for location input
-   const handleKeyDown = (e) => {
-      const inputValues = e.target.value.trim();
-
-      if ((e.key === "Enter" || e.key === ",") && inputValues !== "") {
-         e.preventDefault();
-         if (!locations.some(loc => loc.tag === inputValues)) {
-            addLocation({ tag: inputValues });
-         }
-         e.target.value = "";
-      }
-
-      if (e.key === "Backspace" && inputValues === "" && locations.length > 0) {
-         e.preventDefault();
-         removeLocation(locations.length - 1);
-      }
-   };
-
-   // post campaign data
+   // call post campaign data hook
    const { mutate: postCampaign } = usePostData("/campaigns", "নতুন ক্যাম্পেইন সফল ভাবে তৈরি হয়েছে!", "allCampaigns");
 
    // image upload hooks
    const { fileInputRef, handleImageChange, removeImage } = useHostImg(5);
 
-
-
-
-   //  form Submit handler
+   // form Submit handler
    const onSubmitForm = async (data) => {
       try {
          setLoading(true);
          // call postimg api
-         postImg(data);
+         const postImages = await postImg(data);
 
          // combine uploaded image url with form data
-         const updatedData = { ...data, images: postImg };
+         const updatedData = { ...data, images: postImages };
          console.log("submitted", updatedData);
 
          // send post request for campaign data    
@@ -114,6 +93,20 @@ const AddCampaign = () => {
                {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
             </div>
 
+            {/* Created At */}
+            <div>
+               <label className="block mb-2 font-semibold">
+                  শুরুর তারিখ <span className="badge badge-sm badge-error badge-soft">(পরিবর্তনযোগ্য নয়)</span>
+               </label>
+               <input
+                  type="text"
+                  className="border border-gray-400 p-3 rounded w-full focus:outline-0 font-onset"
+                  defaultValue={new Date().toLocaleString()}
+                  readOnly
+                  {...register("createdAt")}
+               />
+            </div>
+
             {/* Category */}
             <div>
                <label className="block mb-2 font-semibold">ক্যাটাগরি *</label>
@@ -129,6 +122,18 @@ const AddCampaign = () => {
                   <option value="Others">আন্যান্য</option>
                </select>
                {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category.message}</p>}
+            </div>
+
+            {/* Short summary */}
+            <div>
+               <label className="block mb-2 font-semibold">সংক্ষিপ্ত বর্ননা *</label>
+               <textarea
+                  type="text"
+                  className={`border ${errors.shortDescription ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0 h-12`}
+                  placeholder="ক্যাম্পেইনের সংক্ষিপ্ত একটি বর্ননা লিখুন"
+                  {...register("shortDescription", { required: "সংক্ষিপ্ত একটি বর্ননা দিন" })}
+               />
+               {errors.shortDescription && <p className="text-red-500 text-sm mt-1">{errors.shortDescription.message}</p>}
             </div>
 
             {/* Location */}
@@ -155,7 +160,7 @@ const AddCampaign = () => {
 
                   {/* New Location input */}
                   <input
-                     onKeyDown={handleKeyDown}
+                     onKeyDown={(e) => handleKeyDown(e, locations, addLocation, removeLocation)}
                      type="text"
                      className="p-3 rounded flex-1 focus:outline-0"
                      placeholder="অঞ্চলের নাম... "
@@ -168,8 +173,6 @@ const AddCampaign = () => {
                   <p className="text-red-500 text-sm mt-1">{errors?.location?.root?.message}</p>
                )}
             </div>
-
-
 
             {/* Goal */}
             <div>
@@ -200,34 +203,19 @@ const AddCampaign = () => {
                <input
                   type="text"
                   className="border border-gray-400 p-3 rounded w-full focus:outline-0"
-                  placeholder="এই প্রজেক্টের দায়িত্বশীল ব্যাক্তির নাম লিখুন"
+                  placeholder="এই প্রজেক্টের দায়িত্বপ্রপ্ত ব্যাক্তির নাম লিখুন"
                   {...register("organizer")}
                />
             </div>
 
-            {/* Created At */}
+            {/* isEmergency */}
             <div>
-               <label className="block mb-2 font-semibold">
-                  শুরুর তারিখ <span className="badge badge-sm badge-error badge-soft">(পরিবর্তনযোগ্য নয়)</span>
+               <label className="block mb-2 font-semibold">জরুরী ফান্ড সংগ্রহের ক্ষেত্রে প্রযোজ্য</label>
+               <label className="label font-onset">
+                  <input type="checkbox" className="checkbox checkbox-warning" {...register("status")} />
+                  Emergency!
                </label>
-               <input
-                  type="text"
-                  className="border border-gray-400 p-3 rounded w-full focus:outline-0 font-onset"
-                  defaultValue={new Date().toLocaleString()}
-                  readOnly
-                  {...register("createdAt")}
-               />
             </div>
-
-
-
-
-
-
-
-
-
-
 
             {/* Image Upload */}
             <div className="md:col-span-2">
@@ -258,7 +246,7 @@ const AddCampaign = () => {
                         {
                            Array.from(images).map((file, idx) => (
                               <div key={idx} className="indicator">
-                                 <button onClick={() => removeImage(idx, onChange)} type="button" className="indicator-item cursor-pointer"><TiDelete className="size-7 text-red-800" /></button>
+                                 <button onClick={() => removeImage(idx, onChange)} type="button" className="indicator-item cursor-pointer"><TiDelete className="size-7 rounded text-red-500" /></button>
                                  <img
                                     src={file instanceof File ? URL.createObjectURL(file) : file}
                                     alt="preview"
@@ -275,17 +263,6 @@ const AddCampaign = () => {
                   <p className="text-red-500 text-sm m-1">{imageError.message}</p>
                )}
             </div>
-
-
-
-
-
-
-
-
-
-
-
 
             {/* Description */}
             <div className="md:col-span-2">
@@ -313,9 +290,9 @@ const AddCampaign = () => {
             <div className="md:col-span-2">
                <button
                   type="submit"
-                  className="btn bg-green-800 w-full text-white mx-auto mt-4 flex justify-center items-center font-hind"
+                  className="btn btn-lg bg-green-800 text-white mx-auto mt-4 font-hind min-w-30"
                >
-                  {loading ? <p>লোড হচ্ছে <span className="loading loading-dots loading-xs"></span> </p> : <><FaPlus className="size-5" /> যুক্ত করুন</>}
+                  {loading ? <span className="loading loading-spinner loading-md"></span> : <><FaPlus className="size-5" /> যুক্ত করুন</>}
                </button>
             </div>
          </form>
