@@ -8,6 +8,7 @@ import Users from "../pages/Dashboard/Users";
 import Private from "./Private";
 import AllCampaigns from "../pages/Projects/AllCampaign";
 import AddCampaign from "../pages/Dashboard/AddCampaign";
+import AdminPanel from "../pages/Dashboard/AdminPanel";
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,9 @@ const router = createBrowserRouter([
             hydrateFallbackElement: <div>Loading..</div>
          }
       ]
+   },
+   {
+      path: "/dashboard", element: <AdminPanel />
    }
 ])
 

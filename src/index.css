@@ -27,3 +27,6 @@
 .active:hover {
     background: rgba(14, 195, 23, 0.192);
 }
+.scrollbar-hide {
+    scrollbar-width: none;
+}
