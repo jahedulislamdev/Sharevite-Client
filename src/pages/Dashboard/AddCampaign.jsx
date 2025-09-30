@@ -2,15 +2,16 @@ import { useController, useFieldArray, useForm } from "react-hook-form";
 import { TiDelete } from "react-icons/ti"; import { toast } from "sonner";
 import { useAuthContext } from "../../hooks/useContext";
 import usePostData from "../../hooks/usePostData";
+import useHostImg from "../../hooks/useHostImg";
+import postImg from "../../utils/postImg_api";
 import { BsUpload } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
-import axios from "axios";
 
 const AddCampaign = () => {
    const { loading, setLoading } = useAuthContext();
 
    // campaign register form
-   const { register, handleSubmit, control, formState: { errors }, getValues, reset } = useForm({
+   const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
       defaultValues: {
          location: []
       }
@@ -25,47 +26,6 @@ const AddCampaign = () => {
       control,
       rules: { required: "ছবি আপলোড করুন" }
    });
-
-   // img field controlled observer spy
-   const handleImageChange = (e) => {
-      // console.log(e.target.files)
-      let newFiles = Array.from(e.target.files);
-      let existingFiles = getValues("images") ? Array.from(getValues("images")) : [];
-
-      // I use watch and onchange handler fn , both are fire same time thats why
-      // it's possible to duplicate image file, so we should check before adding.
-      const filterdFiles = newFiles.filter(file =>
-         !existingFiles.some(f => f.name === file.name && f.size === file.size)
-      );
-
-      let totalFiles = [...existingFiles, ...filterdFiles];
-      // console.log(totalFiles)
-
-      if (totalFiles.length > 5) {
-         toast.error("সর্বোচ্চ ৫ টি ছবি আপলোড করা যাবে");
-         totalFiles = totalFiles.slice(0, 5);
-      }
-      onChange(totalFiles);
-
-      // Reset the input value to allow re-uploading the same file if removed
-      e.target.value = null;
-   }
-
-   // remove image from preview
-   const removeImage = (index) => {
-      const updatedImages = images.filter((_, i) => i !== index);
-      onChange(updatedImages);
-
-      if (updatedImages.length === 0) {
-         const input = document.getElementById("imageFileUpload");
-         if (input) input.value = null;
-      }
-   }
-
-   // Image hosting api
-   const imgHostingSecret = import.meta.env.VITE_IMG_HOSTING_KEY;
-   // console.log(imgSecretKey)
-   const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingSecret}`;
 
 
    // Control tags (there was a problem we can't seem to fix (location required)) 
@@ -103,40 +63,24 @@ const AddCampaign = () => {
    // post campaign data
    const { mutate: postCampaign } = usePostData("/campaigns", "নতুন ক্যাম্পেইন সফল ভাবে তৈরি হয়েছে!", "allCampaigns");
 
+   // image upload hooks
+   const { fileInputRef, handleImageChange, removeImage } = useHostImg(5);
+
+
+
+
    //  form Submit handler
    const onSubmitForm = async (data) => {
-      if (!data.location || data.location.length === 0) {
-         toast.error("কমপক্ষে একটি লোকেশন দিন");
-         return;
-      }
       try {
          setLoading(true);
-         // filelist must be an array 
-         const imgFiles = data.images || [];
-         console.log(imgFiles)
-
-         // make automatic boundary for image file upload using formData (formData make a proper multipart stracture like seperate text,file,type etc for using in img hosting api like imgbb)
-         // send multiple images at a time for speedly upload
-         const uploadedImages = await Promise.all(
-            imgFiles.map(async (img) => {
-               const formData = new FormData();
-               formData.append("image", img);
-
-               // call image hosting api for image upload
-               const res = await axios.post(imgHostingApi, formData, {
-                  headers: {
-                     "Content-Type": "multipart/form-data"
-                  }
-               })
-               return res.data.data.display_url;
-            })
-         );
+         // call postimg api
+         postImg(data);
 
          // combine uploaded image url with form data
-         const updatedData = { ...data, images: uploadedImages };
+         const updatedData = { ...data, images: postImg };
          console.log("submitted", updatedData);
 
-         // postCampaign(data);
+         // send post request for campaign data    
          postCampaign(updatedData);
 
          // stop loading and reset form
@@ -301,10 +245,11 @@ const AddCampaign = () => {
                   <input
                      type="file"
                      id="imageFileUpload"
+                     ref={fileInputRef}
                      accept="image/*"
                      multiple
                      className="hidden"
-                     onChange={handleImageChange}
+                     onChange={(e) => handleImageChange(e, onChange)}
 
                   />
                   {/* preview section */}
@@ -313,7 +258,7 @@ const AddCampaign = () => {
                         {
                            Array.from(images).map((file, idx) => (
                               <div key={idx} className="indicator">
-                                 <button onClick={() => removeImage(idx)} type="button" className="indicator-item cursor-pointer"><TiDelete className="size-7 text-red-800" /></button>
+                                 <button onClick={() => removeImage(idx, onChange)} type="button" className="indicator-item cursor-pointer"><TiDelete className="size-7 text-red-800" /></button>
                                  <img
                                     src={file instanceof File ? URL.createObjectURL(file) : file}
                                     alt="preview"
@@ -324,6 +269,7 @@ const AddCampaign = () => {
                         }
                      </div>
                   )}
+                  {/* <button onChange={() => resetImages} type="button" className="btn btn-sm px-3 py-1 bg-amber-500">রিসেট</button> */}
                </div>
                {errors.images && (
                   <p className="text-red-500 text-sm m-1">{imageError.message}</p>
