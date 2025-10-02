@@ -15,18 +15,34 @@
 .title {
     @apply bg-gradient-to-r from-green-400 to-green-800 bg-clip-text text-transparent;
 }
+.heading-underline {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.heading-underline::after {
+    content: "";
+    display: block;
+    width: 60px; /* line width */
+    height: 4px; /* thickness */
+    background-color: #4b5563;
+    margin: 0.5rem auto 0;
+    border-radius: 20%;
+}
+
 .subtitle {
     @apply opacity-70;
 }
 .active {
     font-weight: 900;
-    background: rgba(14, 195, 23, 0.192);
+    /* background: rgba(14, 195, 23, 0.192); */
     padding: 5px 9px;
     transition: all 0.3s ease-in-out;
 }
-.active:hover {
+/* .active:hover {
     background: rgba(14, 195, 23, 0.192);
-}
+} */
 .scrollbar-hide {
     scrollbar-width: none;
 }

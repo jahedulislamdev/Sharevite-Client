@@ -10,9 +10,9 @@ const Users = () => {
    // console.log(users)
 
    return (
-      <div className="p-6">
+      <div>
          {!users ? <p className="text-center">No User Found!</p> :
-            <div className="overflow-x-auto rounded-box border border-[#00800061]   bg-base-100">
+            <div className="overflow-x-auto rounded-box border border-[#00800061] bg-base-100">
                <table className="table">
                   {/* head */}
                   <thead className="bg-[#00800011] p-3">

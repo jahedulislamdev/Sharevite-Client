@@ -28,8 +28,8 @@ const UseTheme = () => {
                     checked={theme === "dark"}
                     onChange={toggleTheme}
                 />
-                <RiSunFill className="swap-on h-7 w-7 fill-current" /> {/* sun icon */}
-                <PiMoonLight className="swap-off h-7 w-7 fill-current" /> {/* moon icon */}
+                <RiSunFill className="swap-on size-6 fill-current" /> {/* sun icon */}
+                <PiMoonLight className="swap-off size-6 fill-current" /> {/* moon icon */}
             </label>
         </div>
     );

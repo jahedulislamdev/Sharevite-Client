@@ -74,8 +74,8 @@ const AddCampaign = () => {
    };
 
    return (
-      <div className="md:max-w-5xl mx-auto p-5 md:p-6 bg-base-100 rounded-2xl shadow-xl my-12 font-noto">
-         <h2 className="text-3xl font-bold mb-8 text-center title font-hind">
+      <div className="md:max-w-5xl mx-auto p-5 md:p-6 bg-base-100 rounded-2xl font-noto">
+         <h2 className=" text-xl font-bold mb-6 title font-hind ">
             নতুন ক্যম্পেইন যুক্ত করুন
          </h2>
 

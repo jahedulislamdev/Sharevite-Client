@@ -27,8 +27,10 @@ const SiteConfigContext = ({ children }) => {
       // { path: '/add-food', label: 'ব্লগ' },
       // { path: '/add-food', label: 'যোগাযোগ' },
       { path: '/dashboard', label: 'ড্যাশবোর্ড' },
-      { path: '/add-campaign', label: 'ক্যম্পেইন যুক্ত করুন' },
    ];
+
+
+
 
    // soft toast message style
 

@@ -9,6 +9,8 @@ import Private from "./Private";
 import AllCampaigns from "../pages/Projects/AllCampaign";
 import AddCampaign from "../pages/Dashboard/AddCampaign";
 import AdminPanel from "../pages/Dashboard/AdminPanel";
+import Overview from "../pages/Dashboard/Overview";
+import Reports from "../pages/Dashboard/Reports";
 
 
 const router = createBrowserRouter([
@@ -28,16 +30,21 @@ const router = createBrowserRouter([
             path: "/all_campaign", element: <AllCampaigns />
          },
          {
-            path: '/add-campaign', element: <AddCampaign />
-         },
-         {
             path: "/users", element: <Private><Users /></Private>,
             hydrateFallbackElement: <div>Loading..</div>
-         }
+         },
+         { path: "overview", element: <Overview /> },
       ]
    },
    {
-      path: "/dashboard", element: <AdminPanel />
+      path: "/dashboard", element: <AdminPanel />,
+      children: [
+         { path: "overview", element: <Overview /> },
+         { path: "campaigns/add", element: <AddCampaign /> },
+         { path: "users", element: <Users /> },
+         { path: "reports", element: <Reports /> }
+      ]
+
    }
 ])
 
