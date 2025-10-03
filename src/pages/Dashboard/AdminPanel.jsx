@@ -27,7 +27,7 @@ const dashboardNavLinks = [
       icon: <MdOutlineCampaign className="text-lg" />,
       children: [
          { label: "Add Campaign", path: "campaigns/add", icon: <FcAddDatabase /> },
-         { label: "All Campaigns", path: "all-campaign", icon: <MdOutlineCampaign /> }
+         { label: "All Campaigns", path: "campaigns", icon: <MdOutlineCampaign /> }
       ],
    },
    {

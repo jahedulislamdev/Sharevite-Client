@@ -12,6 +12,7 @@ import AdminPanel from "../pages/Dashboard/AdminPanel";
 import Overview from "../pages/Dashboard/Overview";
 import Reports from "../pages/Dashboard/Reports";
 import ProjectDetails from "../pages/Projects/ProjectDetails";
+import Campaigns from "../pages/Dashboard/Campaigns";
 
 
 const router = createBrowserRouter([
@@ -47,7 +48,8 @@ const router = createBrowserRouter([
          { path: "overview", element: <Overview /> },
          { path: "campaigns/add", element: <AddCampaign /> },
          { path: "users", element: <Users /> },
-         { path: "reports", element: <Reports /> }
+         { path: "reports", element: <Reports /> },
+         { path: "campaigns", element: <Campaigns /> }
       ]
 
    }
