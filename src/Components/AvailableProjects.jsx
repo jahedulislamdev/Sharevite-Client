@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import useGetData from "../hooks/useGetData";
 
 const projects = [
    {
@@ -120,7 +121,15 @@ const projects = [
    },
 ];
 
+
+
 const AvailableProjects = () => {
+   const { data: campaigns, isLoading, error, isError, isFetching } = useGetData("campaigns", "myCampaigns")
+   if (isFetching || isLoading) {
+      return <span className="loading loading-spinner loading-md"></span>;
+   } else if (isError) {
+      console.log(error)
+   }
    return (
       <section className="py-14 font-hind">
          <div className=" px-4">
@@ -129,18 +138,21 @@ const AvailableProjects = () => {
                <Link to="/projects" className="text-white bg-green-600 sm:text-xs md:text-base py-1 px-2 btn-soft md:p-3 rounded-lg">সব প্রজেক্ট দেখুন</Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-               {projects.slice(0, 6).map((project) => (
+               {campaigns.map((project) => (
                   <div
-                     key={project.id}
+                     key={project._id}
                      className="relative bg-[#0080000c] rounded-2xl overflow-hidden shadow-xs shadow-green-600 transition-all duration-700 transform"
                   >
                      {/* Image with overlay */}
                      <div className="relative">
                         <img
-                           src={project.image}
+                           src={project?.images[0] || "https://i.postimg.cc/NM7b3GTZ/image.png"}
                            alt={project.title}
                            className="w-full h-46 object-cover"
                         />
+                        <div className={`absolute top-3 right-3 ${project?.status ? "bg-amber-800" : "bg-green-600 text-white"} text-xs px-3 py-1 rounded-full shadow`}>
+                           {project?.status === true ? "Emergency" : "Active"}
+                        </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                      </div>
 
@@ -151,15 +163,15 @@ const AvailableProjects = () => {
                            <span className="absolute left-0 -bottom-2 w-12 h-1 bg-green-500 rounded-full"></span>
                         </h3>
                         <p className="text-gray-500 text-sm md:text-base leading-relaxed">
-                           {project.description}
+                           {project.shortDescription}
                         </p>
                         {/* collected amount tracking */}
                         <div className="w-full bg-base-200 pe-5 ps-2 py-3 rounded-2xl">
                            <div className="text-gray-500 text-xs md:text-sm leading-relaxed flex justify-between items-center" >
-                              <p className="font-bold">সংগ্রহিত: ৳{project.collect}</p>
-                              <p className="font-bold">টার্গেট: ৳{project.target}</p>
+                              <p className="font-bold">সংগ্রহিত: ৳{project.collected}</p>
+                              <p className="font-bold">টার্গেট: ৳{project.goal}</p>
                            </div>
-                           <progress className="progress progress-success w-full" value={project.collect} max="10000"></progress>
+                           <progress className="progress progress-success w-full" value={project.collect || 0} max="10000"></progress>
                         </div>
                         <button className="mt-3 px-5 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition">
                            বিস্তারিত দেখুন

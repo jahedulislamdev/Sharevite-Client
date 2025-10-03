@@ -20,7 +20,7 @@ const SiteConfigContext = ({ children }) => {
    // navbar links it will be dynami later,  data will comes from API.
    const navLinks = [
       { path: '/', label: 'হোম' },
-      { path: '/all_campaign', label: ' চলমান প্রকল্প' },
+      { path: '/projects', label: ' চলমান প্রকল্প' },
       // { path: '/my-donations', label: 'আমাদের কার্যক্রম' },
       // { path: '/my-requests', label: 'গ্যালারি' },
       // { path: '/add-food', label: 'আমাদের সাথে যুক্ত হোন' },
@@ -29,12 +29,20 @@ const SiteConfigContext = ({ children }) => {
       { path: '/dashboard', label: 'ড্যাশবোর্ড' },
    ];
 
-
+   const AddCampaignCategories = [
+      { label: "শিক্ষা", value: "education" },
+      { label: "খাদ্য", value: "food" },
+      { label: "চিকিৎসা", value: "treatment" },
+      { label: "অর্থ", value: "money" },
+      { label: "পরিবেশ রক্ষা", value: "environment" },
+      { label: "বাসস্থান ", value: "house" },
+      { label: "আন্যান্য", value: "others" }
+   ]
 
 
    // soft toast message style
 
-   const data = { navLinks, navBrand, autoCloseSidebar }
+   const data = { navLinks, navBrand, autoCloseSidebar, AddCampaignCategories }
    return (
       <GlobalContext.Provider value={data}>
          {children}

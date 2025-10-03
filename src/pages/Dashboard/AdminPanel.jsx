@@ -14,6 +14,7 @@ import { FiActivity } from "react-icons/fi";
 import { BiLogOut, BiSolidEnvelopeOpen } from "react-icons/bi";
 import UseTheme from "../../hooks/useTheme";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
+import { Toaster } from "sonner";
 
 const dashboardNavLinks = [
    {
@@ -239,7 +240,7 @@ const AdminPanel = () => {
                            <BiSolidEnvelopeOpen className="size-5 text-green-800" />
                         </div>
                         <div className="space-y-3 h-[280px] overflow-auto scrollbar-hide">
-                           {notifications.map(n => (<Link to={""} className="flex gap-x-3 mt-4 hover:bg-base-200 p-2 rounded-lg border-b border-b-base-300">
+                           {notifications.map((n, index) => (<Link key={index} to={""} className="flex gap-x-3 mt-4 hover:bg-base-200 p-2 rounded-lg border-b border-b-base-300">
                               <img className="w-10 h-10 rounded-full object-cover" src={n.imageUrl} alt="img" />
                               <div>
                                  <p className="font-medium opacity-70"> {n.name}<span className="font-light"> {n.message}.</span></p>
@@ -257,6 +258,7 @@ const AdminPanel = () => {
                <Outlet />
             </div>
          </main>
+         <Toaster position="top-right" richColors />
       </section>
    );
 };

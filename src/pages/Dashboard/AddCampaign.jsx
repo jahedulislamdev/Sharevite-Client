@@ -1,6 +1,6 @@
 import { useController, useFieldArray, useForm } from "react-hook-form";
 import { TiDelete } from "react-icons/ti"; import { toast } from "sonner";
-import { useAuthContext } from "../../hooks/useContext";
+import { useAuthContext, useGlobalContext } from "../../hooks/useContext";
 import handleKeyDown from "../../utils/makeTagInput";
 import usePostData from "../../hooks/usePostData";
 import useHostImg from "../../hooks/useHostImg";
@@ -10,6 +10,7 @@ import { FaPlus } from "react-icons/fa";
 
 const AddCampaign = () => {
    const { loading, setLoading } = useAuthContext();
+   const { AddCampaignCategories } = useGlobalContext()
 
    // campaign register form
    const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
@@ -56,8 +57,8 @@ const AddCampaign = () => {
          const postImages = await postImg(data);
 
          // combine uploaded image url with form data
-         const updatedData = { ...data, images: postImages };
-         console.log("submitted", updatedData);
+         const updatedData = { ...data, images: postImages, collected: 0 };
+         // console.log("submitted", updatedData);
 
          // send post request for campaign data    
          postCampaign(updatedData);
@@ -72,6 +73,8 @@ const AddCampaign = () => {
          toast.error(err.response?.data?.message || "কিছু ভুল হয়েছে");
       }
    };
+
+
 
    return (
       <div className="md:max-w-5xl mx-auto p-5 md:p-6 bg-base-100 rounded-2xl font-noto">
@@ -115,11 +118,9 @@ const AddCampaign = () => {
                   {...register("category", { required: "যেকোন একটি ক্যাটাগরি নির্বাচন করুন" })}
                >
                   <option value="">ক্যাটাগরি নির্বাচন করুন</option>
-                  <option value="Education">শিক্ষা</option>
-                  <option value="Medical">চিকিৎসা</option>
-                  <option value="Environment">পরিবেশ</option>
-                  <option value="Charity">সহায়তা</option>
-                  <option value="Others">আন্যান্য</option>
+                  {
+                     AddCampaignCategories.map((c, idx) => <option key={idx} value={c.value} > {c.label}</option>)
+                  }
                </select>
                {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category.message}</p>}
             </div>
@@ -238,7 +239,6 @@ const AddCampaign = () => {
                      multiple
                      className="hidden"
                      onChange={(e) => handleImageChange(e, onChange)}
-
                   />
                   {/* preview section */}
                   {images.length > 0 && (
@@ -266,7 +266,7 @@ const AddCampaign = () => {
 
             {/* Description */}
             <div className="md:col-span-2">
-               <label className="block mb-2 font-semibold">বর্ণনা</label>
+               <label className="block mb-2 font-semibold">বর্ণনা *</label>
                <textarea
                   className={`textarea border ${errors.description ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0 h-28`}
                   placeholder="প্রকল্প সম্পর্কে বিস্তারিত লিখুন..."

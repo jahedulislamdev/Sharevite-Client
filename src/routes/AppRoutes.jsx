@@ -27,7 +27,7 @@ const router = createBrowserRouter([
             path: "/register", element: <Registration />
          },
          {
-            path: "/all_campaign", element: <AllCampaigns />
+            path: "/projects", element: <AllCampaigns />
          },
          {
             path: "/users", element: <Private><Users /></Private>,

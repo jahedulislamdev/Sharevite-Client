@@ -6,7 +6,7 @@ const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingSecret}`;
 
 const postImg = async (data) => {
     const images = data.images || [];
-    console.log(images);
+    // console.log(images);
     const uploadedImages = await Promise.all(
         images.map(async (img) => {
             try {
