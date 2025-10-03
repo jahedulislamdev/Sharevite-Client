@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import useGetData from "../../hooks/useGetData";
 import { FaUser, FaCalendarAlt, FaBullseye, FaCheckCircle, } from "react-icons/fa";
-import percentageCalculate from "../../utils/percentage_calculate";
+
 
 const ProjectDetails = () => {
    const { id } = useParams();
@@ -108,7 +108,7 @@ const ProjectDetails = () => {
                   <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
                      <div
                         className="h-full bg-gradient-to-r from-green-400 via-green-500 to-green-700 transition-all duration-700"
-                        style={{ width: `${percentageCalculate(project)}%` }}
+                        style={{ width: `${percentage}%` }}
                      ></div>
                   </div>
                   <p className="text-sm mt-2 text-right ">
