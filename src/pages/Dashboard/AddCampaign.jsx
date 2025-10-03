@@ -220,7 +220,7 @@ const AddCampaign = () => {
 
             {/* Image Upload */}
             <div className="md:col-span-2">
-               <label htmlFor="imageFileUpload" className="block mb-2 font-semibold">ক্যাম্পেইনের ছবি *</label>
+               <label className="block mb-2 font-semibold">ক্যাম্পেইনের ছবি * <span className="text-xs text-green-500">(প্রথম ছবিটি ক্যাম্পেইনের ব্যানার হিসাবে দেখানো হবে)</span></label>
                {/* drag or upload section */}
                <div className="md:flex items-center gap-3">
                   <div onClick={() => document.getElementById("imageFileUpload").click()}

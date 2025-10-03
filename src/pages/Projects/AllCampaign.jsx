@@ -53,7 +53,7 @@ const AllCampaigns = () => {
                            <progress className="progress progress-success w-full" value={project.collect || 0} max="10000"></progress>
                         </div>
                         <div className="flex justify-between items-center">
-                           <Link to={`projects/details/${project._id}`} className="btn btn-soft cursor-pointer mt-3 px-5 py-2 rounded-lg font-medium">
+                           <Link to={`project/details/${project._id}`} className="btn btn-soft cursor-pointer mt-3 px-5 py-2 rounded-lg font-medium">
                               বিস্তারিত<MdArrowOutward className="inline-block ml-2" />
                            </Link>
                            <button className="mt-3 cursor-pointer px-5 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition">

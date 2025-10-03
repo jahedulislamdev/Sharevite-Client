@@ -20,14 +20,14 @@ const dashboardNavLinks = [
    {
       label: "Overview",
       path: "overview",
-      icon: <MdDashboard className="text-lg" />,
+      icon: <MdDashboard className="text-lg" />
    },
    {
       label: "Campaigns",
       icon: <MdOutlineCampaign className="text-lg" />,
       children: [
          { label: "Add Campaign", path: "campaigns/add", icon: <FcAddDatabase /> },
-         { label: "All Campaigns", path: "all-campaign", icon: <MdOutlineCampaign /> },
+         { label: "All Campaigns", path: "all-campaign", icon: <MdOutlineCampaign /> }
       ],
    },
    {
@@ -36,7 +36,7 @@ const dashboardNavLinks = [
       children: [
          { label: "Fund Overview", path: "donations/overview", icon: <RiDonutChartLine /> },
          { label: "Transactions", path: "donations/transactions", icon: <RiDonutChartLine /> },
-         { label: "Permanent Donors", path: "donations/permanent-donors", icon: <FaDonate /> },
+         { label: "Permanent Donors", path: "donations/permanent-donors", icon: <FaDonate /> }
       ],
    },
    {
@@ -45,7 +45,7 @@ const dashboardNavLinks = [
       children: [
          { label: "All Users", path: "users", icon: <MdPeople /> },
          { label: "Roles & Permissions", path: "users/roles", icon: <FaUsersCog /> },
-         { label: "Volunteers", path: "users/volunteers", icon: <MdVolunteerActivism /> },
+         { label: "Volunteers", path: "users/volunteers", icon: <MdVolunteerActivism /> }
       ],
    },
    {
@@ -54,7 +54,7 @@ const dashboardNavLinks = [
       children: [
          { label: "Add Post", path: "blog/add", icon: <FaBloggerB /> },
          { label: "All Posts", path: "blog", icon: <FaBloggerB /> },
-      ],
+      ]
    },
    {
       label: "Site Config",
