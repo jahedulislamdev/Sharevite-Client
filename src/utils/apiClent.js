@@ -33,7 +33,7 @@ const postRequest = async (endpoint, data) => {
 
 const patchRequest = async (endpoint, data) => {
     try {
-        const response = await instance.put(endpoint, data);
+        const response = await instance.patch(endpoint, data);
         return response.data;
     } catch (error) {
         console.error(

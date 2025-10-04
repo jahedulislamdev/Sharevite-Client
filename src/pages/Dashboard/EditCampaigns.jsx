@@ -1,23 +1,22 @@
-import { useController, useFieldArray, useForm } from "react-hook-form";
 import { TiDelete } from "react-icons/ti"; import { toast } from "sonner";
 import { useAuthContext, useGlobalContext } from "../../hooks/useContext";
+import { useController, useFieldArray, useForm } from "react-hook-form";
+import { ContentLoading } from "../../Components/Loading/Loading";
+import { useNavigate, useParams } from "react-router-dom";
 import handleKeyDown from "../../utils/makeTagInput";
+import usePatchData from "../../hooks/usePatchData";
+import useGetData from './../../hooks/useGetData';
+import ContentError from "../Error/ContentError";
 import useHostImg from "../../hooks/useHostImg";
 import postImg from "../../utils/postImg_api";
-import { BsUpload } from "react-icons/bs";
-import { FaPlus } from "react-icons/fa";
-import { useParams } from "react-router-dom";
-import useGetData from './../../hooks/useGetData';
-import { ContentLoading } from "../../Components/Loading/Loading";
-import ContentError from "../Error/ContentError";
-import { useEffect } from "react";
 import { RxUpdate } from "react-icons/rx";
-
-
+import { BsUpload } from "react-icons/bs";
+import { useEffect } from "react";
 
 const EditCampaigns = () => {
    const { loading, setLoading } = useAuthContext();
    const { AddCampaignCategories } = useGlobalContext()
+   const navigate = useNavigate();
 
    // get single campaign data
    const { id } = useParams();
@@ -51,6 +50,8 @@ const EditCampaigns = () => {
          }
       }
    });
+   // call patch request hook 
+   const { mutate: patchCampaignData } = usePatchData(`campaigns/${id}`, "ক্যাম্পেইন সফলভাবে আপডেট হয়েছে");
 
    // reset form values when data comes
    useEffect(() => {
@@ -83,18 +84,17 @@ const EditCampaigns = () => {
       try {
          setLoading(true);
          // call postimg api
-         // const postImages = await postImg(data);
+         const postImages = await postImg(data);
 
-         // combine uploaded image url with form data
-         // const updatedData = { ...data, images: postImages, collected: 0 };
-         // console.log("submitted", updatedData);
+         console.log("submitted", data);
 
-         // send post request for campaign data    
-         // postCampaign(updatedData);
+         // send patch request for campaign data    
+         const updatedData = { ...data, images: postImages }
+         patchCampaignData(updatedData);
 
          // stop loading and reset form
          setLoading(false);
-         reset();
+         navigate('/dashboard/campaigns');
 
       } catch (err) {
          setLoading(false);
@@ -106,7 +106,7 @@ const EditCampaigns = () => {
    // loading campaign content
    if (isLoading) return <ContentLoading />;
    if (error) return <ContentError />;
-   console.log(campaignData);
+   // console.log(campaignData);
 
 
 
@@ -134,8 +134,7 @@ const EditCampaigns = () => {
                <label className="block mb-2 font-semibold">সংগ্রহিত অর্থের পরিমাণ</label>
                <input
                   type="number"
-                  className={`border ${errors.collected ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0`}
-                  placeholder="সংগ্রহিত অর্থের পরিমাণ দিন"
+                  className={`border border-gray-400 bg-base-300 p-3 rounded w-full focus:outline-0 font-onset`}
                   readOnly
                   {...register("collected")}
                />
@@ -188,15 +187,15 @@ const EditCampaigns = () => {
                   অঞ্চলের নাম *<span className="text-xs text-green-500"> (একাধিক হতে পারে)</span>
                </label>
 
-               <div className={`font-onset flex flex-wrap items-center gap-2 border ${errors.location ? "border-red-600" : "border-gray-400"} rounded-md `}>
+               <div className={`font-noto flex flex-wrap items-center gap-2 border ${errors.location ? "border-red-600" : "border-gray-400"} rounded-md `}>
                   {locations.map((loc, idx) => (
                      <span
                         key={loc.id}
-                        className="bg-base-300 ms-1 px-3 py-1 rounded-full flex items-center font-noto"
+                        className="bg-base-300 ms-1 px-3 py-1 rounded-full flex items-center "
                      >{loc.tag}
                         <button
                            type="button"
-                           className="text-red-900 hover:text-red-700 ms-2"
+                           className="text-red-900 hover:text-red-700 ms-2 cursor-pointer transition-all duration-500"
                            onClick={() => removeLocation(idx)}
                         >
                            <TiDelete className="size-7" />
@@ -335,6 +334,7 @@ const EditCampaigns = () => {
             <div className="md:col-span-2">
                <button
                   type="submit"
+                  disabled={loading}
                   className="btn btn-lg bg-green-800 text-white mx-auto mt-4 font-hind min-w-30"
                >
                   {loading ? <span className="loading loading-spinner loading-md"></span> : <><RxUpdate className="size-5" /> আপডেট করুন</>}

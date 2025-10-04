@@ -31,7 +31,7 @@ const router = createBrowserRouter([
    },
    // Dashboard routes
    {
-      path: "/dashboard", element: <Private><AdminPanel /></Private>,
+      path: "/dashboard", element: <AdminPanel />,
       children: [
          { path: "/dashboard", element: <Overview /> },
          { path: "overview", element: <Overview /> },

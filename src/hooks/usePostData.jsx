@@ -9,7 +9,7 @@ const usePostData = (urlEndpoint, successMsg, queryKey) => {
       onSuccess: (res) => {
          // console.log(res);
          if (res.insertedId) {
-            toast.success(successMsg)
+            toast.success(successMsg);
          }
          // this key cash our fetched data and refetch it automaticaly afer changing response.
          if (queryKey) {
