@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const AvailableProjects = () => {
    const { data: campaigns, isLoading, error, isError, isFetching } = useGetData("campaigns", "myCampaigns")
    if (isFetching || isLoading) {
-      return <span className="loading loading-spinner loading-md"></span>;
+      return <div className="flex justify-center items-center h-52"><span className="loading loading-spinner loading-md"></span></div>;
    } else if (isError) {
       console.log(error)
    }
@@ -49,7 +49,7 @@ const AvailableProjects = () => {
                            <span className="absolute left-0 -bottom-2 w-12 h-1 bg-green-500 rounded-full"></span>
                         </h3>
                         <p className="opacity-70 text-sm md:text-base leading-relaxed font-noto">
-                           {project.shortDescription}
+                           {project.shortDescription}।
                         </p>
                         {/* collected amount tracking */}
                         <div className="w-full bg-base-200 pe-5 ps-2 py-3 rounded-2xl">
@@ -63,7 +63,7 @@ const AvailableProjects = () => {
                               max="100"
                            ></progress>
                         </div>
-                        <div className="flex justify-between items-center ">
+                        <div className="flex justify-between items-center">
                            <Link to={`project/details/${project._id}`} className="btn btn-soft cursor-pointer mt-3 px-5 py-2 rounded-lg font-medium">
                               বিস্তারিত<MdArrowOutward className="inline-block ml-2" />
                            </Link>

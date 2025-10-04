@@ -19,30 +19,16 @@ const router = createBrowserRouter([
    {
       path: "/", element: <MainLayout />, errorElement: <NotFound />,
       children: [
-         {
-            path: "/", element: <App />
-         },
-         {
-            path: '/login', element: <Login />
-         },
-         {
-            path: "/register", element: <Registration />
-         },
-         {
-            path: "/projects", element: <AllCampaigns />
-         },
-         {
-            path: "project/details/:id", element: <ProjectDetails />
-         },
-         {
-            path: "/users", element: <Private><Users /></Private>,
-            hydrateFallbackElement: <div>Loading..</div>
-         },
+         { path: "/", element: <App /> },
+         { path: '/login', element: <Login /> },
+         { path: "/register", element: <Registration /> },
+         { path: "/projects", element: <AllCampaigns /> },
+         { path: "/project/details/:id", element: <ProjectDetails /> },
          { path: "overview", element: <Overview /> },
       ]
    },
    {
-      path: "/dashboard", element: <AdminPanel />,
+      path: "/dashboard", element: <Private><AdminPanel /></Private>,
       children: [
          { path: "/dashboard", element: <Overview /> },
          { path: "overview", element: <Overview /> },

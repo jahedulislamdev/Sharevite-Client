@@ -1,6 +1,4 @@
-import { GiStairsGoal } from "react-icons/gi";
 import useGetData from "../../hooks/useGetData";
-import { FaEdit, FaHandHoldingHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { BiSolidEdit } from "react-icons/bi";
@@ -89,7 +87,6 @@ const Campaigns = () => {
                                  style={{ width: `${Math.min(Math.round((cam.collected / cam.goal) * 100), 100)}%` }}
                               ></div>
                            </div>
-
                            {/* Percentage */}
                            <p className="text-xs text-gray-500 text-right">
                               {Math.min(Math.round((cam.collected / cam.goal) * 100), 100)}%
@@ -100,7 +97,7 @@ const Campaigns = () => {
 
                      {/* Actions */}
                      <td className="space-x-2 text-white">
-                        <button className="p-2 bg-sky-700  rounded-full cursor-pointer"><BiSolidEdit className="size-5" /></button>
+                        <Link to={`/project/details/${cam._id}`} className="p-2 bg-sky-700  rounded-full cursor-pointer"><BiSolidEdit className="size-5" /></Link>
                         <button className="p-2 bg-red-600 rounded-full cursor-pointer"><MdDelete className="size-5" /></button>
                      </td>
                   </tr>
