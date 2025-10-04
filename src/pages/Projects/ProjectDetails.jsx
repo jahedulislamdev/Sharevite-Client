@@ -5,7 +5,7 @@ import { FaUser, FaCalendarAlt, FaBullseye, FaCheckCircle, } from "react-icons/f
 
 const ProjectDetails = () => {
    const { id } = useParams();
-   const { data: project, isLoading, error } = useGetData(`project/${id}`);
+   const { data: project, isLoading, error } = useGetData(`campaign/${id}`);
 
    if (isLoading)
       return (
