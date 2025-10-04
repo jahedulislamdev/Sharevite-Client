@@ -44,9 +44,9 @@ const patchRequest = async (endpoint, data) => {
     }
 };
 
-const deleteRequest = async (endpoint) => {
+const deleteRequest = async (endpoint, id) => {
     try {
-        const response = await instance.delete(endpoint);
+        const response = await instance.delete(`${endpoint}/${id}`);
         return response.data;
     } catch (error) {
         console.error(

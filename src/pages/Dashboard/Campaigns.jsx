@@ -4,10 +4,37 @@ import { BiSolidEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { ContentLoading } from "../../Components/Loading/Loading";
 import ContentError from "../Error/ContentError";
+import useDeleteData from "../../hooks/useDeleteData";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
 
 const Campaigns = () => {
    const { data: campaigns, isLoading, error } = useGetData("campaigns", "allCampaigns");
+   const { mutate: deleteCampaign } = useDeleteData(`/campaigns`, "ক্যাম্পেইন সফলভাবে মুছে ফেলা হয়েছে", "allCampaigns");
    const navigate = useNavigate();
+
+   // handleDelete 
+   const handleDeleteCampaigns = (id) => {
+      Swal.fire({
+         title: "Are you sure?",
+         text: "You won't be able to revert this!",
+         icon: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#3085d6",
+         cancelButtonColor: "#d33",
+         confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+         if (result.isConfirmed) {
+            deleteCampaign(id);
+            Swal.fire({
+               title: "Deleted!",
+               text: "Your file has been deleted.",
+               icon: "success"
+            });
+         }
+      });
+
+   };
 
    if (isLoading) return <ContentLoading />;
    if (error) return <ContentError />;
@@ -94,7 +121,7 @@ const Campaigns = () => {
                      {/* Actions */}
                      <td className="space-x-2 text-white">
                         <button onClick={() => navigate(`/dashboard/campaign/edit/${cam._id}`)} className="p-2 bg-sky-700 rounded-full cursor-pointer"><BiSolidEdit className="size-5" /></button>
-                        <button className="p-2 bg-red-600 rounded-full cursor-pointer inline-block"><MdDelete className="size-5" /></button>
+                        <button onClick={() => handleDeleteCampaigns(cam._id)} className="p-2 bg-red-600 rounded-full cursor-pointer inline-block"><MdDelete className="size-5" /></button>
                      </td>
                   </tr>
                ))}

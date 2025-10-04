@@ -12,6 +12,7 @@ import postImg from "../../utils/postImg_api";
 import { RxUpdate } from "react-icons/rx";
 import { BsUpload } from "react-icons/bs";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const EditCampaigns = () => {
    const { loading, setLoading } = useAuthContext();
@@ -51,7 +52,7 @@ const EditCampaigns = () => {
       }
    });
    // call patch request hook 
-   const { mutate: patchCampaignData } = usePatchData(`campaigns/${id}`, "ক্যাম্পেইন সফলভাবে আপডেট হয়েছে");
+   const { mutate: patchCampaignData } = usePatchData(`campaigns/${id}`, "ক্যাম্পেইন সফলভাবে আপডেট হয়েছে", "updatedCampaign");
 
    // reset form values when data comes
    useEffect(() => {
@@ -80,27 +81,39 @@ const EditCampaigns = () => {
 
    // form Submit handler
    const onSubmitForm = async (data) => {
-      console.log("form data", data);
-      try {
-         setLoading(true);
-         // call postimg api
-         const postImages = await postImg(data);
+      Swal.fire({
+         title: "আপনি কি নিশ্চিত?",
+         icon: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#3085d6",
+         cancelButtonColor: "#d33",
+         confirmButtonText: "আপডেট করুন",
+         cancelButtonText: "বাতিল করুন",
+      }).then(async (result) => {
+         if (result.isConfirmed) {
+            try {
+               setLoading(true);
+               // call postimg api
+               const postImages = await postImg(data);
 
-         console.log("submitted", data);
+               console.log("submitted", data);
 
-         // send patch request for campaign data    
-         const updatedData = { ...data, images: postImages }
-         patchCampaignData(updatedData);
+               // send patch request for campaign data    
+               const updatedData = { ...data, images: postImages }
+               patchCampaignData(updatedData);
 
-         // stop loading and reset form
-         setLoading(false);
-         navigate('/dashboard/campaigns');
+               // stop loading and reset form
+               setLoading(false);
+               navigate('/dashboard/campaigns');
 
-      } catch (err) {
-         setLoading(false);
-         console.log(err);
-         toast.error(err.response?.data?.message || "কিছু ভুল হয়েছে");
-      }
+            } catch (err) {
+               setLoading(false);
+               console.log(err);
+               toast.error(err.response?.data?.message || "কিছু ভুল হয়েছে");
+            }
+         }
+      });
+
    };
 
    // loading campaign content

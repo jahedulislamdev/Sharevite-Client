@@ -290,6 +290,7 @@ const AddCampaign = () => {
             <div className="md:col-span-2">
                <button
                   type="submit"
+                  disabled={loading}
                   className="btn btn-lg bg-green-800 text-white mx-auto mt-4 font-hind min-w-30"
                >
                   {loading ? <span className="loading loading-spinner loading-md"></span> : <><FaPlus className="size-5" /> যুক্ত করুন</>}
