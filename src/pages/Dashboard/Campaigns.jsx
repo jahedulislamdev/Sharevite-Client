@@ -5,7 +5,6 @@ import { MdDelete } from "react-icons/md";
 import { ContentLoading } from "../../Components/Loading/Loading";
 import ContentError from "../Error/ContentError";
 import useDeleteData from "../../hooks/useDeleteData";
-import { toast } from "sonner";
 import Swal from "sweetalert2";
 
 const Campaigns = () => {
