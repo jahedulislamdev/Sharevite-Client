@@ -191,7 +191,7 @@ const AdminPanel = () => {
             {/* addmin navar */}
             <header className="flex items-center justify-between rounded p-2 shadow-xl">
                <div className="flex gap-x-3 items-center">
-                  <button className="  rounded-s-3xl bg-base-100 hover:bg-base-300 p-2 cursor-pointer duration-500"><GoArrowLeft className="size-5 ms-2" /></button>
+                  <button onClick={() => navigate(-1)} className="  rounded-s-3xl bg-base-100 hover:bg-base-300 p-2 cursor-pointer duration-500"><GoArrowLeft className="size-5 ms-2" /></button>
                   {/* file path */}
                   <div className="breadcrumbs text-sm text-gray-500">
                      <ul>

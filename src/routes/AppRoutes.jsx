@@ -1,21 +1,23 @@
-import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout";
-import App from "../App";
-import NotFound from "../pages/Error/NotFound";
-import Login from "../pages/Auth/Login";
-import Registration from "../pages/Auth/Register";
-import Users from "../pages/Dashboard/Users";
-import Private from "./Private";
+import ProjectDetails from "../pages/Projects/ProjectDetails";
+import EditCampaigns from "../pages/Dashboard/EditCampaigns";
 import AllCampaigns from "../pages/Projects/AllCampaign";
 import AddCampaign from "../pages/Dashboard/AddCampaign";
+import { createBrowserRouter } from "react-router-dom";
 import AdminPanel from "../pages/Dashboard/AdminPanel";
-import Overview from "../pages/Dashboard/Overview";
-import Reports from "../pages/Dashboard/Reports";
-import ProjectDetails from "../pages/Projects/ProjectDetails";
 import Campaigns from "../pages/Dashboard/Campaigns";
+import Overview from "../pages/Dashboard/Overview";
+import Registration from "../pages/Auth/Register";
+import Reports from "../pages/Dashboard/Reports";
+import NotFound from "../pages/Error/NotFound";
+import MainLayout from "../layouts/MainLayout";
+import Users from "../pages/Dashboard/Users";
+import Login from "../pages/Auth/Login";
+import Private from "./Private";
+import App from "../App";
 
 
 const router = createBrowserRouter([
+   // public routes
    {
       path: "/", element: <MainLayout />, errorElement: <NotFound />,
       children: [
@@ -27,15 +29,17 @@ const router = createBrowserRouter([
          { path: "overview", element: <Overview /> },
       ]
    },
+   // Dashboard routes
    {
       path: "/dashboard", element: <Private><AdminPanel /></Private>,
       children: [
          { path: "/dashboard", element: <Overview /> },
          { path: "overview", element: <Overview /> },
          { path: "campaigns/add", element: <AddCampaign /> },
+         { path: "campaigns", element: <Campaigns /> },
+         { path: "campaign/edit/:id", element: <EditCampaigns /> },
          { path: "users", element: <Users /> },
          { path: "reports", element: <Reports /> },
-         { path: "campaigns", element: <Campaigns /> }
       ]
 
    }

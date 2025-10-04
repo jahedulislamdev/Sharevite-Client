@@ -4,9 +4,6 @@ const useGetData = (endPoint, queryKey) => {
    return useQuery({
       queryKey: [queryKey],
       queryFn: () => getRequest(endPoint),
-
    })
-
 };
-
 export default useGetData;

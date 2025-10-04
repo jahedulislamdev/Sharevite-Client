@@ -1,24 +1,22 @@
 import useGetData from "../../hooks/useGetData";
-import { Link } from "react-router-dom";
-import { MdDelete } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import { BiSolidEdit } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
+import { ContentLoading } from "../../Components/Loading/Loading";
+import ContentError from "../Error/ContentError";
 
 const Campaigns = () => {
    const { data: campaigns, isLoading, error } = useGetData("campaigns", "allCampaigns");
+   const navigate = useNavigate();
 
-   if (isLoading)
-      return (
-         <div className="flex justify-center items-center h-52">
-            <span className="loading loading-spinner loading-md"></span>
-         </div>
-      );
-   if (error) return <p className="text-center text-red-500">Something went wrong!</p>;
+   if (isLoading) return <ContentLoading />;
+   if (error) return <ContentError />;
 
    return (
       <div className="overflow-x-auto bg-base-200 shadow rounded-lg">
          <table className="table w-full text-sm">
             <thead className="bg-base-100">
-               <tr className="font-noto text-lg">
+               <tr className="font-hind text-lg text-gray-500">
                   <th className="text-center">#</th>
                   <th>প্রজেক্ট</th>
                   <th>লোকেশন</th>
@@ -93,12 +91,10 @@ const Campaigns = () => {
                            </p>
                         </div>
                      </td>
-
-
                      {/* Actions */}
                      <td className="space-x-2 text-white">
-                        <Link to={`/project/details/${cam._id}`} className="p-2 bg-sky-700  rounded-full cursor-pointer"><BiSolidEdit className="size-5" /></Link>
-                        <button className="p-2 bg-red-600 rounded-full cursor-pointer"><MdDelete className="size-5" /></button>
+                        <button onClick={() => navigate(`/dashboard/campaign/edit/${cam._id}`)} className="p-2 bg-sky-700 rounded-full cursor-pointer"><BiSolidEdit className="size-5" /></button>
+                        <button className="p-2 bg-red-600 rounded-full cursor-pointer inline-block"><MdDelete className="size-5" /></button>
                      </td>
                   </tr>
                ))}
