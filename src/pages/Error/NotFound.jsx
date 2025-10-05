@@ -2,6 +2,7 @@ import { useRouteError } from "react-router-dom";
 
 const NotFound = () => {
    const listenErr = useRouteError();
+   console.error(listenErr);
 
    return (
       <>
@@ -20,14 +21,16 @@ const NotFound = () => {
                   {listenErr?.status || "Error"}
                </p>
                <p className="text-sm sm:text-base md:text-lg font-medium text-gray-300 max-w-xl">
-                  Oops! Something went wrong.
+                  <span className="text-red-600">Oops! Something went wrong.</span>
                   <br />
-                  An unexpected client-side exception has occurred. Please check the
-                  browser console for more details or try refreshing the page.
+                  <span className="opacity-70">
+                     An unexpected client-side or server-side exception has occurred. Please check the
+                     browser console for more details or try refreshing the page.
+                  </span>
                </p>
                <button
                   onClick={() => window.location.reload()}
-                  className="mt-5 px-6 py-2 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-700 transition-all"
+                  className="mt-5 px-6 py-2 rounded-xl bg-red-900 text-white font-semibold hover:bg-red-700 transition-all"
                >
                   Refresh Page
                </button>

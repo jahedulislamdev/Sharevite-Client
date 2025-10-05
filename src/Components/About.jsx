@@ -1,12 +1,12 @@
 const About = () => {
    return (
-      <section className="py-20 px-6 sm:px-12 font-hind">
+      <section className="py-20 px-6 sm:px-12">
          <div className="max-w-6xl mx-auto text-center">
             {/* Heading */}
-            <h2 className="text-4xl sm:text-5xl font-extrabold title mb-6">
+            <h2 className="text-4xl sm:text-5xl font-extrabold title mb-6 font-hind">
                আমাদের সম্পর্কে
             </h2>
-            <p className="text-lg sm:text-xl leading-relaxed mb-12 max-w-4xl mx-auto subtitle">
+            <p className="text-lg sm:text-xl leading-relaxed mb-12 max-w-4xl mx-auto subtitle font-noto">
                আমরা বিশ্বাস করি, পৃথিবীতে কারও ক্ষুধার্ত থাকার কথা নয়। প্রতিদিন অসংখ্য
                খাবার অপচয় হয়, অথচ হাজারো মানুষ একবেলা খাবারের জন্য সংগ্রাম করে। আমাদের
                এই ফুড ডোনেশন প্ল্যাটফর্ম সেই সেতুবন্ধন তৈরি করে—যেখানে অতিরিক্ত খাবার
@@ -20,7 +20,7 @@ const About = () => {
                   <h3 className="text-2xl font-semibold title">
                      🍛 ক্ষুধামুক্তি
                   </h3>
-                  <p className="text-gray-500 mt-3">
+                  <p className="subtitle mt-3">
                      ক্ষুধার্ত মানুষের মুখে হাসি ফোটানো আমাদের প্রথম লক্ষ্য।
                   </p>
                </div>
@@ -28,7 +28,7 @@ const About = () => {
                   <h3 className="text-2xl font-semibold title">
                      🌱 টেকসই সমাজ
                   </h3>
-                  <p className="text-gray-500 mt-3">
+                  <p className="subtitle mt-3">
                      অপচয় রোধ করে পরিবেশবান্ধব ও টেকসই সমাজ গঠন।
                   </p>
                </div>
@@ -36,7 +36,7 @@ const About = () => {
                   <h3 className="text-2xl font-semibold title">
                      🤝 সহমর্মিতা
                   </h3>
-                  <p className="text-gray-500 mt-3">
+                  <p className="subtitle mt-3">
                      মানুষে মানুষে ভালোবাসা ও সহযোগিতার বন্ধন ছড়িয়ে দেওয়া।
                   </p>
                </div>

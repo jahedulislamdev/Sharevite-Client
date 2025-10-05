@@ -35,7 +35,7 @@ const JoinUsSection = () => {
             <h2 className="text-3xl md:text-4xl font-bold title mb-7">
                আমাদের সাথে যুক্ত হন
             </h2>
-            <p className="text-gray-500 mb-10">
+            <p className="subtitle mb-10">
                নিচের যে কোনো পদক্ষেপে আমাদের সাথে যুক্ত হয়ে আত্মমানবতার সেবায় ভূমিকা রাখতে পারেন।
             </p>
             {/* <div className="flex justify-between *:">

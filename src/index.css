@@ -13,7 +13,7 @@
     --font-onset: "Onest", sans-serif;
 }
 .title {
-    @apply bg-gradient-to-r from-green-400 to-green-800 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-green-400 to-green-800 bg-clip-text text-transparent font-hind;
 }
 .heading-underline {
     position: relative;
@@ -32,7 +32,7 @@
 }
 
 .subtitle {
-    @apply opacity-70;
+    @apply opacity-50 font-noto;
 }
 .active {
     font-weight: 900;

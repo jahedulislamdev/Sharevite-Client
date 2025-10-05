@@ -10,20 +10,15 @@ const AvailableProjects = () => {
    } else if (isError) {
       console.log(error)
    }
-   // % calculation
-   const percentage = Math.min(
-      Math.round((campaigns?.collected / campaigns?.goal) * 100),
-      100
-   );
-   console.log(percentage)
+
    return (
       <section className="py-14 font-hind">
-         <div className=" px-4">
-            <div className="flex justify-between items-center mb-12">
+         <div className="">
+            <div className=" flex justify-between items-center mb-12">
                <h2 className="text-lg sm:text-xl md:text-4xl font-bold text-center title">আমাদের চলমান প্রজেক্টসমূহ</h2>
                <Link to="/projects" className="text-white bg-green-600 sm:text-xs md:text-base py-1 px-2 btn-soft md:p-3 rounded-lg">সব প্রজেক্ট দেখুন</Link>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                {campaigns.map((project) => (
                   <div
                      key={project._id}
@@ -59,7 +54,7 @@ const AvailableProjects = () => {
                            </div>
                            <progress
                               className="progress progress-success w-full"
-                              value={Math.min(Math.round((project.collected / project.goal) * 100), 100)}
+                              value={Math.round((project.collected / project.goal) * 100)}
                               max="100"
                            ></progress>
                         </div>
