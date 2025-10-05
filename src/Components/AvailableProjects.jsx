@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import useGetData from "../hooks/useGetData";
 
 const AvailableProjects = () => {
-   const { data: campaigns, isLoading, error, isError, isFetching } = useGetData("campaigns", "myCampaigns")
+   const { data: campaigns, isLoading, error, isError, isFetching } = useGetData("campaigns", "myCampaigns");
+   console.log(campaigns)
    if (isFetching || isLoading) {
       return <div className="flex justify-center items-center h-52"><span className="loading loading-spinner loading-md"></span></div>;
    } else if (isError) {
@@ -19,7 +20,7 @@ const AvailableProjects = () => {
                <Link to="/projects" className="text-white bg-green-600 sm:text-xs md:text-base py-1 px-2 btn-soft md:p-3 rounded-lg">সব প্রজেক্ট দেখুন</Link>
             </div>
             <div className="px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-               {campaigns.map((project) => (
+               {campaigns?.map((project) => (
                   <div
                      key={project._id}
                      className="relative bg-[#0080000c] rounded-2xl overflow-hidden shadow-xs shadow-green-600 transition-all duration-700 transform"

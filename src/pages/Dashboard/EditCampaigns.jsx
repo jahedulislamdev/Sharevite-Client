@@ -11,8 +11,8 @@ import { BsUpload } from "react-icons/bs";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import useGetData from "../../hooks/useGetData";
-import usePatchData from './../../hooks/usePatchData';
 import useHostImg from "../../hooks/useHostImg";
+import usePatchData from './../../hooks/usePatchData';
 
 const EditCampaigns = () => {
    const { loading, setLoading } = useAuthContext();
