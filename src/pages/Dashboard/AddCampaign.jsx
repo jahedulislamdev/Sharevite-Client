@@ -2,11 +2,12 @@ import { useController, useFieldArray, useForm } from "react-hook-form";
 import { TiDelete } from "react-icons/ti"; import { toast } from "sonner";
 import { useAuthContext, useGlobalContext } from "../../hooks/useContext";
 import handleKeyDown from "../../utils/makeTagInput";
-import usePostData from "../../hooks/usePostData";
-import useHostImg from "../../hooks/useHostImg";
+
 import postImg from "../../utils/postImg_api";
 import { BsUpload } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
+import useHostImg from './../../hooks/useHostImg';
+import usePostData from './../../hooks/usePostData';
 
 const AddCampaign = () => {
    const { loading, setLoading } = useAuthContext();

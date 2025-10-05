@@ -49,7 +49,9 @@ const AuthContext = ({ children }) => {
             postRequest("logout")
             setUser(null)
             toast.success("Logout Successfull!", { duration: 1000 })
-            navigate(`/login`)
+            if (navigate) {
+               navigate(`/login`)
+            }
          })
          .catch(() => {
             toast.error("Logout Failed! please try again.")

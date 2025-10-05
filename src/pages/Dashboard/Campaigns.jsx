@@ -1,10 +1,11 @@
+
+import { ContentLoading } from "../../Components/Loading/Loading";
+import useDeleteData from './../../hooks/useDeleteData';
+import ContentError from "../Error/ContentError";
 import useGetData from "../../hooks/useGetData";
 import { useNavigate } from "react-router-dom";
 import { BiSolidEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { ContentLoading } from "../../Components/Loading/Loading";
-import ContentError from "../Error/ContentError";
-import useDeleteData from "../../hooks/useDeleteData";
 import Swal from "sweetalert2";
 
 const Campaigns = () => {

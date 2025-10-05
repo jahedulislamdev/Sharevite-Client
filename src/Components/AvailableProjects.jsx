@@ -1,7 +1,7 @@
 import { BiSolidDonateHeart } from "react-icons/bi";
 import { MdArrowOutward } from "react-icons/md";
-import useGetData from "../hooks/useGetData";
 import { Link } from "react-router-dom";
+import useGetData from "../hooks/useGetData";
 
 const AvailableProjects = () => {
    const { data: campaigns, isLoading, error, isError, isFetching } = useGetData("campaigns", "myCampaigns")

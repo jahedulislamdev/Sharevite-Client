@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import useGetData from "../../hooks/useGetData";
 import { FaUser, FaCalendarAlt, FaBullseye, FaCheckCircle, } from "react-icons/fa";
+import useGetData from './../../hooks/useGetData';
 
 
 const ProjectDetails = () => {
