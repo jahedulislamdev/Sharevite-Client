@@ -12,7 +12,7 @@ import MainLayout from "../layouts/MainLayout";
 import NotFound from "../pages/Error/NotFound";
 import Users from "../pages/Dashboard/Users";
 import Login from "../pages/Auth/Login";
-import Private from "./Private";
+import Private from "./PrivateRoutes";
 import App from "../App";
 
 
@@ -41,7 +41,6 @@ const router = createBrowserRouter([
          { path: "users", element: <Users /> },
          { path: "reports", element: <Reports /> },
       ]
-
    }
 ])
 

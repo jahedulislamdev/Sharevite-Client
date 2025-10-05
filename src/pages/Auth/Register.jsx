@@ -50,8 +50,8 @@ const Registration = () => {
    }
 
    return (
-      <div className="flex items-center justify-center my-5 font-hind">
-         <div className="w-full max-w-sm md:max-w-md bg-[#0080000a] rounded-xl shadow shadow-green-400 p-8">
+      <div className="flex items-center justify-center mt-5 mb-10 font-noto">
+         <div className="w-full max-w-sm md:max-w-md rounded-xl shadow shadow-green-400 p-8">
             {/* Title */}
             <h2 className="text-2xl font-bold text-center mb-6 title">রেজিস্ট্রেশন</h2>
 

@@ -31,7 +31,7 @@ const AuthContext = ({ children }) => {
       signInWithPopup(auth, provider)
          .then(res => {
             setUser(res.user)
-            toast.success("Login Successfull!");
+            toast.success("Login Successfull!", { duration: 1000 });
             navigate(location.state ? location.state : '/')
          })
          .catch((err) => {
@@ -41,16 +41,18 @@ const AuthContext = ({ children }) => {
          .finally(() => setLoading(false));
    }
    // logout user
-   const logoutUser = () => {
+   const logoutUser = (navigate) => {
       setLoading(true);
       signOut(auth)
          .then(() => {
+            // remove jwt from browser cookies
             postRequest("logout")
             setUser(null)
-            toast.success("Logout Successfull!")
+            toast.success("Logout Successfull!", { duration: 1000 })
+            navigate(`/login`)
          })
          .catch(() => {
-            toast.error("Logout Faild! please try again.")
+            toast.error("Logout Failed! please try again.")
          })
          .finally(() => setLoading(false))
    }
