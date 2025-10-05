@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const AvailableProjects = () => {
    const { data: campaigns, isLoading, error, isError, isFetching } = useGetData("campaigns", "myCampaigns");
-   // console.log(campaigns)
+   console.log(campaigns)
    if (isFetching || isLoading) {
       return <div className="flex justify-center items-center h-52"><span className="loading loading-spinner loading-md"></span></div>;
    } else if (isError) {

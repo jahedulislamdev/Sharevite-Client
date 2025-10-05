@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
-import app from "../services/firebase.config";
 import AuthProvider from "./create_auth_context";
-import { postRequest } from "../utils/apiClent";
+import app from "../services/firebase.config";
+import { useEffect, useState } from "react";
+import useApi from './../hooks/useApi';
 import { toast } from "sonner";
 
 const AuthContext = ({ children }) => {
    const [user, setUser] = useState(null);
    const [loading, setLoading] = useState(true);
    const auth = getAuth(app);
-
+   // const {postRequest } = useApi()
    // register with email and password =
    const registerUser = async (email, password) => {
       setLoading(true);
@@ -46,7 +46,8 @@ const AuthContext = ({ children }) => {
       signOut(auth)
          .then(() => {
             // remove jwt from browser cookies
-            postRequest("logout")
+            // postRequest("logout")
+
             setUser(null)
             toast.success("Logout Successfull!", { duration: 1000 })
             if (navigate) {
@@ -65,9 +66,9 @@ const AuthContext = ({ children }) => {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
          if (currentUser) {
             // console.log("User logged in:", currentUser);
-            const userCredential = { email: currentUser?.email };
+            // const userCredential = { email: currentUser?.email };
             // call jwt api and get token
-            postRequest("jwt", userCredential);
+            // postRequest("jwt", userCredential);
          } else {
             console.log("Currently No user logged in");
          }
