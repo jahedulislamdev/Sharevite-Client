@@ -8,7 +8,7 @@ const usePostData = (urlEndpoint, successMsg, queryKey) => {
       mutationFn: (data) => postRequest(urlEndpoint, data),
       onSuccess: (res) => {
          // console.log(res);
-         if (res.insertedId) {
+         if (res.insertedId || successMsg) {
             toast.success(successMsg);
          }
          // this key cash our fetched data and refetch it automaticaly afer changing response.

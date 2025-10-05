@@ -12,6 +12,7 @@ const UseTheme = () => {
         document.querySelector("html").setAttribute("data-theme", savedTheme);
     }, []);
 
+    // Toggle theme and save preference
     const toggleTheme = () => {
         const newTheme = theme === "light" ? "dark" : "light";
         setTheme(newTheme);

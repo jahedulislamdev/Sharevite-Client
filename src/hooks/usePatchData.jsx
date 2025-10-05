@@ -7,7 +7,7 @@ const usePatchData = (endpoint, successMessage, queryKey) => {
    return useMutation({
       mutationFn: (data) => patchRequest(endpoint, data),
       onSuccess: (res) => {
-         if (res.modifiedCount > 0) {
+         if (res.modifiedCount > 0 || successMessage) {
             toast.success(successMessage);
          }
          if (queryKey) {

@@ -8,7 +8,9 @@ const useDeleteData = (ednpoint, successMessage, queryKey) => {
       mutationFn: (id) => deleteRequest(ednpoint, id),
       onSuccess: (res) => {
          console.log(res);
-         toast.success(successMessage);
+         if (successMessage) {
+            toast.success(successMessage);
+         }
          const keys = Array.isArray(queryKey) ? queryKey : [queryKey];
          keys.forEach(key => queryClient.invalidateQueries(key));
 
