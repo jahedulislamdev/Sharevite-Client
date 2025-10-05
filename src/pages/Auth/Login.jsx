@@ -18,7 +18,10 @@ const Login = () => {
       loginUser(data.email, data.password)
          .then(() => {
             toast.message('Login Successfull!', {
-               description: 'Wecolme to The Holy Journy!',
+               description: 'Welcome to The Holy Journey!',
+               duration: 1000,
+               style: { backgroundColor: '#22c55e', color: 'white' }
+
             })
             navigate(location.state ? location.state : "/");
          })

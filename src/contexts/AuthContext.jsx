@@ -58,8 +58,16 @@ const AuthContext = ({ children }) => {
    // user observer spy
    useEffect(() => {
       setLoading(true);
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-         setUser(user);
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+         if (currentUser) {
+            console.log("User logged in:", currentUser);
+            const userCredential = { email: currentUser?.email };
+            // call jwt api and get token
+            postRequest("jwt", userCredential);
+         } else {
+            console.log("Currently No user logged in");
+         }
+         setUser(currentUser);
          setLoading(false);
       });
       return () => unsubscribe();
