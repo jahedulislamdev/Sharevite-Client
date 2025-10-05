@@ -1,13 +1,9 @@
-import axios from "axios";
+import axiosPublic from "./axiosPublic";
 
-const instance = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/",
-    withCredentials: true, // enable if needed
-});
-
+// public api requests
 const getRequest = async (endpoint) => {
     try {
-        const response = await instance.get(endpoint);
+        const response = await axiosPublic.get(endpoint);
         return response.data; // send only response.data bcz other are not neccessary
     } catch (error) {
         console.error(
@@ -20,7 +16,7 @@ const getRequest = async (endpoint) => {
 
 const postRequest = async (endpoint, data) => {
     try {
-        const response = await instance.post(endpoint, data);
+        const response = await axiosPublic.post(endpoint, data);
         return response.data;
     } catch (error) {
         console.error(
@@ -33,7 +29,7 @@ const postRequest = async (endpoint, data) => {
 
 const patchRequest = async (endpoint, data) => {
     try {
-        const response = await instance.patch(endpoint, data);
+        const response = await axiosPublic.patch(endpoint, data);
         return response.data;
     } catch (error) {
         console.error(
@@ -46,7 +42,7 @@ const patchRequest = async (endpoint, data) => {
 
 const deleteRequest = async (endpoint, id) => {
     try {
-        const response = await instance.delete(`${endpoint}/${id}`);
+        const response = await axiosPublic.delete(`${endpoint}/${id}`);
         return response.data;
     } catch (error) {
         console.error(
@@ -56,7 +52,5 @@ const deleteRequest = async (endpoint, id) => {
         throw error;
     }
 };
-
-// post image to hostinger
 
 export { getRequest, postRequest, patchRequest, deleteRequest };

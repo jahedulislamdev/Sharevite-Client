@@ -8,10 +8,11 @@ const useAdmin = () => {
       queryKey: [user?.email, isAdmin],
       queryFn: async () => {
          const res = await getRequest(`users/admin/${user?.email}`);
-         console.log(res)
-
+         console.log(res);
+         return res.data?.admin;
       }
    })
+   return [isAdmin];
 
 };
 
