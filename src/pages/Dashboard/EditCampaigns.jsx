@@ -96,7 +96,7 @@ const EditCampaigns = () => {
                // call postimg api
                const postImages = await postImg(data);
 
-               console.log("submitted", data);
+               // console.log("submitted", data);
 
                // send patch request for campaign data    
                const updatedData = { ...data, images: postImages }

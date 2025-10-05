@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getRequest } from "../utils/apiClent";
-// import useSecureApi from "./useSecureApi";
-const useGetData = (endPoint, queryKey) => {
-    //  const { secureGetRequest } = useSecureApi();
+import useApi from "./useApi";
+const useGetData = (endPoint, queryKey, isSecure = false) => {
+    const { getRequest } = useApi();
     return useQuery({
         queryKey: [queryKey],
-        queryFn: () => getRequest(endPoint),
+        queryFn: () => getRequest(endPoint, isSecure),
     });
 };
 export default useGetData;

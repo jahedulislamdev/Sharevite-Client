@@ -64,7 +64,7 @@ const AuthContext = ({ children }) => {
       setLoading(true);
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
          if (currentUser) {
-            console.log("User logged in:", currentUser);
+            // console.log("User logged in:", currentUser);
             const userCredential = { email: currentUser?.email };
             // call jwt api and get token
             postRequest("jwt", userCredential);

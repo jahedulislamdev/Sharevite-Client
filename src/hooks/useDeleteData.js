@@ -1,24 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteRequest } from "../utils/apiClent";
 import { toast } from "sonner";
-import useSecureApi from "./useSecureApi";
+import useApi from "./useApi";
 
 const useDeleteData = (
-    ednpoint,
+    endpoint,
     successMessage,
     queryKey,
     isSecure = false,
 ) => {
     const queryClient = useQueryClient();
-    const { secureDeleteRequest } = useSecureApi();
+    const { deleteRequest } = useApi();
     return useMutation({
-        mutationFn: (id) => {
-            if (isSecure) {
-                secureDeleteRequest(ednpoint, id);
-            } else {
-                deleteRequest(ednpoint, id);
-            }
-        },
+        mutationFn: (id) => deleteRequest(endpoint, id, isSecure),
         onSuccess: (res) => {
             console.log(res);
             if (successMessage) {
@@ -26,7 +19,6 @@ const useDeleteData = (
             }
             const keys = Array.isArray(queryKey) ? queryKey : [queryKey];
             keys.forEach((key) => queryClient.invalidateQueries(key));
-
             return res;
         },
     });
