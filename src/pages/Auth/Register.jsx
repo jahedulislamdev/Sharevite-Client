@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaUser, FaEnvelope, FaLock, FaImage, FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useContext";
 import { toast } from "sonner";
 import usePostData from "../../hooks/usePostData";
@@ -10,7 +10,8 @@ const Registration = () => {
    const { registerUser } = useAuthContext();
    const [showPassword, setShowPassword] = useState(false);
    const { register, handleSubmit, formState: { errors } } = useForm();
-   const saveUser = usePostData('users', "রেজিস্ট্রেশন সম্পন্ন হয়েছে!", "users")
+   const { mutate: saveUser } = usePostData('users', "রেজিস্ট্রেশন সম্পন্ন হয়েছে!", "users")
+   const navigate = useNavigate();
 
    const onSubmitForm = (data) => {
       // create an user credential obj without secret password for sending our db
@@ -23,17 +24,17 @@ const Registration = () => {
          .then(() => {
             // we post userCredential to DB (if registration successfull)
             // console.log('bd user info :', userCredential)
-            saveUser.mutate(userCredential)
-
+            saveUser(userCredential);
+            navigate("/login")
          })
          .catch(err => {
             console.log(err)
             if (err.code === "auth/email-already-in-use") {
-               toast.error("You Already Have An Account") // 
+               toast.error("Email already registered.") // 
             } else if (err.code === "auth/network-request-failed") {
                toast.error("Network busy.") // 
             } else {
-               toast.error("Registration Faid! Please Try Again.") // 
+               toast.error("Registration Failed! Please Try Again.") // 
             }
          });
    };

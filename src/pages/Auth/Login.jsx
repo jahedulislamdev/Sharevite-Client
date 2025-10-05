@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { postRequest } from "../../utils/apiClent";
 import { FaEye, FaEyeSlash, FaEnvelope, FaLock } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import OpenForgetPassBox from "../../Components/OpenForgetPassBox";
@@ -17,11 +16,7 @@ const Login = () => {
 
    const onSubmitForm = (data) => {
       loginUser(data.email, data.password)
-         .then(res => {
-            const userImpl = { email: res.user.email } // must be an object
-            // console.log(userImpl)
-            // send user credential to server and verirfy it to jwt access token
-            postRequest("/jwt", userImpl);
+         .then(() => {
             toast.message('Login Successfull!', {
                description: 'Wecolme to The Holy Journy!',
             })
@@ -67,14 +62,14 @@ const Login = () => {
                      placeholder="you@example.com"
                      className={`font-onset input focus:outline-0 w-full ${errors.email ? "border-red-500" : "border-green-800"}`}
                      {...register("email", {
-                        required: "Email is required",
+                        required: "ই-মেইল দিন",
                      })}
                   />
-                  {errors?.email?.message && <p className="text-red-700">{errors.email?.message}</p>}
+                  {errors?.email?.message && <p className="text-red-700 font-noto">{errors.email?.message}</p>}
                </div>
 
                {/* Password */}
-               <div className="form-control my-6">
+               <div className="form-control my-6 ">
                   <div className="label flex justify-between mb-2">
                      <span className="label-text flex items-center gap-2"><FaLock /> পাসওয়ার্ড</span>
                      <button onClick={() => document.getElementById("forgetPassword").showModal()} type="button" href="#" className="text-sm text-green-600  cursor-pointer">
@@ -85,10 +80,10 @@ const Login = () => {
                      <input
                         type={showPassword ? "text" : "password"}
                         placeholder="শক্তিশালী পাসয়ার্ড দিন"
-                        className={`font-onset input focus:outline-0 w-full pr-10 ${errors.password ? "border-red-500" : "border-green-700"}`}
-                        {...register("password", { required: "Password is required" })}
+                        className={`font-noto input focus:outline-0 w-full pr-10 ${errors.password ? "border-red-500" : "border-green-700"}`}
+                        {...register("password", { required: "পাসওয়ার্ড দিন" })}
                      />
-                     {errors?.password?.message && <p className="text-red-700">{errors.password?.message}</p>}
+                     {errors?.password?.message && <p className="text-red-700 font-noto">{errors.password?.message}</p>}
                      <span
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-3 top-3 text-gray-500 cursor-pointer"
