@@ -30,11 +30,11 @@ const Registration = () => {
          .catch(err => {
             console.log(err)
             if (err.code === "auth/email-already-in-use") {
-               toast.error("Email already registered.") // 
+               toast.error("Email already registered.")
             } else if (err.code === "auth/network-request-failed") {
-               toast.error("Network busy.") // 
+               toast.error("Network busy.")
             } else {
-               toast.error("Registration Failed! Please Try Again.") // 
+               toast.error("Registration Failed! Please Try Again.")
             }
          });
    };

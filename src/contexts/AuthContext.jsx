@@ -43,7 +43,6 @@ const AuthContext = ({ children }) => {
    }
    // logout user
    const logoutUser = (navigate) => {
-      console.log(navigate)
       setLoading(true);
       signOut(auth)
          .then(() => {

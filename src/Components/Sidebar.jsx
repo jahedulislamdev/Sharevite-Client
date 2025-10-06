@@ -5,9 +5,9 @@ import GlobalContext from "../contexts/create_global_context";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useContext";
 
-const Sidebar = () => {
+const Sidebar = ({ navlinks }) => {
    const { user, logoutUser } = useAuthContext();
-   const { navLinks, navBrand, autoCloseSidebar } = useContext(GlobalContext);
+   const { navBrand, autoCloseSidebar } = useContext(GlobalContext);
    const navigate = useNavigate();
    return (
       <div className="drawer">
@@ -38,18 +38,12 @@ const Sidebar = () => {
 
                {/* Sidebar items → auto-close on click */}
                <ul className="flex flex-col space-y-5">
-                  {
-                     navLinks?.map((link, idx) =>
-                        <NavLink
-                           onClick={autoCloseSidebar}
-                           key={idx} to={link.path}
-                           className="text-base transition-colors duration-300 py-1 px-3 rounded-lg ">
-                           {link.label}
-                        </NavLink>)
-                  }
+                  {navlinks}
+
                   {!user ?
                      <li onClick={autoCloseSidebar}><NavLink to={'/login'} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl">লগইন/ রেজিষ্ট্রেশন</NavLink></li> :
-                     <li onClick={autoCloseSidebar}><button onClick={() => logoutUser(navigate)} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl cursor-pointer">লগআউট</button></li>}
+                     <li onClick={autoCloseSidebar}><button onClick={() => logoutUser(navigate)} className="hover:bg-[#06510c29] transition-colors duration-500 py-1 px-3 rounded-xl cursor-pointer">লগআউট</button></li>
+                  }
                </ul>
             </div>
          </div>

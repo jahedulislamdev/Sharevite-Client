@@ -15,8 +15,7 @@ const useDeleteData = (
             return await deleteRequest(endpoint, id, isSecure);
         },
         onSuccess: (res) => {
-            console.log(res);
-            if (successMessage) {
+            if (successMessage && res.deletedCount > 0) {
                 toast.success(successMessage);
             }
             const keys = Array.isArray(queryKey) ? queryKey : [queryKey];

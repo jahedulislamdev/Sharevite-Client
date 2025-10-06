@@ -57,6 +57,7 @@ const useApi = () => {
             if (!id) {
                 throw new Error("ID is required for delete request");
             }
+            // I use id endpoint of the url but we can use any unique perameter here like email.
             const url = `${endpoint}/${id}`;
             if (isSecure) {
                 const res = await axiosSecure.delete(url);

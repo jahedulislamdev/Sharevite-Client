@@ -1,3 +1,5 @@
+
+import useAdmin from "../hooks/useAdmin";
 import GlobalContext from "./create_global_context";
 
 const SiteConfigContext = ({ children }) => {
@@ -16,16 +18,10 @@ const SiteConfigContext = ({ children }) => {
          }, 400);
       }
    };
-
    // navbar links it will be dynami later,  data will comes from API.
    const navLinks = [
       { path: '/', label: 'হোম' },
       { path: '/projects', label: ' চলমান প্রকল্প' },
-      // { path: '/my-donations', label: 'আমাদের কার্যক্রম' },
-      // { path: '/my-requests', label: 'গ্যালারি' },
-      // { path: '/add-food', label: 'আমাদের সাথে যুক্ত হোন' },
-      // { path: '/add-food', label: 'ব্লগ' },
-      // { path: '/add-food', label: 'যোগাযোগ' },
       { path: '/dashboard', label: 'ড্যাশবোর্ড' },
    ];
 

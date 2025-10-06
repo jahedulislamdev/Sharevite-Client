@@ -18,7 +18,7 @@ const useAxiosSecure = () => {
         (error) => {
             const status = error?.response?.status;
 
-            if (status === 401 || status === 403) {
+            if (status === 401 || status === 403 || status === 404) {
                 toast.message("Session expired!", {
                     description: "Please log in again",
                     duration: 2000,
@@ -30,8 +30,8 @@ const useAxiosSecure = () => {
                         padding: "12px",
                     },
                 });
-
-                () => logoutUser(navigate); // safe logout call
+                logoutUser(); // safe logout call
+                navigate("/login");
             }
 
             return Promise.reject(error);
