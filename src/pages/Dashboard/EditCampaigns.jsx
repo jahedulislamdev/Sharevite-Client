@@ -21,7 +21,7 @@ const EditCampaigns = () => {
 
    // get single campaign data
    const { id } = useParams();
-   const { data: campaignData, isLoading, error } = useGetData(`/campaign/${id}`, "singleCampaign");
+   const { data: campaignData, isLoading, error } = useGetData(`/campaign/${id}`, "singleCampaign", true);
    // campaign register form
    const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
       defaultValues: {
@@ -52,7 +52,7 @@ const EditCampaigns = () => {
       }
    });
    // call patch request hook 
-   const { mutate: patchCampaignData } = usePatchData(`campaigns/${id}`, "ক্যাম্পেইন সফলভাবে আপডেট হয়েছে", "updatedCampaign");
+   const { mutate: patchCampaignData } = usePatchData(`campaigns/${id}`, "ক্যাম্পেইন সফলভাবে আপডেট হয়েছে", "updatedCampaign", true);
 
    // reset form values when data comes
    useEffect(() => {
@@ -96,7 +96,7 @@ const EditCampaigns = () => {
                // call postimg api
                const postImages = await postImg(data);
 
-               console.log("submitted", data);
+               // console.log("submitted", data);
 
                // send patch request for campaign data    
                const updatedData = { ...data, images: postImages }

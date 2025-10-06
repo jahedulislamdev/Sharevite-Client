@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import useGetData from "../../hooks/useGetData";
 const Users = () => {
-   const { data: users, isLoading, error, isError, isFetching } = useGetData("users", "myUsers")
+   const { data: users, isLoading, error, isError, isFetching } = useGetData("users", "myUsers", true)
    if (isFetching || isLoading) {
       return <p className="min-h-42 flex justify-center items-center">Loading..</p>
    } else if (isError) {

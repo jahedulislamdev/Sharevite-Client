@@ -20,8 +20,6 @@ const Login = () => {
             toast.message('Login Successfull!', {
                description: 'Welcome to The Holy Journey!',
                duration: 1000,
-               style: { backgroundColor: '#22c55e', color: 'white' }
-
             })
             navigate(location.state ? location.state : "/");
          })

@@ -2,14 +2,14 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStat
 import AuthProvider from "./create_auth_context";
 import app from "../services/firebase.config";
 import { useEffect, useState } from "react";
-import useApi from './../hooks/useApi';
 import { toast } from "sonner";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const AuthContext = ({ children }) => {
    const [user, setUser] = useState(null);
    const [loading, setLoading] = useState(true);
    const auth = getAuth(app);
-   const { postRequest } = useApi()
+   const axiosPublic = useAxiosPublic();
    // register with email and password =
    const registerUser = async (email, password) => {
       setLoading(true);
@@ -26,13 +26,14 @@ const AuthContext = ({ children }) => {
 
    // login with google
    const loginWithGoogle = async (navigate, location) => {
+      console.log({ navigate, location })
       setLoading(true);
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
          .then(res => {
             setUser(res.user)
             toast.success("Login Successfull!", { duration: 1000 });
-            navigate(location.state ? location.state : '/')
+            navigate('/')
          })
          .catch((err) => {
             console.log("Error Logging In:", err);
@@ -42,14 +43,14 @@ const AuthContext = ({ children }) => {
    }
    // logout user
    const logoutUser = (navigate) => {
+      console.log(navigate)
       setLoading(true);
       signOut(auth)
          .then(() => {
-            // remove jwt from browser cookies
-            postRequest("logout")
-
             setUser(null)
-            toast.success("Logout Successfull!", { duration: 1000 })
+            // remove jwt token
+            axiosPublic.post('logout')
+            toast.success("Logout successfull!", { duration: 1000 })
             if (navigate) {
                navigate(`/login`)
             }
@@ -64,11 +65,11 @@ const AuthContext = ({ children }) => {
    useEffect(() => {
       setLoading(true);
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+         // setuser to state 
+         // JWT set when user logs in
          if (currentUser) {
-            // console.log("User logged in:", currentUser);
             const userCredential = { email: currentUser?.email };
-            // call jwt api and get token
-            postRequest("jwt", userCredential);
+            axiosPublic.post("jwt", userCredential).catch(err => console.error("Error setting token", err));
          } else {
             console.log("Currently No user logged in");
          }
@@ -76,7 +77,7 @@ const AuthContext = ({ children }) => {
          setLoading(false);
       });
       return () => unsubscribe();
-   }, [postRequest, auth]);
+   }, []);
 
    // provider data
    const data = { user, loading, setLoading, registerUser, loginUser, loginWithGoogle, logoutUser };
