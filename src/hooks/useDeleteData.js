@@ -11,7 +11,9 @@ const useDeleteData = (
     const queryClient = useQueryClient();
     const { deleteRequest } = useApi();
     return useMutation({
-        mutationFn: (id) => deleteRequest(endpoint, id, isSecure),
+        mutationFn: async (id) => {
+            return await deleteRequest(endpoint, id, isSecure);
+        },
         onSuccess: (res) => {
             console.log(res);
             if (successMessage) {

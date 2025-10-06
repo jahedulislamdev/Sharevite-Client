@@ -2,7 +2,6 @@ import { useController, useFieldArray, useForm } from "react-hook-form";
 import { TiDelete } from "react-icons/ti"; import { toast } from "sonner";
 import { useAuthContext, useGlobalContext } from "../../hooks/useContext";
 import handleKeyDown from "../../utils/makeTagInput";
-
 import postImg from "../../utils/postImg_api";
 import { BsUpload } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
@@ -19,6 +18,7 @@ const AddCampaign = () => {
          location: []
       }
    });
+   console.log(errors)
 
    // image controller
    const {
@@ -52,16 +52,18 @@ const AddCampaign = () => {
 
    // form Submit handler
    const onSubmitForm = async (data) => {
+      console.log("hitting")
       try {
          setLoading(true);
          // call postimg api
          const postImages = await postImg(data);
+         console.log(postImages)
 
          // combine uploaded image url with form data
          const updatedData = { ...data, images: postImages, collected: 0 };
-         // console.log("submitted", updatedData);
+         console.log("submitted", updatedData);
 
-         // send post request for campaign data    
+         // send post request for campaign data
          postCampaign(updatedData);
 
          // stop loading and reset form
@@ -148,7 +150,7 @@ const AddCampaign = () => {
                   {locations.map((loc, idx) => (
                      <span
                         key={loc.id}
-                        className="bg-base-300 ms-1 px-3 py-1 rounded-full flex items-center "
+                        className="bg-base-300 ms-1 px-3 py-1 rounded-full flex items-center font-noto"
                      >{loc.tag}
                         <button
                            type="button"
@@ -164,7 +166,7 @@ const AddCampaign = () => {
                   <input
                      onKeyDown={(e) => handleKeyDown(e, locations, addLocation, removeLocation)}
                      type="text"
-                     className="p-3 rounded flex-1 focus:outline-0"
+                     className="p-3 rounded flex-1 focus:outline-0 font-noto"
                      placeholder="অঞ্চলের নাম... "
 
                   />
@@ -201,7 +203,7 @@ const AddCampaign = () => {
 
             {/* Organizer */}
             <div>
-               <label className="block mb-2 font-semibold">দায়িত্বশীল ব্যাক্তি </label>
+               <label className="block mb-2 font-semibold">প্রজেক্ট ম্যানেজার (তত্ত্বাবধায়ক)</label>
                <input
                   type="text"
                   className="border border-gray-400 p-3 rounded w-full focus:outline-0"

@@ -9,7 +9,7 @@ const AuthContext = ({ children }) => {
    const [user, setUser] = useState(null);
    const [loading, setLoading] = useState(true);
    const auth = getAuth(app);
-   // const {postRequest } = useApi()
+   const { postRequest } = useApi()
    // register with email and password =
    const registerUser = async (email, password) => {
       setLoading(true);
@@ -46,7 +46,7 @@ const AuthContext = ({ children }) => {
       signOut(auth)
          .then(() => {
             // remove jwt from browser cookies
-            // postRequest("logout")
+            postRequest("logout")
 
             setUser(null)
             toast.success("Logout Successfull!", { duration: 1000 })
@@ -66,9 +66,9 @@ const AuthContext = ({ children }) => {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
          if (currentUser) {
             // console.log("User logged in:", currentUser);
-            // const userCredential = { email: currentUser?.email };
+            const userCredential = { email: currentUser?.email };
             // call jwt api and get token
-            // postRequest("jwt", userCredential);
+            postRequest("jwt", userCredential);
          } else {
             console.log("Currently No user logged in");
          }
@@ -76,7 +76,7 @@ const AuthContext = ({ children }) => {
          setLoading(false);
       });
       return () => unsubscribe();
-   }, [auth]);
+   }, [postRequest, auth]);
 
    // provider data
    const data = { user, loading, setLoading, registerUser, loginUser, loginWithGoogle, logoutUser };

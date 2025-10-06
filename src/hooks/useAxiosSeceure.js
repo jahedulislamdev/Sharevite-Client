@@ -1,10 +1,6 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "./useContext";
 
 const useAxiosSecure = () => {
-    const { logoutUser } = useAuthContext();
-    const navigate = useNavigate();
     const axiosSecure = axios.create({
         baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/",
         withCredentials: true,
@@ -19,8 +15,6 @@ const useAxiosSecure = () => {
             const status = error?.response?.status;
             if (status === 401 || status === 403) {
                 console.warn("Unautherized! Logging out...");
-                logoutUser();
-                navigate("/login");
                 return Promise.reject(error);
             }
         },
@@ -35,8 +29,6 @@ const useAxiosSecure = () => {
             const status = error?.response?.status;
             if (status === 401 || status === 403) {
                 console.warn("Unautherized! Logging out...");
-                logoutUser();
-                navigate("/login");
                 return Promise.reject(error);
             }
         },

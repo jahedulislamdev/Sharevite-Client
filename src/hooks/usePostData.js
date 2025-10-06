@@ -6,7 +6,9 @@ const usePostData = (endpoint, successMsg, queryKey, isSecure = false) => {
     const queryClient = useQueryClient();
     const { postRequest } = useApi();
     return useMutation({
-        mutationFn: (data) => postRequest(endpoint, data, isSecure),
+        mutationFn: async (data) => {
+            return await postRequest(endpoint, data, isSecure);
+        },
         onSuccess: (res) => {
             // console.log(res);
             if (res.insertedId || successMsg) {
@@ -19,6 +21,13 @@ const usePostData = (endpoint, successMsg, queryKey, isSecure = false) => {
                 // queryClient.invalidateQueries([queryKey])
             }
             return res;
+        },
+        onError: (err) => {
+            toast.error(
+                err?.response?.data?.message ||
+                    err.message ||
+                    "কিছু ভুল হয়েছে, আবার চেষ্টা করুন",
+            );
         },
     });
 };

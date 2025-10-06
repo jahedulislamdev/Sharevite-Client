@@ -16,13 +16,14 @@ const Campaigns = () => {
    // handleDelete 
    const handleDeleteCampaigns = (id) => {
       Swal.fire({
-         title: "Are you sure?",
-         text: "You won't be able to revert this!",
+         title: "আপনি কি নিশ্চিত?",
+         text: "আপনি এটি আর পূর্বাবস্থায় ফিরিয়ে আনতে পারবেন না!",
          icon: "warning",
          showCancelButton: true,
          confirmButtonColor: "#3085d6",
          cancelButtonColor: "#d33",
-         confirmButtonText: "Yes, delete it!"
+         confirmButtonText: "ডিলিট করুন",
+         cancelButtonText: "বাতিল"
       }).then((result) => {
          if (result.isConfirmed) {
             deleteCampaign(id);
@@ -40,7 +41,7 @@ const Campaigns = () => {
    if (error) return <ContentError />;
 
    return (
-      <div className="overflow-x-auto bg-base-200 shadow rounded-lg">
+      <div className="overflow-x-auto shadow rounded-lg">
          <table className="table w-full text-sm">
             <thead className="bg-base-100">
                <tr className="font-hind text-lg text-gray-500">
@@ -53,7 +54,7 @@ const Campaigns = () => {
             </thead>
             <tbody>
                {campaigns.map((cam, idx) => (
-                  <tr key={cam._id} className="hover:bg-base-300">
+                  <tr key={cam._id} className="hover:bg-base-200 transition-colors duration-300">
                      {/* Serial */}
                      <td className="text-center">{idx + 1}</td>
 
