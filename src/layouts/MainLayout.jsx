@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 // import Footer from "../Components/Footer";
-// import Nav from "../Components/Navbar";
-import UseScroll from "../hooks/useScroll";
+// import Nav from "../Components/Navbar"; 
 import { Toaster } from "sonner";
 import Footer from "../Components/Shared/Footer";
 import Navbar from "../Components/Shared/Navbar";
+import UseScroll from "../hooks/UseScroll";
 
 const MainLayout = () => {
    return (

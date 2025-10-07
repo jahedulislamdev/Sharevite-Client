@@ -38,12 +38,6 @@ const JoinUsSection = () => {
             <p className="subtitle mb-10">
                নিচের যে কোনো পদক্ষেপে আমাদের সাথে যুক্ত হয়ে আত্মমানবতার সেবায় ভূমিকা রাখতে পারেন।
             </p>
-            {/* <div className="flex justify-between *:">
-               <div className="min-w-32 h-32 bg-[#00800045] text-green-300 flex justify-center items-center font-semibold text-2xl p-1">Hello World</div>
-               <div className="min-w-32 h-32 bg-[#ffff0010] flex justify-center items-center font-semibold text-2xl p-1">Hello World</div>
-               <div className="min-w-32 h-32 bg-[#2b80ff11] flex justify-center items-center font-semibold text-2xl p-1">Hello World</div>
-               <div className="min-w-32 h-32 bg-[#9810fa10] flex justify-center items-center font-semibold text-2xl p-1">Hello World</div>
-            </div> */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                {joinOptions.map((option) => (
                   <Link

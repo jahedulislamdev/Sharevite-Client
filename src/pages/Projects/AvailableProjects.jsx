@@ -1,6 +1,6 @@
 import { BiSolidDonateHeart } from "react-icons/bi";
 import { MdArrowOutward } from "react-icons/md";
-import useGetData from "../hooks/useGetData";
+import useGetData from "../../hooks/useGetData";
 import { Link } from "react-router-dom";
 
 const AvailableProjects = () => {

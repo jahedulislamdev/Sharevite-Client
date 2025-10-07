@@ -1,7 +1,6 @@
 import About from "./Components/About";
-import AvailableProjects from "./Components/AvailableProjects";
+import AvailableProjects from "./pages/Projects/AvailableProjects";
 import Banner from "./Components/Banner";
-import BlogSection from "./Components/Blog";
 import Gallery from "./Components/Gallery";
 import JoinUsSection from "./Components/JoinUs";
 import Services from "./Components/Services";
@@ -13,7 +12,6 @@ const App = () => {
         <Services />
         <AvailableProjects />
         <About />
-        <BlogSection />
         <JoinUsSection />
         <Gallery />
       </div>

@@ -13,7 +13,9 @@ import NotFound from "../pages/Error/NotFound";
 import Users from "../pages/Dashboard/Users";
 import Login from "../pages/Auth/Login";
 import Private from "./PrivateRoutes";
+import AdminRoutes from './AdminRoutes';
 import App from "../App";
+import Blog from "../pages/Blogs/Blog";
 
 
 const router = createBrowserRouter([
@@ -26,12 +28,12 @@ const router = createBrowserRouter([
          { path: "/register", element: <Registration /> },
          { path: "/projects", element: <AllCampaigns /> },
          { path: "/project/details/:id", element: <ProjectDetails /> },
-         { path: "overview", element: <Overview /> },
+         { path: "/blog", element: <Blog /> },
       ]
    },
    // Dashboard routes
    {
-      path: "/dashboard", element: <AdminPanel />,
+      path: "/dashboard", element: <AdminRoutes><AdminPanel /></AdminRoutes>,
       children: [
          { path: "/dashboard", element: <Overview /> },
          { path: "overview", element: <Overview /> },

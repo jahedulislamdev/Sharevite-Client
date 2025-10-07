@@ -1,5 +1,3 @@
-
-import useAdmin from "../hooks/useAdmin";
 import GlobalContext from "./create_global_context";
 
 const SiteConfigContext = ({ children }) => {
