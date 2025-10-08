@@ -23,9 +23,8 @@ const useAxiosSecure = () => {
                     description: "Please log in again",
                     duration: 2000,
                     style: {
-                        backgroundColor: "#22c55e",
+                        backgroundColor: "#5e3a3f",
                         color: "white",
-                        fontWeight: "500",
                         borderRadius: "8px",
                         padding: "12px",
                     },
