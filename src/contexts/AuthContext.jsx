@@ -10,6 +10,7 @@ const AuthContext = ({ children }) => {
    const [loading, setLoading] = useState(true);
    const auth = getAuth(app);
    const axiosPublic = useAxiosPublic();
+
    // register with email and password =
    const registerUser = async (email, password) => {
       setLoading(true);
@@ -31,13 +32,16 @@ const AuthContext = ({ children }) => {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
          .then(res => {
+            console.log(res.user)
+            console.log(res.user.uid)
+
             setUser(res.user)
             toast.success("Login Successfull!", { duration: 1000 });
             navigate('/')
          })
          .catch((err) => {
             console.log("Error Logging In:", err);
-            alert("Error Logging In");
+            toast.error("Faild Logging In! Try Again.");
          })
          .finally(() => setLoading(false));
    }

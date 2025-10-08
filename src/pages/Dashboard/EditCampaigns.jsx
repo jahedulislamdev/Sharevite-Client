@@ -186,7 +186,6 @@ const EditCampaigns = () => {
                <label className="block mb-2 font-semibold">সংক্ষিপ্ত বর্ননা *</label>
                <textarea
                   type="text"
-                  value={campaignData?.shortDescription}
                   className={`border ${errors.shortDescription ? "border-red-600" : "border-gray-400"} p-3 rounded w-full focus:outline-0 h-12`}
                   placeholder="ক্যাম্পেইনের সংক্ষিপ্ত একটি বর্ননা লিখুন"
                   {...register("shortDescription", { required: "সংক্ষিপ্ত একটি বর্ননা দিন" })}

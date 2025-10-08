@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { BiSolidEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
+import { CiLocationOn } from "react-icons/ci";
 
 const Campaigns = () => {
    const { data: campaigns, isLoading, error } = useGetData("campaigns", "allCampaigns");
@@ -79,9 +80,9 @@ const Campaigns = () => {
                            {cam.location.map((l, i) => (
                               <span
                                  key={i}
-                                 className="px-2 py-0.5 rounded bg-green-100 text-green-700 text-xs"
+                                 className="px-2 py-0.5 rounded-xl bg-base-200 text-green-700 text-xs"
                               >
-                                 {l.tag}
+                                 <CiLocationOn /> {l.tag}
                               </span>
                            ))}
                         </div>

@@ -21,10 +21,12 @@ const Registration = () => {
 
       //call firebse register
       registerUser(data.userEmail, data.password)
-         .then(() => {
+         .then((res) => {
+            console.log(res.user) // "nkRoBi6M2jYYvkKsrXw6unRgkIA2" "nkRoBi6M2jYYvkKsrXw6unRgkIA2"
             // we post userCredential to DB (if registration successfull)
             // console.log('bd user info :', userCredential)
-            saveUser(userCredential);
+            const updatedUserCredential = { ...userCredential, uId: res.user.uid, }
+            saveUser(updatedUserCredential);
             navigate("/login")
          })
          .catch(err => {

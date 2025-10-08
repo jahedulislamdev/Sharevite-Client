@@ -4,15 +4,15 @@ import { Navigate } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 
 const AdminRoutes = ({ children }) => {
-   const { user, loading } = useAuthContext();
+   const { user } = useAuthContext();
    const [isAdmin, isAdminLoading] = useAdmin();
 
-   if (loading || isAdminLoading) {
+   if (isAdminLoading) {
       return <PageLoading />
    } else if (user && isAdmin) {
-      return children
+      return children;
    }
-   return <Navigate to={'/'} replace></Navigate>
+   return <Navigate to={'/'}></Navigate>
 };
 
 export default AdminRoutes;

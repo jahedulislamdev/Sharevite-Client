@@ -17,7 +17,7 @@ const Login = () => {
    const onSubmitForm = (data) => {
       loginUser(data.email, data.password)
          .then((res) => {
-            console.log(res.data)
+            console.log(res.user) // "NEeFSTPZfJRIj8JLEO02CT2rDam2" "NEeFSTPZfJRIj8JLEO02CT2rDam2"
             toast.message('Login Successfull!', {
                description: 'Welcome to The Holy Journey!',
                duration: 1000,

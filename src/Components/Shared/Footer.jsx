@@ -76,9 +76,9 @@ export default function Footer() {
          </div>
 
          {/* Bottom Text */}
-         <div className="mt-12 text-center text-gray-400 text-sm border-t border-green-800 pt-5 relative z-50">
+         <div className="mt-12 text-center text-gray-400 text-sm border-t border-green-800 pt-5 relative z-50 font-onset">
             © {new Date().getFullYear()}{" "}
-            <span className="text-green-400 font-semibold">{navBrand.logoText}</span>.
+            <span className="text-green-400 font-semibold font-hind">{navBrand.logoText}</span>.
             Developed with <span className="text-red-500">❤️</span> by{" "}
             <a
                href="https://jahedulislam.dev"

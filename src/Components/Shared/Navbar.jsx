@@ -49,22 +49,22 @@ const Navbar = () => {
                {user ?
                   <div>
                      <div className="dropdown dropdown-left font-noto">
-                        <img tabIndex={0} role="button" className="w-7 h-7 rounded-full inline-block" src={user?.photoUrl || "https://i.postimg.cc/fbZgL13k/image.png"} />
+                        <img tabIndex={0} role="button" className="w-7 h-7 rounded-full inline-block" src={user?.photoURL || "https://i.postimg.cc/fbZgL13k/image.png"} />
                         <ul tabIndex={0} className="mt-9 dropdown-content menu bg-base-300 rounded-box  min-w-64 z-1 p-2 shadow-sm">
                            <div className="p-2 pb-3 flex gap-x-3 cursor-default">
-                              <img className="w-10 h-10 rounded-full object-cover" src={user?.photoUrl || "https://i.postimg.cc/fbZgL13k/image.png"} alt="profile" />
-                              <div className="opacity-80">
+                              <img className="w-10 h-10 rounded-full object-cover" src={user?.photoURL || "https://i.postimg.cc/fbZgL13k/image.png"} alt="profile" />
+                              <div className="opacity-80 font-onset">
                                  <h3 className="font-semibold leading-5">{user?.displayName || "Anonymous User"}</h3>
                                  <p className="font-light leading-4 text-xs">{user?.email}</p>
                               </div>
                            </div>
                            <p className="border-b border-base-100"></p>
-                           <div className="mt-3 px-3 font-semibold opacity-70">
+                           <div className="mt-3 px-3 font-semibold opacity-80">
                               <Link className="flex items-center gap-2 p-3 hover:bg-base-100 duration-300 rounded-lg"><FaRegUser className="size-4.5" />প্রোফাইল</Link>
                               <Link className="flex items-center gap-2 p-3 hover:bg-base-100 duration-300 rounded-lg"><FaHistory className="size-4.5" />অনুদানসমূহ</Link>
                               <Link className="flex items-center gap-2 p-3 hover:bg-base-100 duration-300 rounded-lg"><FaRegHandshake className="size-5" />অনুদানের পেতে আবেদন করুন</Link>
                               <p className="border-b border-base-300 my-1"></p>
-                              <button onClick={() => logoutUser(navigate)} className="flex items-center gap-2 p-3 w-full rounded-lg mt-1 bg-red-900 text-white"><BiLogOut className="size-5" />লগআউট </button>
+                              <button onClick={() => logoutUser(navigate)} className="flex items-center gap-2 p-3 w-full rounded-lg mt-1 hover:bg-red-900 hover:text-white duration-300 transition-colors"><BiLogOut className="size-5" />লগআউট </button>
                            </div>
                         </ul>
                      </div>

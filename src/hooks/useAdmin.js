@@ -10,7 +10,7 @@ const useAdmin = () => {
         enabled: !!user?.email && !loading, // queryfn run after loading user
         queryFn: async () => {
             const res = await getRequest(`users/admin/${user?.email}`);
-            console.log(res);
+            // console.log(res);
             return res.admin; // return true or false (boolean)
         },
     });

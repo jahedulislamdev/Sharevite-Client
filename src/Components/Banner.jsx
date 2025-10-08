@@ -10,7 +10,7 @@ const Banner = () => {
             />
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-black/80 flex items-center">
+            <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/80  to-black/25 flex items-center">
                <div className="max-w-4xl px-6 md:px-16 space-y-4 md:space-y-6">
                   {/* Title */}
                   <h1 className="font-hind sm:text-lg md:text-4xl md:font-extrabold text-white leading-snug drop-shadow-lg line-clamp-2 md:line-clamp-3">

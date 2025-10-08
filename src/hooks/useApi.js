@@ -19,7 +19,7 @@ const useApi = () => {
                 return res.data;
             }
         } catch (error) {
-            console.error("Post Request Failed :", error);
+            console.error("POST Request Failed :", error);
             throw error;
         }
     };
@@ -33,7 +33,7 @@ const useApi = () => {
                 return res.data;
             }
         } catch (error) {
-            console.error("Get Request Failed:", error);
+            console.error("GET Request Failed:", error);
             throw error;
         }
     };
@@ -47,7 +47,21 @@ const useApi = () => {
                 return res.data;
             }
         } catch (error) {
-            console.error("Patch Request Faield: ", error);
+            console.error("PATCH Request Faield: ", error);
+            throw error;
+        }
+    };
+    const putRequest = async (endpoint, data, isSecure = false) => {
+        try {
+            if (isSecure) {
+                const res = await axiosSecure.put(endpoint, data);
+                return res.data;
+            } else {
+                const res = await axiosPublic.put(endpoint, data);
+                return res.data;
+            }
+        } catch (error) {
+            console.error("PUT Request Faild", error);
             throw error;
         }
     };
@@ -76,6 +90,7 @@ const useApi = () => {
         getRequest,
         postRequest,
         patchRequest,
+        putRequest,
         deleteRequest,
     };
 };
