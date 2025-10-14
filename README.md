@@ -7,10 +7,12 @@
 <p align="center">
   <img src="https://img.shields.io/badge/React-18-blue?logo=react" />
   <img src="https://img.shields.io/badge/TailwindCSS-v3-38BDF8?logo=tailwindcss" />
+  <img src="https://img.shields.io/badge/DaisyUI-v4-FFCA28?logo=daisyui" />
   <img src="https://img.shields.io/badge/Node.js-Express-339933?logo=node.js" />
   <img src="https://img.shields.io/badge/MongoDB-Atlas-green?logo=mongodb" />
   <img src="https://img.shields.io/badge/License-MIT-yellow" />
 </p>
+
 
 ---
 
