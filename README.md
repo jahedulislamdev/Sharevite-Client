@@ -62,7 +62,5 @@ ShareVite bridges the gap between **goodwill and technology**, providing a unifi
 3. **Volunteers** join, assist, and track progress.  
 4. **Everyone** can read impact blogs and see real-time updates.
 
----
-
-## 🗂️ Folder Structure
+--- 
 
