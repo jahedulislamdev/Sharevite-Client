@@ -1,4 +1,4 @@
-<h1 align="center">🌍 ShareVite</h1>
+<h1 align="center"> ShareVite</h1>
 <p align="center">
   <i>A Modern Charity & Community Management System — Empowering Change Through Technology</i><br/>
   <strong>Built with ❤️ using MERN + Firebase + Tailwind</strong>
