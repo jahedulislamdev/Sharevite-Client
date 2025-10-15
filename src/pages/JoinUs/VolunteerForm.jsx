@@ -9,17 +9,30 @@ const VolunteerForm = () => {
    };
 
    return (
-      <div className="font-noto max-w-5xl mx-auto  rounded-2xl shadow p-10 mt-10  shadow-green-700/35">
-         {/* Header*/}
-         <div className="text-center p-10 mb-8 bg-green-800 text-white rounded-t-2xl">
-            <h2 className="text-3xl font-bold mb-2 font-hind text-gray-300">স্বেচ্ছাসেবক নিবন্ধন</h2>
-            <p>
-               ফাউন্ডেশনের অধীনে মানবকল্যানমূলক কাজে অংশ নিতে স্বেচ্ছাসেবক হতে চাইলে নিচের ফর্মটি সঠিকভাবে পূরণ করুন।
-            </p>
-         </div>
+      <div className="font-noto ">
+         {/* banner and introductory seciton */}
+         <section className="flex">
+            <div className="space-y-3 py-5">
+               <h2 className="font-semibold font-hind text-3xl">আমাদের সহযোগী হোন</h2>
+               <p className="subtitle text-lg">এই ফাউন্ডেশনের স্বেচ্ছাসেবক হয়ে সমাজ পরিবর্তনের সাথী হোন। আল্লাহর সন্তুষ্টির উদ্দেশ্যে নিজেকে নিয়োজিত করুন মানবসেবায়।</p>
+               <img className="w-[600px] h-[400px] object-center rounded-2xl" src="https://floatingdoctors.com/wp-content/uploads/2022/11/20170503DSC00033-2-1024x683.jpg" alt="volunteerBanner" />
+            </div>
+            <div>
+               <h2>স্বেচ্ছাসেবক হওয়ার নিয়ম ও শর্তাবলি:</h2>
+
+            </div>
+         </section>
 
          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmitVolunteerForm)} className="space-y-10">
+            <form onSubmit={methods.handleSubmit(onSubmitVolunteerForm)} className="space-y-10 max-w-5xl mx-auto  rounded-2xl shadow p-10 mt-10  shadow-green-700/35">
+               {/* Header*/}
+               <header className="text-center p-10 mb-8 bg-green-800 text-white rounded-t-2xl">
+                  <h2 className="text-3xl font-bold mb-2 font-hind text-gray-300">স্বেচ্ছাসেবক নিবন্ধন</h2>
+                  <p>
+                     ফাউন্ডেশনের অধীনে মানবকল্যানমূলক কাজে অংশ নিতে স্বেচ্ছাসেবক হতে চাইলে নিচের ফর্মটি সঠিকভাবে পূরণ করুন।
+                  </p>
+               </header>
+
                {/* ব্যক্তিগত তথ্য*/}
                <section className="p-5 rounded-lg  shadow-xs shadow-green-700/50">
                   <h3 className="text-xl title font-semibold  mb-4 border-l-4 pl-3 border-l-green-800 ">

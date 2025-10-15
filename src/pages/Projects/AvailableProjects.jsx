@@ -62,7 +62,7 @@ const AvailableProjects = () => {
                         {project.title}
                         <span className="absolute left-0 -bottom-2 w-12 h-1 bg-green-500 rounded-full"></span>
                      </h3>
-                     <p className="opacity-60 text-sm md:text-base leading-relaxed mt-4">
+                     <p className="subtitle text-sm md:text-base leading-relaxed mt-4">
                         {project.shortDescription}।
                      </p>
                      {/* collected amount tracking */}

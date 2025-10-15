@@ -32,7 +32,7 @@
 }
 
 .subtitle {
-    @apply opacity-50 font-noto;
+    @apply opacity-60 font-noto;
 }
 .active {
     font-weight: 900;
