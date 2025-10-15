@@ -86,7 +86,7 @@ export default function Footer() {
                rel="noopener noreferrer"
                className="text-green-400 hover:text-white transition"
             >
-               JahedulIslamdev
+               Jishan
             </a>
          </div>
       </footer>

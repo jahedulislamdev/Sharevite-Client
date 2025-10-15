@@ -30,7 +30,7 @@ const joinOptions = [
 
 const JoinUsCover = () => {
    return (
-      <section className="py-7 md:py-16 font-hind border border-dashed border-green-200 rounded-xl">
+      <section className="py-7 md:py-16 font-hind border border-dashed border-green-900 rounded-xl">
          <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-3xl md:text-4xl font-bold title mb-4">
                আমাদের সাথে যুক্ত হন

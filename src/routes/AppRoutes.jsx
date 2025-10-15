@@ -1,8 +1,8 @@
 import ProjectDetails from "../pages/Projects/ProjectDetails";
 import EditCampaigns from "../pages/Dashboard/EditCampaigns";
+import DashboardLayout from './../layouts/DashboardLayout';
 import AllCampaigns from "../pages/Projects/AllCampaign";
 import AddCampaign from "../pages/Dashboard/AddCampaign";
-import AdminPanel from "../pages/Dashboard/AdminPanel";
 import { createBrowserRouter } from "react-router-dom";
 import Campaigns from "../pages/Dashboard/Campaigns";
 import Overview from "../pages/Dashboard/Overview";
@@ -16,7 +16,6 @@ import Private from "./PrivateRoutes";
 import AdminRoutes from './AdminRoutes';
 import App from "../App";
 import Blog from "../pages/Blogs/Blog";
-import DashboardLayout from './../layouts/DashboardLayout';
 
 
 const router = createBrowserRouter([
@@ -34,7 +33,7 @@ const router = createBrowserRouter([
    },
    // Dashboard routes
    {
-      path: "/dashboard", element: <DashboardLayout />,
+      path: "/dashboard", element: <AdminRoutes><DashboardLayout /></AdminRoutes>,
       children: [
          { path: "/dashboard", element: <Overview /> },
          { path: "overview", element: <Overview /> },
