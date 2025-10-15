@@ -16,6 +16,7 @@ import Private from "./PrivateRoutes";
 import AdminRoutes from './AdminRoutes';
 import App from "../App";
 import Blog from "../pages/Blogs/Blog";
+import JoinUsMain from "../pages/JoinUs/JoinUsMain";
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
          { path: "/projects", element: <AllCampaigns /> },
          { path: "/project/details/:id", element: <ProjectDetails /> },
          { path: "/blog", element: <Blog /> },
+         { path: "/joinus", element: <JoinUsMain /> }
       ]
    },
    // Dashboard routes

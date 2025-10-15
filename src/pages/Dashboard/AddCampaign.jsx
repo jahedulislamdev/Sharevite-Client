@@ -102,7 +102,7 @@ const AddCampaign = () => {
             {/* Created At */}
             <div>
                <label className="block mb-2 font-semibold">
-                  শুরুর তারিখ <span className="badge badge-sm badge-error badge-soft">(পরিবর্তনযোগ্য নয়)</span>
+                  শুরুর তারিখ <span className="badge badge-sm badge-accent badge-soft">(পরিবর্তনযোগ্য নয়)</span>
                </label>
                <input
                   type="text"
@@ -223,7 +223,7 @@ const AddCampaign = () => {
 
             {/* Image Upload */}
             <div className="md:col-span-2">
-               <label className="block mb-2 font-semibold">ক্যাম্পেইনের ছবি * <span className="text-xs text-green-500">(প্রথম ছবিটি ক্যাম্পেইনের ব্যানার হিসাবে দেখানো হবে)</span></label>
+               <label className="block mb-2 font-semibold">ক্যাম্পেইনের ছবি * <span className="badge badge-sm badge-accent badge-soft">(প্রথম ছবিটি ক্যাম্পেইনের ব্যানার হিসাবে দেখানো হবে)</span></label>
                {/* drag or upload section */}
                <div className="md:flex items-center gap-3">
                   <div onClick={() => document.getElementById("imageFileUpload").click()}

@@ -3,28 +3,32 @@ import { Link } from "react-router-dom";
 
 const joinOptions = [
    {
+      id: 3,
+      title: "স্বেচ্ছাসেবক",
+      icon: <FaHandsHelping size={40} />,
+      color: "bg-yellow-900",
+      link: "/joinus?form=volunteer"
+   },
+   {
       id: 1,
       title: "নিয়মিত দাতা",
       icon: <FaHandHoldingHeart size={40} />,
       color: "bg-green-900",
+      link: "/joinus?form=regulerDoner"
    },
    {
       id: 2,
       title: "আজীবন ও দাতা সদস্য",
       icon: <FaBoxOpen size={40} />,
       color: "bg-blue-900",
-   },
-   {
-      id: 3,
-      title: "স্বেচ্ছাসেবক",
-      icon: <FaHandsHelping size={40} />,
-      color: "bg-yellow-900",
+      link: "/joinus?form=lifetimeMember"
    },
    {
       id: 4,
       title: "ক্যারিয়ার",
       icon: <FaBriefcase size={40} />,
       color: "bg-pink-900",
+      link: "/joinus?form=career"
    },
 ];
 
@@ -40,7 +44,7 @@ const JoinUsCover = () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                {joinOptions.map((option) => (
-                  <Link
+                  <Link to={option.link}
                      key={option.id}
                      className={`flex flex-col items-center justify-center p-8 rounded-2xl shadow-md hover:shadow-xl duration-300 ${option.color} text-white`}
                   >
