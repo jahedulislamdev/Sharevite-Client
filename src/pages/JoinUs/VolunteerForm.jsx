@@ -1,7 +1,15 @@
 import { FormProvider, useForm } from "react-hook-form";
 import RHFInput from "../../Components/Form/RHFInput";
 import RHFSelect from "../../Components/Form/RHFselect";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
+const rules =
+   [
+      "এই ফাউন্ডেশনের নীতি ও আদর্শের প্রতি একমত হতে হবে।",
+      "সেবামূলক কাজে আগ্রহী হতে হবে।",
+      "কোনোরূপ পারিশ্রমিকের প্রত্যাশা করা যাবে না।",
+      "প্রকল্প বাস্তবায়নে আমনতাদরি বজায় রাখতে হবে।"
+   ]
 const VolunteerForm = () => {
    const methods = useForm();
    const onSubmitVolunteerForm = (data) => {
@@ -11,30 +19,38 @@ const VolunteerForm = () => {
    return (
       <div className="font-noto ">
          {/* banner and introductory seciton */}
-         <section className="flex">
-            <div className="space-y-3 py-5">
-               <h2 className="font-semibold font-hind text-3xl">আমাদের সহযোগী হোন</h2>
+         <section className="md:flex gap-x-6">
+            <div className="space-y-3 py-5 flex-1 p-5">
+               <h2 className="font-semibold font-hind text-xl">আমাদের সহযোগী হোন</h2>
                <p className="subtitle text-lg">এই ফাউন্ডেশনের স্বেচ্ছাসেবক হয়ে সমাজ পরিবর্তনের সাথী হোন। আল্লাহর সন্তুষ্টির উদ্দেশ্যে নিজেকে নিয়োজিত করুন মানবসেবায়।</p>
-               <img className="w-[600px] h-[400px] object-center rounded-2xl" src="https://floatingdoctors.com/wp-content/uploads/2022/11/20170503DSC00033-2-1024x683.jpg" alt="volunteerBanner" />
+               <img className="w-full md:w-[600px] h-[200px] md:h-[300px] object-center rounded-2xl" src="https://floatingdoctors.com/wp-content/uploads/2022/11/20170503DSC00033-2-1024x683.jpg" alt="volunteerBanner" />
             </div>
-            <div>
-               <h2>স্বেচ্ছাসেবক হওয়ার নিয়ম ও শর্তাবলি:</h2>
-
+            <div className="flex-1 p-5 space-y-5">
+               <h2 className="text-2xl font-semibold title">স্বেচ্ছাসেবক হওয়ার নিয়ম ও শর্তাবলি:</h2>
+               <div className="bg-base-200 p-5 space-y-4 mt-5 rounded-2xl">
+                  {
+                     rules?.map(((r, idx) => <div className="text-xl flex gap-x-2.5 items-center" key={idx}><p><IoMdCheckmarkCircleOutline className="size-6 text-green-700" /></p>{r}</div>))
+                  }
+               </div>
+               <div className="bg-base-200 p-5 mt-5 rounded-2xl font-semibold">
+                  <p className="text-xl text-center">মানুষের মধ্যে সর্বোত্তম সেই ব্যক্তি, যে মানুষের উপকার করে। (সহীহ আল-জামে আস-সগীর, ৩২৮৯)</p>
+               </div>
             </div>
          </section>
+         <p className="px-5 text-lg">আসুন, আমরা মানুষের জন্য কিছু করি। আপনার সদিচ্ছা ও সময় বদলে দিতে পারে কোনো অসহায় মানুষের দিন। নিজেকে নিবেদিত করুন দাওয়াহ, সেবামূলক ও মানবিক কাজে। এখনই যুক্ত হোন আমাদের স্বেচ্ছাসেবক টিমে!</p>
 
          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmitVolunteerForm)} className="space-y-10 max-w-5xl mx-auto  rounded-2xl shadow p-10 mt-10  shadow-green-700/35">
+            <form onSubmit={methods.handleSubmit(onSubmitVolunteerForm)} className="space-y-10 max-w-5xl mx-auto rounded-2xl sm:shadow  md:p-10 mt-10  shadow-green-700/35">
                {/* Header*/}
-               <header className="text-center p-10 mb-8 bg-green-800 text-white rounded-t-2xl">
-                  <h2 className="text-3xl font-bold mb-2 font-hind text-gray-300">স্বেচ্ছাসেবক নিবন্ধন</h2>
-                  <p>
+               <header className="text-center p-5 md:p-10 mb-8 bg-green-800 text-white rounded-t-2xl">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2 font-hind text-gray-300">স্বেচ্ছাসেবক নিবন্ধন</h2>
+                  <p className="text-sm md:text-base">
                      ফাউন্ডেশনের অধীনে মানবকল্যানমূলক কাজে অংশ নিতে স্বেচ্ছাসেবক হতে চাইলে নিচের ফর্মটি সঠিকভাবে পূরণ করুন।
                   </p>
                </header>
 
                {/* ব্যক্তিগত তথ্য*/}
-               <section className="p-5 rounded-lg  shadow-xs shadow-green-700/50">
+               <section className="p-5 rounded-lg shadow-xs shadow-green-700/50">
                   <h3 className="text-xl title font-semibold  mb-4 border-l-4 pl-3 border-l-green-800 ">
                      ব্যক্তিগত তথ্য
                   </h3>
@@ -111,13 +127,16 @@ const VolunteerForm = () => {
                      <RHFInput name="lastInstitution" label="সর্বশেষ শিক্ষা প্রতিষ্ঠানের নাম" required />
                   </div>
                </section>
+               <section className="p-5 rounded-lg shadow-xs shadow-green-700/50">
+                  <input type="file" name="" id="" />
+               </section>
 
                {/* Submit*/}
                <button
                   type="submit"
                   className="bg-green-700 font-hind hover:bg-green-800 text-white px-10 py-3 rounded-lg text-lg font-semibold shadow-md transition-all duration-300"
                >
-                  সাবমিট করুন
+                  আবেদন করুন
                </button>
             </form>
          </FormProvider>

@@ -48,18 +48,18 @@ const JoinUsMain = () => {
             </h2>
             <p className="font-noto text-lg subtitle leading-relaxed">
                মানবতার সেবায় এগিয়ে আসুন — স্বেচ্ছাসেবক, দাতা বা আজীবন সদস্য হিসেবে যুক্ত হয়ে
-               সমাজ পরিবর্তনের অংশ হোন। <br />
+               সমাজ পরিবর্তনের অংশ হোন। <br className="hidden sm:block" />
                নিচের ট্যাব থেকে একটি নির্বাচন করুন।
             </p>
          </div>
 
          {/* Tabs */}
-         <nav className="flex flex-wrap justify-center gap-x-5 md:gap-x-10 p-4 mb-6 shadow-xs rounded-2xl shadow-green-700 mx-auto">
+         <nav className="flex justify-between md:justify-center gap-x-1 sm:gap-x-5 md:gap-x-10 p-4 mb-6 shadow-xs rounded-2xl shadow-green-700 mx-auto">
             {joinOptions.map((opt) => (
                <button
                   key={opt.id}
                   onClick={() => setSelectedForm(opt.form)}
-                  className={`py-2 px-10 rounded-lg font-hind text-lg font-semibold transition-all duration-300 ${selectedForm === opt.form
+                  className={`py-2 px-2 rounded-lg font-hind text-xs sm:text-lg font-semibold transition-all duration-300 ${selectedForm === opt.form
                      ? "bg-green-700 text-white shadow-md"
                      : "bg-base-100 hover:bg-base-300"
                      }`}

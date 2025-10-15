@@ -7,7 +7,7 @@ const AllCampaigns = () => {
    const { data: allProjects, isLoading, error } = useGetData("campaigns", "allProjects");
 
    if (isLoading) return <div className="flex justify-center items-center h-52"><span className="loading loading-spinner loading-md"></span></div>;
-   if (error) return <p className="text-center text-red-500">Something went wrong!</p>;
+   if (error) return <p className="text-center text-red-500 min-h-screen flex justify-center items-center">Something went wrong!</p>;
 
    return (
       <div className="py-8">
