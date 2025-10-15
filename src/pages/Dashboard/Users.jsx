@@ -39,6 +39,9 @@ const Users = () => {
 
    return (
       <div>
+         <div>
+
+         </div>
          {!users ? <p className="text-center">No User Found!</p> :
             <div className="overflow-x-auto rounded-box border border-[#00800061] bg-base-100">
                <table className="table">
@@ -73,14 +76,20 @@ const Users = () => {
                                  </div>
                               </td>
                               <td >{user.name}</td>
-                              <td>{user?.role === "admin" ? "admin" : "User"}</td>
+                              <td className=" "><span className={`badge badge-primary badge-soft ${user?.role === "admin" && "badge-success"}`} >{user?.role === "admin" ? "admin" : "User"}</span></td>
                               <td>{user.email}</td>
-                              {/* <td>{new Date(user.createdAt).toLocaleString("en-BD", { dateStyle: "medium", timeStyle: "short" })}</td>
-                              <td>{new Date(user.updatedAt).toLocaleString("en-BD", { dateStyle: "medium", timeStyle: "short" })}</td> */}
                               <td className=" space-x-2 text-white">
-                                 <button className="p-2 bg-sky-700 rounded-full cursor-pointer"><IoMdEye className="size-5" /></button>
+                                 <label htmlFor="showUserDetails" className="p-2 bg-sky-700 rounded-full cursor-pointer inline-block"><IoMdEye className="size-5" /></label>
                                  <button onClick={() => handleDeleteUser(user.email)} className="p-2 bg-red-600 rounded-full cursor-pointer inline-block"><MdDelete className="size-5" /></button>
                               </td>
+                              <input type="checkbox" id="showUserDetails" className="modal-toggle" />
+                              <div className="modal" role="dialog">
+                                 <div className="modal-box">
+                                    <h3 className="text-lg font-bold">Hello!</h3>
+                                    <p className="py-4">This modal works with a hidden checkbox!</p>
+                                 </div>
+                                 <label className="modal-backdrop" htmlFor="showUserDetails">Close</label>
+                              </div>
                            </motion.tr>
                         ))
                      }

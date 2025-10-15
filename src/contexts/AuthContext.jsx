@@ -25,25 +25,31 @@ const AuthContext = ({ children }) => {
          .finally(() => setLoading(false));
    }
 
-   // login with google
-   const loginWithGoogle = async (navigate, location) => {
-      console.log({ navigate, location })
+   // login with google, save or update usr info to db
+   const loginWithGoogle = async (navigate) => {
       setLoading(true);
       const provider = new GoogleAuthProvider();
-      signInWithPopup(auth, provider)
-         .then(res => {
-            console.log(res.user)
-            console.log(res.user.uid)
+      try {
+         const res = await signInWithPopup(auth, provider);
+         const userCredential = {
+            name: res.user.displayName,
+            email: res.user.email,
+            photoUrl: res.user.photoURL,
+            provider: res.user.providerData[0]?.providerId,
+            uId: res.user.uid,
+         }
+         await axiosPublic.patch(`users/${res?.user?.email}`, userCredential);
+         setUser(res.user)
+         toast.success('লগইন সফল হয়েছে!')
+         navigate('/')
 
-            setUser(res.user)
-            toast.success("Login Successfull!", { duration: 1000 });
-            navigate('/')
-         })
-         .catch((err) => {
-            console.log("Error Logging In:", err);
-            toast.error("Faild Logging In! Try Again.");
-         })
-         .finally(() => setLoading(false));
+      } catch (error) {
+         console.error("Faild to Loggin in with Google", error)
+         throw error;
+      } finally {
+         setLoading(false)
+      }
+
    }
    // logout user
    const logoutUser = (navigate) => {

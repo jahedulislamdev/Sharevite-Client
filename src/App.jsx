@@ -1,9 +1,9 @@
-import About from "./Components/About";
 import AvailableProjects from "./pages/Projects/AvailableProjects";
-import Banner from "./Components/Banner";
-import Gallery from "./Components/Gallery";
-import JoinUsSection from "./Components/JoinUs";
+import JoinUsCover from "./pages/JoinUs/JoinUsCover";
 import Services from "./Components/Services";
+import Gallery from "./Components/Gallery";
+import Banner from "./Components/Banner";
+import About from "./Components/About";
 const App = () => {
   return (
     <div>
@@ -12,7 +12,7 @@ const App = () => {
         <Services />
         <AvailableProjects />
         <About />
-        <JoinUsSection />
+        <JoinUsCover />
         <Gallery />
       </div>
     </div>

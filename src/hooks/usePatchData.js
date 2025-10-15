@@ -2,11 +2,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useApi from "./useApi";
 
-const usePatchData = (endpoint, successMessage, queryKey, isSecure = false) => {
+const usePatchData = (successMessage, queryKey, isSecure = false) => {
     const queryClient = useQueryClient();
     const { patchRequest } = useApi();
     return useMutation({
-        mutationFn: (data) => patchRequest(endpoint, data, isSecure),
+        mutationFn: ({ endpoint, data }) =>
+            patchRequest(endpoint, data, isSecure),
         onSuccess: (res) => {
             if (res.modifiedCount > 0 || successMessage) {
                 toast.success(successMessage);
