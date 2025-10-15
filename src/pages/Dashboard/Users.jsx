@@ -1,6 +1,6 @@
 
-import { motion } from "framer-motion";
 import useGetData from "../../hooks/useGetData";
+import { motion } from "framer-motion";
 import { MdDelete } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 import Swal from "sweetalert2";

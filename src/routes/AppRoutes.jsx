@@ -16,6 +16,7 @@ import Private from "./PrivateRoutes";
 import AdminRoutes from './AdminRoutes';
 import App from "../App";
 import Blog from "../pages/Blogs/Blog";
+import DashboardLayout from './../layouts/DashboardLayout';
 
 
 const router = createBrowserRouter([
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
    },
    // Dashboard routes
    {
-      path: "/dashboard", element: <AdminRoutes><AdminPanel /></AdminRoutes>,
+      path: "/dashboard", element: <DashboardLayout />,
       children: [
          { path: "/dashboard", element: <Overview /> },
          { path: "overview", element: <Overview /> },
