@@ -18,8 +18,8 @@ const VolunteerForm = () => {
       console.log(data);
    };
    // call my custom img hosting hook
-   const { fileInputRef, handleImageChange, previewImage } = useHostImg(1);
-   console.log(previewImage)
+   const { fileInputRef, handleImageChange, previewImage } = useHostImg(1, 2);
+   console.log(previewImage);
 
    return (
       <div className="font-noto ">
@@ -42,14 +42,14 @@ const VolunteerForm = () => {
                </div>
             </div>
          </section>
-         <p className="px-5 text-lg">আসুন, আমরা মানুষের জন্য কিছু করি। আপনার সদিচ্ছা ও সময় বদলে দিতে পারে কোনো অসহায় মানুষের দিন। নিজেকে নিবেদিত করুন দাওয়াহ, সেবামূলক ও মানবিক কাজে। এখনই যুক্ত হোন আমাদের স্বেচ্ছাসেবক টিমে!</p>
+         <p className="px-5 text-lg subtitle">আসুন, আমরা মানুষের জন্য কিছু করি। আপনার সদিচ্ছা ও সময় বদলে দিতে পারে কোনো অসহায় মানুষের দিন। নিজেকে নিবেদিত করুন দাওয়াহ, সেবামূলক ও মানবিক কাজে। এখনই যুক্ত হোন আমাদের স্বেচ্ছাসেবক টিমে!</p>
 
          <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmitVolunteerForm)} className="space-y-10 max-w-5xl mx-auto rounded-2xl sm:shadow  md:p-10 mt-10  shadow-green-700/35">
                {/* Header*/}
                <header className="text-center p-5 md:p-10 mb-8 bg-green-800 text-white rounded-t-2xl">
                   <h2 className="text-2xl md:text-3xl font-bold mb-2 font-hind text-gray-300">স্বেচ্ছাসেবক নিবন্ধন</h2>
-                  <p className="text-sm md:text-base">
+                  <p className="text-sm md:text-base subtitle">
                      ফাউন্ডেশনের অধীনে মানবকল্যানমূলক কাজে অংশ নিতে স্বেচ্ছাসেবক হতে চাইলে নিচের ফর্মটি সঠিকভাবে পূরণ করুন।
                   </p>
                </header>
@@ -59,7 +59,7 @@ const VolunteerForm = () => {
                   <h3 className="text-xl title font-semibold  mb-4 border-l-4 pl-3 border-l-green-800 ">
                      ব্যক্তিগত তথ্য
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4" >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-7" >
                      <RHFInput type="text" name="fullName" label="নাম" required />
                      <RHFInput type="text" name="fatherName" label="পিতার নাম" required />
                      <RHFInput type="number" name="phoneNumber" label="মোবাইল নম্বর" required />
@@ -72,7 +72,7 @@ const VolunteerForm = () => {
                   <h3 className="text-xl title font-semibold mb-4 border-l-4 pl-3 border-l-green-800">
                      পেশাগত তথ্য
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-7">
                      <RHFInput type="text" name="occupation" label="বর্তমান পেশা" required />
                      <RHFInput type="text" name="organization" label="কর্মরত প্রতিষ্ঠানের নাম" required />
                      <RHFInput type="text" name="workAddress" label="কর্মস্থলের ঠিকানা" className="md:col-span-2" required />
@@ -84,7 +84,7 @@ const VolunteerForm = () => {
                   <h3 className="text-xl title font-semibold mb-4 border-l-4 pl-3 border-l-green-800">
                      বর্তমান ঠিকানা
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 md:gap-x-7 lg:grid-cols-3">
                      <RHFSelect name="division" label="বিভাগ" options={["ঢাকা", "চট্টগ্রাম", "রাজশাহী", "খুলনা"]} />
                      <RHFSelect name="district" label="জেলা" options={["ঢাকা", "গাজীপুর", "নরসিংদী"]} />
                      <RHFSelect name="upazila" label="উপজেলা" options={["সাভার", "ধামরাই", "দোহার"]} />
@@ -98,7 +98,7 @@ const VolunteerForm = () => {
                   <h3 className="text-xl title font-semibold mb-4 border-l-4 pl-3 border-l-green-800">
                      স্থায়ী ঠিকানা
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 md:gap-x-7">
                      <RHFSelect name="permanentDivision" label="বিভাগ" options={["ঢাকা", "চট্টগ্রাম", "রাজশাহী", "খুলনা"]} />
                      <RHFSelect name="permanentDistrict" label="জেলা" options={["ঢাকা", "গাজীপুর", "নরসিংদী"]} />
                      <RHFSelect name="permanentUpazila" label="উপজেলা" options={["সাভার", "ধামরাই", "দোহার"]} />
@@ -112,10 +112,10 @@ const VolunteerForm = () => {
                   <h3 className="text-xl title font-semibold mb-4 border-l-4 pl-3 border-pink-500">
                      সোশ্যাল মিডিয়া সংক্রান্ত তথ্য
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 md:gap-x-7">
                      <RHFInput name="facebook" label="ফেসবুক আইডির লিঙ্ক" required />
                      <RHFInput name="linkedin" label="লিঙ্কডইন আইডির লিঙ্ক" />
-                     <RHFInput name="whatsapp" label="হোয়াটসঅ্যাপ নম্বর" />
+                     <RHFInput name="whatsapp" label="হোয়াটসঅ্যাপ নম্বর" required />
                      <RHFInput name="telegram" label="টেলিগ্রাম নম্বর" />
                   </div>
                </section>
@@ -125,7 +125,7 @@ const VolunteerForm = () => {
                   <h3 className="text-xl title font-semibold mb-4 border-l-4 pl-3 border-l-green-800">
                      শিক্ষাগত যোগ্যতা
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 md:gap-x-7">
                      <RHFSelect name="educationMedium" label="পড়াশুনার মাধ্যম" options={["আধুনিক", "মাদ্রাসা", "প্রযুক্তি শিক্ষা"]} required />
                      <RHFSelect name="educationLevel" label="শিক্ষার স্তর" options={["SSC/Equivalent", "HSC/Equivalent", "Graduate", "Post Graduate"]} required />
                      <RHFInput name="lastDegree" label="বিভাগ/ডিগ্রি" required />
@@ -157,7 +157,7 @@ const VolunteerForm = () => {
                      </label>
                   </div>
                   {/* Instruction */}
-                  <p className="mt-3 font-onset text-sm text-gray-500  text-center md:text-left leading-relaxed">
+                  <p className="mt-3 font-onset text-xs text-gray-500  text-center md:text-left leading-relaxed">
                      JPEG, JPG, PNG অথবা HEIC ফরম্যাটের ছবি আপলোড করুন (সর্বোচ্চ ৩MB)
                   </p>
                </section>

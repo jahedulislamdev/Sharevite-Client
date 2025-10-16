@@ -3,20 +3,35 @@ import { useFormContext } from "react-hook-form";
 
 export default function RHFInput({ name, label, type = "text", placeholder, required = false }) {
    const { register, formState: { errors } } = useFormContext();
+   const hasError = !!errors[name];
 
    return (
       <div className="mb-4">
-         <label className="block mb-1 font-semibold label">
+         <label
+            className={`block mb-1 font-semibold label ${hasError ? "text-red-600" : ""}`}
+         >
             {label} {required && <span className="text-red-500">*</span>}
          </label>
+
          <input
             type={type}
             placeholder={placeholder}
             {...register(name, required ? { required: `${label} দিতে হবে` } : {})}
-            className={`w-full input input-lg border rounded-lg px-3 py-2 focus:outline-blue-600 focus:outline-1 ${errors[name] ? "border-red-400 focus:outline-0" : "border-gray-600"
-               }`}
+            className={`
+               input input-lg rounded-lg px-3 py-2 w-full 
+               bg-base-200 
+               ${hasError
+                  ? "border border-red-400 focus:border-red-500"
+                  : "border-transparent hover:border-green-700 focus:border-green-700"
+               } 
+               transition-all duration-300
+               focus:outline-none
+            `}
          />
-         {errors[name] && <p className="text-red-500 text-sm mt-1">{errors[name].message}</p>}
+
+         {hasError && (
+            <p className="text-red-500 text-sm mt-1">{errors[name].message}</p>
+         )}
       </div>
    );
 }

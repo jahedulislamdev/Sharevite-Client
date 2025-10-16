@@ -20,13 +20,15 @@ const useHostImg = (maxFiles, maxSizeMB) => {
         );
 
         // file size limit (check each fle size(MB))
-        const oversized = selectedFiles.find(
-            (file) => file.size > maxSizeMB * 1080 * 1080,
-        );
-        if (oversized) {
-            toast.warning(`ছবির সাইজ সর্বোচ্চ ${maxSizeMB}MB হতে পারবে!`);
-            e.target.value = "";
-            return;
+        if (maxSizeMB) {
+            const oversized = selectedFiles.find(
+                (file) => file.size > maxSizeMB * 1080 * 1080,
+            );
+            if (oversized) {
+                toast.warning(`ছবির সাইজ সর্বোচ্চ ${maxSizeMB}MB হতে পারবে!`);
+                e.target.value = "";
+                return;
+            }
         }
 
         // merge old files and new files
@@ -38,11 +40,11 @@ const useHostImg = (maxFiles, maxSizeMB) => {
             totalFiles = totalFiles.slice(0, maxFiles);
         }
 
-        // Generate new preview URLs
-        const newPreviews = selectedFiles.map((f) => URL.createObjectURL(f));
-
         // Revoke old previews to free memory
         previewImage.forEach((url) => URL.revokeObjectURL(url));
+
+        // Generate new preview URLs
+        const newPreviews = selectedFiles.map((f) => URL.createObjectURL(f));
 
         // update preview state and files state
         setPreviewImage(newPreviews);
