@@ -1,17 +1,17 @@
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
-const useHostImg = (maxFiles) => {
+const useHostImg = (maxFiles, maxSizeMB) => {
     const [previewImage, setPreviewImage] = useState([]);
     const [files, setFiles] = useState([]);
     const fileInputRef = useRef();
 
-    // handle image change for preview and react-hook-form image field
+    // Handle image selection & preview images to browser
     const handleImageChange = (e, onChange) => {
         // get selected image from input file
         const selectedFiles = Array.from(e.target.files);
 
-        //remove duplicate files
+        // Filter & remove duplicate files
         const filteredFiles = selectedFiles.filter(
             (file) =>
                 !files.some(
@@ -19,20 +19,30 @@ const useHostImg = (maxFiles) => {
                 ),
         );
 
+        // file size limit (check each fle size(MB))
+        const oversized = selectedFiles.find(
+            (file) => file.size > maxSizeMB * 1080 * 1080,
+        );
+        if (oversized) {
+            toast.warning(`ছবির সাইজ সর্বোচ্চ ${maxSizeMB}MB হতে পারবে!`);
+            e.target.value = "";
+            return;
+        }
+
         // merge old files and new files
         let totalFiles = [...files, ...filteredFiles];
 
-        // implement a checking for max images quantity
+        // Limit total number of images
         if (previewImage.length + selectedFiles.length > maxFiles) {
-            toast.error(`আপনি সর্বোচ্চ ${maxFiles} টি ছবি আপলোড করতে পারবেন`);
+            toast.warning(`আপনি সর্বোচ্চ ${maxFiles} টি ছবি আপলোড করতে পারবেন`);
             totalFiles = totalFiles.slice(0, maxFiles);
         }
 
+        // Generate new preview URLs
+        const newPreviews = selectedFiles.map((f) => URL.createObjectURL(f));
+
         // Revoke old previews to free memory
         previewImage.forEach((url) => URL.revokeObjectURL(url));
-
-        // make a state for image preview
-        const newPreviews = selectedFiles.map((f) => URL.createObjectURL(f));
 
         // update preview state and files state
         setPreviewImage(newPreviews);

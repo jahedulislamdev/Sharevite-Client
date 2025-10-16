@@ -59,7 +59,7 @@ const JoinUsMain = () => {
                <button
                   key={opt.id}
                   onClick={() => setSelectedForm(opt.form)}
-                  className={`py-2 px-2 rounded-lg font-hind text-xs sm:text-lg font-semibold transition-all duration-300 ${selectedForm === opt.form
+                  className={`py-2 px-2 md:px-10 rounded-lg font-hind text-xs sm:text-lg font-semibold transition-all duration-300 ${selectedForm === opt.form
                      ? "bg-green-700 text-white shadow-md"
                      : "bg-base-100 hover:bg-base-300"
                      }`}

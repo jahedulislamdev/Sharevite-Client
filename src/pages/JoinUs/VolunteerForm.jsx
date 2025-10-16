@@ -2,6 +2,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import RHFInput from "../../Components/Form/RHFInput";
 import RHFSelect from "../../Components/Form/RHFselect";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { FaUserCircle } from 'react-icons/fa';
+import useHostImg from "../../hooks/useHostImg";
 
 const rules =
    [
@@ -15,6 +17,9 @@ const VolunteerForm = () => {
    const onSubmitVolunteerForm = (data) => {
       console.log(data);
    };
+   // call my custom img hosting hook
+   const { fileInputRef, handleImageChange, previewImage } = useHostImg(1);
+   console.log(previewImage)
 
    return (
       <div className="font-noto ">
@@ -127,8 +132,34 @@ const VolunteerForm = () => {
                      <RHFInput name="lastInstitution" label="সর্বশেষ শিক্ষা প্রতিষ্ঠানের নাম" required />
                   </div>
                </section>
-               <section className="p-5 rounded-lg shadow-xs shadow-green-700/50">
-                  <input type="file" name="" id="" />
+               <section className="p-5 rounded-lg shadow-xs shadow-green-700/50 ">
+                  <h3 className="text-xl title font-semibold mb-4 border-l-4 pl-3 border-l-green-800">
+                     আপনার সম্প্রতিক ছবি
+                  </h3>
+                  <div className="flex gap-x-3 items-center">
+                     <div className="relative w-24 h-24 flex items-center justify-center rounded-full overflow-hidden border border-gray-300 bg-gray-50">
+                        {previewImage.length ? (
+                           previewImage?.map(img => <img src={img} alt="preview" className="w-full h-full object-cover" />)
+                        ) : (
+                           <FaUserCircle className="text-7xl text-gray-400 opacity-60" />
+                        )}
+                     </div>
+                     {/* Upload Button */}
+                     <label type="button" className="font-bold btn btn-lg bg-base-100 px-7 rounded-lg hover:bg-base-200 transition-all duration-300  ">
+                        আপলোড করুন
+                        <input
+                           ref={fileInputRef}
+                           type="file"
+                           accept="image/jpeg, image/jpg, image/png, image/heic"
+                           className="hidden"
+                           onChange={handleImageChange}
+                        />
+                     </label>
+                  </div>
+                  {/* Instruction */}
+                  <p className="mt-3 font-onset text-sm text-gray-500  text-center md:text-left leading-relaxed">
+                     JPEG, JPG, PNG অথবা HEIC ফরম্যাটের ছবি আপলোড করুন (সর্বোচ্চ ৩MB)
+                  </p>
                </section>
 
                {/* Submit*/}
