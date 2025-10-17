@@ -51,7 +51,9 @@ const useHostImg = (maxFiles, maxSizeMB) => {
         setFiles(totalFiles);
 
         // update RHF
-        onChange(totalFiles);
+        if (onchange) {
+            onChange(totalFiles);
+        }
 
         // Reset input to allow re-uploading same file if removed
         e.target.value = "";

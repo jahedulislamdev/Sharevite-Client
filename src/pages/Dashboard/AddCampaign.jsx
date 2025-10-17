@@ -18,7 +18,7 @@ const AddCampaign = () => {
          location: []
       }
    });
-   console.log(errors)
+   // console.log(errors)
 
    // image controller
    const {

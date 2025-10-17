@@ -17,9 +17,11 @@ const VolunteerForm = () => {
    const onSubmitVolunteerForm = (data) => {
       console.log(data);
    };
+
    // call my custom img hosting hook
-   const { fileInputRef, handleImageChange, previewImage } = useHostImg(1, 2);
-   console.log(previewImage);
+   const { fileInputRef, files, handleImageChange, previewImage } = useHostImg(1, 2);
+   console.log(files);
+
 
    return (
       <div className="font-noto ">
@@ -139,7 +141,7 @@ const VolunteerForm = () => {
                   <div className="flex gap-x-3 items-center">
                      <div className="relative w-24 h-24 flex items-center justify-center rounded-full overflow-hidden border border-gray-300 bg-gray-50">
                         {previewImage.length ? (
-                           previewImage?.map(img => <img src={img} alt="preview" className="w-full h-full object-cover" />)
+                           previewImage?.map((img, idx) => <img key={idx} src={img} alt="preview" className="w-full h-full object-cover" />)
                         ) : (
                            <FaUserCircle className="text-7xl text-gray-400 opacity-60" />
                         )}
@@ -152,7 +154,7 @@ const VolunteerForm = () => {
                            type="file"
                            accept="image/jpeg, image/jpg, image/png, image/heic"
                            className="hidden"
-                           onChange={handleImageChange}
+                           onChange={(e) => handleImageChange(e, onchange)}
                         />
                      </label>
                   </div>
