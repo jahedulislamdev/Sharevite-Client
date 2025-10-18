@@ -35,7 +35,7 @@ const useHostImg = (maxFiles, maxSizeMB) => {
         let totalFiles = [...files, ...filteredFiles];
 
         // Limit total number of images
-        if (previewImage.length + selectedFiles.length > maxFiles) {
+        if (maxFiles && previewImage.length + selectedFiles.length > maxFiles) {
             toast.warning(`আপনি সর্বোচ্চ ${maxFiles} টি ছবি আপলোড করতে পারবেন`);
             totalFiles = totalFiles.slice(0, maxFiles);
         }
@@ -51,9 +51,7 @@ const useHostImg = (maxFiles, maxSizeMB) => {
         setFiles(totalFiles);
 
         // update RHF
-        if (onchange) {
-            onChange(totalFiles);
-        }
+        onChange(totalFiles);
 
         // Reset input to allow re-uploading same file if removed
         e.target.value = "";

@@ -4,6 +4,7 @@ import RHFSelect from "../../Components/Form/RHFselect";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { FaUserCircle } from 'react-icons/fa';
 import useHostImg from "../../hooks/useHostImg";
+import { useEffect, useState } from "react";
 
 const rules =
    [
@@ -21,6 +22,27 @@ const VolunteerForm = () => {
    // call my custom img hosting hook
    const { fileInputRef, files, handleImageChange, previewImage } = useHostImg(1, 2);
    console.log(files);
+
+   const [divisions, setDivisions] = useState()
+   const [loading, setLoading] = useState(true);
+   const [selectedDivision, setSelectedDivision] = useState()
+   useEffect(() => {
+      fetch("https://bdapi.vercel.app/api/v.1/division")
+         .then(res => res.json())
+         .then(result => setDivisions(result.data))
+         .catch(err => console.error(err))
+         .finally(() => setLoading(false))
+   }, [])
+   if (loading) {
+      console.log("loading")
+   }
+   if (!loading) {
+      console.log(divisions)
+
+   }
+   console.log(selectedDivision)
+
+
 
 
    return (
@@ -87,7 +109,7 @@ const VolunteerForm = () => {
                      বর্তমান ঠিকানা
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 md:gap-x-7 lg:grid-cols-3">
-                     <RHFSelect name="division" label="বিভাগ" options={["ঢাকা", "চট্টগ্রাম", "রাজশাহী", "খুলনা"]} />
+                     <RHFSelect name="division" label="বিভাগ" selectorTracker={setSelectedDivision} options={divisions?.map(d => d.bn_name)} />
                      <RHFSelect name="district" label="জেলা" options={["ঢাকা", "গাজীপুর", "নরসিংদী"]} />
                      <RHFSelect name="upazila" label="উপজেলা" options={["সাভার", "ধামরাই", "দোহার"]} />
                      <RHFSelect name="union" label="ইউনিয়ন" options={["সাভার", "ধামরাই", "দোহার"]} />

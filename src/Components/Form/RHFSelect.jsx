@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 
-export default function RHFSelect({ name, label = '', options = [], required = false }) {
+export default function RHFSelect({ name, label = '', options = [], selectorTracker, required = false }) {
    const { register, formState: { errors } } = useFormContext();
    const hasError = !!errors[name];
 
@@ -11,17 +11,18 @@ export default function RHFSelect({ name, label = '', options = [], required = f
          </label>
 
          <select
+
             {...register(name, required ? { required: `${label} নির্বাচন করুন` } : {})}
             className={`
                select select-lg w-full rounded-lg 
-               bg-base-200 
+               bg-base-200  
                ${hasError
                   ? "border border-red-400 focus:border-red-500"
-                  : "border-transparent hover:border-green-700 focus:border-green-700"
+                  : "border-transparent hover:border-green-700 focus:border-green-700 outline-0"
                }
-               transition-all duration-300
-               focus:outline-0 
+               transition-all 
             `}
+            onChange={(e) => selectorTracker && selectorTracker(e.target.value)}
          >
             <option value="">নির্বাচন করুন</option>
             {options?.map((opt, idx) => (
