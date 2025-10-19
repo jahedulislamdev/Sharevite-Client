@@ -5,6 +5,7 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { FaUserCircle } from 'react-icons/fa';
 import useHostImg from "../../hooks/useHostImg";
 import { useEffect, useState } from "react";
+import { getDistrict, getDivisions, getUions, getUpazilla } from "../../utils/addressApi";
 
 const rules =
    [
@@ -20,27 +21,70 @@ const VolunteerForm = () => {
    };
 
    // call my custom img hosting hook
-   const { fileInputRef, files, handleImageChange, previewImage } = useHostImg(1, 2);
-   console.log(files);
+   const { fileInputRef, handleImageChange, previewImage } = useHostImg(1, 2);
 
-   const [divisions, setDivisions] = useState()
-   const [loading, setLoading] = useState(true);
-   const [selectedDivision, setSelectedDivision] = useState()
+   // dependent select address input  
+   const [divisions, setDivisions] = useState([]);
+   const [districts, setDistricts] = useState([]);
+   const [upazillas, setupazillas] = useState([]);
+   const [unions, setUnions] = useState([]);
+   const [selectedDivision, setSelectedDivision] = useState("");
+   const [selectedDistrict, setSelectedDistrict] = useState("");
+   const [selectedUpazilla, setSelectedUpazilla] = useState("");
+   const [selectedUnion, setSelectedUnion] = useState("");
+
+
+   //call division api
    useEffect(() => {
-      fetch("https://bdapi.vercel.app/api/v.1/division")
-         .then(res => res.json())
-         .then(result => setDivisions(result.data))
-         .catch(err => console.error(err))
-         .finally(() => setLoading(false))
-   }, [])
-   if (loading) {
-      console.log("loading")
-   }
-   if (!loading) {
-      console.log(divisions)
+      getDivisions().then(res => {
+         setDivisions(res || [])
+         console.log(res || [])
+      })
 
-   }
-   console.log(selectedDivision)
+   }, []);
+   //call district api
+   useEffect(() => {
+      if (selectedDivision?.id) {
+         getDistrict(selectedDivision?.id).then(res => {
+            setDistricts(res || []);
+            console.log(res || []);
+         })
+      } else {
+         setDistricts([]);
+         setupazillas([]);
+         setUnions([]);
+      }
+      setSelectedDistrict("");
+      setSelectedUpazilla("");
+      setSelectedUnion("");
+
+   }, [selectedDivision]);
+   //call upazilla api
+   useEffect(() => {
+      if (selectedDistrict?.id) {
+         getUpazilla(selectedDistrict?.id).then(res => {
+            setupazillas(res || [])
+            console.log(res || [])
+         })
+      } else {
+         setupazillas([]);
+         setUnions([]);
+      }
+      setSelectedUpazilla("")
+      setSelectedUnion("")
+   }, [selectedDistrict]);
+   //call Unions api
+   useEffect(() => {
+      if (selectedUpazilla?.id) {
+         getUions(selectedUpazilla?.id).then(res => {
+            setUnions(res || [])
+            console.log(res || [])
+         })
+      } else {
+         setUnions([]);
+      }
+      setSelectedUnion('')
+   }, [selectedUpazilla]);
 
 
 
@@ -109,10 +153,10 @@ const VolunteerForm = () => {
                      বর্তমান ঠিকানা
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 md:gap-x-7 lg:grid-cols-3">
-                     <RHFSelect name="division" label="বিভাগ" selectorTracker={setSelectedDivision} options={divisions?.map(d => d.bn_name)} />
-                     <RHFSelect name="district" label="জেলা" options={["ঢাকা", "গাজীপুর", "নরসিংদী"]} />
-                     <RHFSelect name="upazila" label="উপজেলা" options={["সাভার", "ধামরাই", "দোহার"]} />
-                     <RHFSelect name="union" label="ইউনিয়ন" options={["সাভার", "ধামরাই", "দোহার"]} />
+                     <RHFSelect name="division" label="বিভাগ" fieldArray={divisions} value={selectedDivision} onchange={setSelectedDivision} options={divisions?.map(d => d.bn_name)} />
+                     <RHFSelect name="district" label="জেলা" fieldArray={districts} value={selectedDistrict} onchange={setSelectedDistrict} options={districts?.map(d => d.bn_name)} />
+                     <RHFSelect name="upazila" label="উপজেলা" fieldArray={upazillas} value={selectedUpazilla} onchange={setSelectedUpazilla} options={upazillas?.map(u => u.bn_name)} />
+                     <RHFSelect name="union" label="ইউনিয়ন" fieldArray={unions} value={selectedUnion} onchange={setSelectedUnion} options={unions.map(u => u.bn_name)} />
                      <RHFInput name="fullAddress" label="পূর্ণ ঠিকানা" className="md:col-span-2" />
                   </div>
                </section>

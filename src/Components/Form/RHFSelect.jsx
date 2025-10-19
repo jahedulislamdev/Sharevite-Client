@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 
-export default function RHFSelect({ name, label = '', options = [], selectorTracker, required = false }) {
+export default function RHFSelect({ name, label = '', options = [], value = {}, onchange, fieldArray, required = false }) {
    const { register, formState: { errors } } = useFormContext();
    const hasError = !!errors[name];
 
@@ -22,7 +22,12 @@ export default function RHFSelect({ name, label = '', options = [], selectorTrac
                }
                transition-all 
             `}
-            onChange={(e) => selectorTracker && selectorTracker(e.target.value)}
+            value={value?.bn_name}
+            onChange={(e) => {
+               const selectedOption = fieldArray.find(obj => obj.bn_name === e.target.value)
+               onchange && onchange(selectedOption)
+
+            }}
          >
             <option value="">নির্বাচন করুন</option>
             {options?.map((opt, idx) => (
