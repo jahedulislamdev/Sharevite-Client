@@ -4,8 +4,7 @@ import RHFSelect from "../../Components/Form/RHFselect";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { FaUserCircle } from 'react-icons/fa';
 import useHostImg from "../../hooks/useHostImg";
-import { useEffect, useState } from "react";
-import { getDistrict, getDivisions, getUions, getUpazilla } from "../../utils/addressApi";
+import useAddressSelector from "../../hooks/useAddressSelector";
 
 const rules =
    [
@@ -16,78 +15,15 @@ const rules =
    ]
 const VolunteerForm = () => {
    const methods = useForm();
+   const presentAddress = useAddressSelector();
+   const permanentAddress = useAddressSelector();
+   const { fileInputRef, handleImageChange, previewImage } = useHostImg(1, 2);
+
    const onSubmitVolunteerForm = (data) => {
       console.log(data);
    };
 
-   // call my custom img hosting hook
-   const { fileInputRef, handleImageChange, previewImage } = useHostImg(1, 2);
-
-   // dependent select address input  
-   const [divisions, setDivisions] = useState([]);
-   const [districts, setDistricts] = useState([]);
-   const [upazillas, setupazillas] = useState([]);
-   const [unions, setUnions] = useState([]);
-   const [selectedDivision, setSelectedDivision] = useState("");
-   const [selectedDistrict, setSelectedDistrict] = useState("");
-   const [selectedUpazilla, setSelectedUpazilla] = useState("");
-   const [selectedUnion, setSelectedUnion] = useState("");
-
-
-   //call division api
-   useEffect(() => {
-      getDivisions().then(res => {
-         setDivisions(res || [])
-         console.log(res || [])
-      })
-
-   }, []);
-   //call district api
-   useEffect(() => {
-      if (selectedDivision?.id) {
-         getDistrict(selectedDivision?.id).then(res => {
-            setDistricts(res || []);
-            console.log(res || []);
-         })
-      } else {
-         setDistricts([]);
-         setupazillas([]);
-         setUnions([]);
-      }
-      setSelectedDistrict("");
-      setSelectedUpazilla("");
-      setSelectedUnion("");
-
-   }, [selectedDivision]);
-   //call upazilla api
-   useEffect(() => {
-      if (selectedDistrict?.id) {
-         getUpazilla(selectedDistrict?.id).then(res => {
-            setupazillas(res || [])
-            console.log(res || [])
-         })
-      } else {
-         setupazillas([]);
-         setUnions([]);
-      }
-      setSelectedUpazilla("")
-      setSelectedUnion("")
-   }, [selectedDistrict]);
-   //call Unions api
-   useEffect(() => {
-      if (selectedUpazilla?.id) {
-         getUions(selectedUpazilla?.id).then(res => {
-            setUnions(res || [])
-            console.log(res || [])
-         })
-      } else {
-         setUnions([]);
-      }
-      setSelectedUnion('')
-   }, [selectedUpazilla]);
-
-
-
+   // call my custom img hosting hook 
 
    return (
       <div className="font-noto ">
@@ -153,10 +89,37 @@ const VolunteerForm = () => {
                      বর্তমান ঠিকানা
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 md:gap-x-7 lg:grid-cols-3">
-                     <RHFSelect name="division" label="বিভাগ" fieldArray={divisions} value={selectedDivision} onchange={setSelectedDivision} options={divisions?.map(d => d.bn_name)} />
-                     <RHFSelect name="district" label="জেলা" fieldArray={districts} value={selectedDistrict} onchange={setSelectedDistrict} options={districts?.map(d => d.bn_name)} />
-                     <RHFSelect name="upazila" label="উপজেলা" fieldArray={upazillas} value={selectedUpazilla} onchange={setSelectedUpazilla} options={upazillas?.map(u => u.bn_name)} />
-                     <RHFSelect name="union" label="ইউনিয়ন" fieldArray={unions} value={selectedUnion} onchange={setSelectedUnion} options={unions.map(u => u.bn_name)} />
+                     <RHFSelect
+                        name={"division"}
+                        fieldArray={presentAddress.divisions}
+                        label='বিভাগ'
+                        onchange={presentAddress?.setSelectedDivision}
+                        options={presentAddress.divisions?.map(d => d.bn_name)}
+                        value={presentAddress.selectedDivision} />
+                     {/* districts */}
+                     <RHFSelect
+                        name={"districts"}
+                        fieldArray={presentAddress.districts}
+                        label='জেলা'
+                        onchange={presentAddress?.setSelectedDistrict}
+                        options={presentAddress.districts?.map(d => d.bn_name)}
+                        value={presentAddress.selectedDistrict} />
+                     {/* upazillas */}
+                     <RHFSelect
+                        name={"upazillas"}
+                        fieldArray={presentAddress.upazillas}
+                        label='উপজেলা'
+                        onchange={presentAddress?.setSelectedUpazilla}
+                        options={presentAddress.upazillas?.map(d => d.bn_name)}
+                        value={presentAddress.selectedUpazilla} />
+                     {/* unions */}
+                     <RHFSelect
+                        name={"unions"}
+                        fieldArray={presentAddress.unions}
+                        label='ইউনিয়ন'
+                        onchange={presentAddress?.setSelectedUnion}
+                        options={presentAddress.unions?.map(d => d.bn_name)}
+                        value={presentAddress.selectedUnion} />
                      <RHFInput name="fullAddress" label="পূর্ণ ঠিকানা" className="md:col-span-2" />
                   </div>
                </section>
@@ -167,11 +130,38 @@ const VolunteerForm = () => {
                      স্থায়ী ঠিকানা
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 md:gap-x-7">
-                     <RHFSelect name="permanentDivision" label="বিভাগ" options={["ঢাকা", "চট্টগ্রাম", "রাজশাহী", "খুলনা"]} />
-                     <RHFSelect name="permanentDistrict" label="জেলা" options={["ঢাকা", "গাজীপুর", "নরসিংদী"]} />
-                     <RHFSelect name="permanentUpazila" label="উপজেলা" options={["সাভার", "ধামরাই", "দোহার"]} />
-                     <RHFSelect name="permanentUnion" label="ইউনিয়ন" options={["সাভার", "ধামরাই", "দোহার"]} />
-                     <RHFInput name="permanentAddress" label="পূর্ণ ঠিকানা" className="md:col-span-2" />
+                     <RHFSelect
+                        name={"division"}
+                        fieldArray={permanentAddress.divisions}
+                        label='বিভাগ'
+                        onchange={permanentAddress?.setSelectedDivision}
+                        options={permanentAddress.divisions?.map(d => d.bn_name)}
+                        value={permanentAddress.selectedDivision} />
+                     {/* districts */}
+                     <RHFSelect
+                        name={"districts"}
+                        fieldArray={permanentAddress.districts}
+                        label='জেলা'
+                        onchange={permanentAddress?.setSelectedDistrict}
+                        options={permanentAddress.districts?.map(d => d.bn_name)}
+                        value={permanentAddress.selectedDistrict} />
+                     {/* upazillas */}
+                     <RHFSelect
+                        name={"upazillas"}
+                        fieldArray={permanentAddress.upazillas}
+                        label='উপজেলা'
+                        onchange={permanentAddress?.setSelectedUpazilla}
+                        options={permanentAddress.upazillas?.map(d => d.bn_name)}
+                        value={permanentAddress.selectedUpazilla} />
+                     {/* unions */}
+                     <RHFSelect
+                        name={"unions"}
+                        fieldArray={permanentAddress.unions}
+                        label='ইউনিয়ন'
+                        onchange={permanentAddress?.setSelectedUnion}
+                        options={permanentAddress.unions?.map(d => d.bn_name)}
+                        value={permanentAddress.selectedUnion} />
+                     <RHFInput name="fullAddress" label="পূর্ণ ঠিকানা" className="md:col-span-2" />
                   </div>
                </section>
 

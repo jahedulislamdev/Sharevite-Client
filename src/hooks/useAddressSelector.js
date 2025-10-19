@@ -71,6 +71,20 @@ const useAddressSelector = () => {
         setSelectedUnion(null);
     }, [selectedUpazilla]);
 
+    // check
+    useEffect(() => {
+        console.log({
+            divisions,
+            districts,
+            upazillas,
+            unions,
+            selectedDistrict,
+            selectedDivision,
+            selectedUpazilla,
+            selectedUnion,
+        });
+    });
+
     // retun
     return {
         divisions,
