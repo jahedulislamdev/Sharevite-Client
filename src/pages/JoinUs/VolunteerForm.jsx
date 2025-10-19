@@ -23,7 +23,6 @@ const VolunteerForm = () => {
       console.log(data);
    };
 
-   // call my custom img hosting hook 
 
    return (
       <div className="font-noto ">
