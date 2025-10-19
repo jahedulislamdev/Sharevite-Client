@@ -1,6 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
 import RHFInput from "../../Components/Form/RHFInput";
-import RHFSelect from "../../Components/Form/RHFselect";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { FaUserCircle } from 'react-icons/fa';
 import useHostImg from "../../hooks/useHostImg";
