@@ -15,22 +15,9 @@
 .title {
     @apply bg-gradient-to-r from-green-400 to-green-800 bg-clip-text text-transparent font-hind;
 }
-.heading-underline {
-    position: relative;
-    display: inline-block;
-    padding-bottom: 0.5rem;
+.note {
+    @apply border-s-3 border-orange-500 py-2.5 px-4 bg-[#ffa6000d] rounded-e-lg font-hind text-sm leading-relaxed;
 }
-
-.heading-underline::after {
-    content: "";
-    display: block;
-    width: 60px; /* line width */
-    height: 4px; /* thickness */
-    background-color: #4b5563;
-    margin: 0.5rem auto 0;
-    border-radius: 20%;
-}
-
 .subtitle {
     @apply opacity-60 font-noto;
 }

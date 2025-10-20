@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import RHFInput from "../../Components/Form/RHFInput";
+import OnlinePay from "./PaymentDetails/OnlinePay";
+import BankPay from "./PaymentDetails/BankPay";
 
 const professionsOptions = [
    "ইমাম", "মুয়াজ্জিন", "শিক্ষক", "চিকিৎসক", "চাকরিজীবী",
@@ -10,6 +12,11 @@ const professionsOptions = [
    "দর্জি", "ফ্রিল্যান্সার", "সাংবাদিক", "শিল্পী", "কর্মচারী",
    "রাঁধুনি", "অন্যান্য"
 ];
+const paymentMethods = [
+   { title: "অনলাইন পেমেন্ট", method: "onlinePay" },
+   { title: "ব্যাংক ট্রান্সফার", method: "bankTransfer" },
+   { title: "ব্যাংক ডিপোজিট", method: "bankDeposit" }
+]
 
 export default function LifetimeMemberForm() {
    const methods = useForm({
@@ -30,6 +37,21 @@ export default function LifetimeMemberForm() {
       setMemberType(type);
       setAmount(type === "lifetime" ? "100000" : "50000");
    };
+
+   //  showing payment system details conditionally 
+   const [selectedPayment, setSelectedPayment] = useState("onlinePay")
+
+   const renderPaymentDetails = () => {
+      switch (selectedPayment) {
+         case "onlinePay":
+            return <OnlinePay />;
+         case "bankDeposit":
+            return <BankPay />;
+         case "bankTransfer":
+            return <BankPay />;
+      }
+   }
+
 
    const onSubmit = (data) => {
       console.log("Submitted Data:", data);
@@ -65,21 +87,24 @@ export default function LifetimeMemberForm() {
                      আস-সুন্নাহ ফাউন্ডেশনের নীতি ও আদর্শের সঙ্গে একমত এরকম যে কেউ আজীবন সদস্য ও দাতা সদস্য হতে পারেন।
                   </p>
 
-                  <div className="bg-base-300 p-4 rounded-xl">
-                     <h3 className="text-lg font-bold mb-1">আজীবন সদস্য</h3>
+                  <div className="note">
+                     <h3 className="text-lg font-semibold title">আজীবন সদস্য</h3>
                      <p>এককালীন কমপক্ষে এক লক্ষ বা তদূর্ধ টাকা দান করলে আজীবন সদস্য হবেন।</p>
                   </div>
-                  <div className="bg-base-300 p-4 rounded-xl">
-                     <h3 className="text-lg font-bold mb-1">দাতা সদস্য</h3>
+                  <div className="note">
+                     <h3 className="text-lg font-semibold title">দাতা সদস্য</h3>
                      <p>এককালীন কমপক্ষে পঞ্চাশ হাজার বা তদূর্ধ টাকা দান করলে দাতা সদস্য হবেন।</p>
                   </div>
+               </div>
+               <div className="font-onset">
+                  important information or details will be there
                </div>
             </div>
 
             {/* Right Side - Form */}
             <div className="rounded-2xl shadow-md bg-base-100">
                <header className="bg-green-700 text-white text-center p-6 md:p-10 rounded-t-2xl">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                  <h2 className="text-2xl md:text-3xl font-bold font-hind mb-2">
                      সদস্য আবেদন
                   </h2>
                   <p className="text-sm md:text-base opacity-90">
@@ -94,9 +119,9 @@ export default function LifetimeMemberForm() {
                         <button
                            type="button"
                            onClick={() => handleCheckDonationType("lifetime")}
-                           className={`p-3 rounded-xl border font-semibold transition ${memberType === "lifetime"
+                           className={`p-3 rounded-xl font-semibold transition ${memberType === "lifetime"
                               ? "bg-green-600 text-white"
-                              : "bg-base-100 hover:bg-base-300"
+                              : "bg-base-200 hover:bg-base-300"
                               }`}
                         >
                            আজীবন সদস্য
@@ -104,9 +129,9 @@ export default function LifetimeMemberForm() {
                         <button
                            type="button"
                            onClick={() => handleCheckDonationType("donor")}
-                           className={`p-3 rounded-xl border font-semibold transition ${memberType === "donor"
+                           className={`p-3 rounded-xl font-semibold transition ${memberType === "donor"
                               ? "bg-green-600 text-white"
-                              : "bg-base-100 hover:bg-base-300"
+                              : "bg-base-200 hover:bg-base-300"
                               }`}
                         >
                            দাতা সদস্য
@@ -133,11 +158,13 @@ export default function LifetimeMemberForm() {
                            <p className="text-red-500 text-sm mt-1">{errors.donationAmount.message}</p>
                         )}
                      </div>
-
-                     <RHFInput label="নাম" name="donnerName" type="text" required />
+                     <div className=" px-3 md:px-6 py-3 md:py-4 rounded-2xl shadow-xs shadow-green-300">
+                        <RHFInput label="ব্যাক্তির নাম" name="donnerName" type="text" required />
+                        <RHFInput label="ইমেইল" name="donarEmail" type="email" required />
+                     </div>
 
                      {/* Gender */}
-                     <div>
+                     <div className=" px-3 md:px-6 py-3 md:py-4 rounded-2xl shadow-xs shadow-green-300">
                         <label className="block mb-2 font-medium label">
                            আমি একজন <span className="text-red-600">*</span>
                         </label>
@@ -164,54 +191,68 @@ export default function LifetimeMemberForm() {
                         </div>
                      </div>
 
-                     <RHFInput label="ইমেইল" name="donarEmail" type="email" required />
-
                      {/* Profession & Reference */}
-                     <div className="grid md:grid-cols-2 gap-4 place-items-center">
+                     <div className="grid md:grid-cols-2 gap-4 px-3 md:px-6 py-3 md:py-4 rounded-2xl shadow-xs shadow-green-300">
+                        {/* Profession */}
                         <div className="w-full">
-                           <label className={`mb-2 label ${errors.profession && "text-red-600"}`}>পেশা <span className="text-red-600">*</span></label>
+                           <label className={`mb-2 label ${errors.profession ? "text-red-600" : ""}`}>
+                              পেশা <span className="text-red-600">*</span>
+                           </label>
                            <select
                               {...register("profession", { required: "আপনার পেশা নির্বাচন করুন" })}
-                              className={`select select-lg border-0 w-full bg-base-200 ${errors.profession ? "border-red-500" : "border-gray-300"}`}
+                              className={`select select-lg w-full bg-base-200 border ${errors.profession ? "border-red-500" : "border-gray-300"
+                                 }`}
                            >
-                              <option className="opacity-30" value="">নির্বাচন করুন</option>
+                              <option className="opacity-30" value="">
+                                 নির্বাচন করুন
+                              </option>
                               {professionsOptions.map((po, idx) => (
-                                 <option key={idx} className="opacity-70" value={po}>{po}</option>
+                                 <option key={idx} className="opacity-70" value={po}>
+                                    {po}
+                                 </option>
                               ))}
                            </select>
-                           {errors.profession && <p className="text-red-500 mt-0.5">{errors.profession?.message}</p>}
+                           {errors.profession && (
+                              <p className="text-red-500 mt-1">{errors.profession?.message}</p>
+                           )}
                         </div>
-                        <RHFInput label="রেফারেন্স" name="donarReference" type="text" />
+
+                        {/* Reference */}
+                        <div className="w-full">
+                           <label className="mb-2 label">রেফারেন্স</label>
+                           <input
+                              type="text"
+                              {...register("donarReference")}
+                              className="input input-lg w-full bg-base-200 border border-gray-300 focus:border-green-500 outline-none"
+                              placeholder="রেফারেন্স লিখুন"
+                           />
+                        </div>
                      </div>
+
                      {/* Payment Section */}
                      <div className="space-y-4">
                         <label className="font-medium label">
-                           প্রদান মাধ্যম <span className="text-red-600">*</span>
+                           অর্থ প্রদানের মাধ্যম <span className="text-red-600">*</span>
                         </label>
-                        <div className="grid sm:grid-cols-3 gap-x-3">
-                           {["অনলাইন পেমেন্ট", "ব্যাংক ট্রান্সফার", "ব্যাংক ডিপোজিট"].map((method, i) => (
-                              <label key={i} className="btn btn-outline w-full justify-center">
-                                 <input
-                                    type="radio"
-                                    {...register("paymentMethod", { required: true })}
-                                    value={method}
-                                    className="hidden"
-                                 />
-                                 {method}
-                              </label>
+                        <div className="grid sm:grid-cols-3 gap-x-3 shadow-xs shadow-green-300 p-3 rounded-xl">
+                           {paymentMethods.map((m, idx) => (
+                              <button
+                                 type="button"
+                                 onClick={() => setSelectedPayment(m.method)}
+                                 key={idx}
+                                 className={` p-2 rounded-selector   transition-all duration-300 
+                                    ${selectedPayment === m.method
+                                       ? "bg-green-700 text-white shadow-md"
+                                       : "bg-base-100 hover:bg-base-300"
+                                    }`}
+                              >
+                                 {m.title}
+                              </button>
                            ))}
                         </div>
 
                         <div className="bg-base-200 p-4 rounded-xl flex items-center ">
-                           <label className=" flex *:gap-3 cursor-pointer font-onset">
-                              <input
-                                 type="radio"
-                                 value="sslcommerz"
-                                 {...register("gateway")}
-                                 className="radio radio-success me-1"
-                                 defaultChecked
-                              /> SSLCOMMARZ
-                           </label>
+                           {renderPaymentDetails()}
                         </div>
                      </div>
 
@@ -222,8 +263,8 @@ export default function LifetimeMemberForm() {
                         দান করুন
                      </button>
 
-                     <p className="text-sm opacity-70 leading-relaxed">
-                        সকল তথ্য নিরাপদ রাখা হবে। কোনো তথ্য পাবলিকলি প্রকাশ করা হবে না ইনশাআল্লাহ্।
+                     <p className="note">
+                        আমাদের সম্মানিত দাতাদের সকল তথ্য নিরাপদ রাখা হবে। কোনো তথ্য কখনো জনসম্মুখে প্রকাশ করা হবে না ইনশাআল্লাহ্।
                      </p>
                   </form>
                </FormProvider>
