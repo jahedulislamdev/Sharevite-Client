@@ -4,6 +4,7 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { FaUserCircle } from 'react-icons/fa';
 import useHostImg from "../../hooks/useHostImg";
 import useAddressSelector from "../../hooks/useAddressSelector";
+import RHFSelect from './../../Components/Form/RHFSelect';
 
 const rules =
    [

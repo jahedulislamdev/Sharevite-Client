@@ -1,32 +1,46 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import RHFInput from "../../Components/Form/RHFInput";
-import RHFSelect from "../../Components/Form/RHFSelect";
 
-const LifetimeMemberForm = () => {
-   const methods = useForm();
-   const { setValue, handleSubmit } = methods;
+const professionsOptions = [
+   "ইমাম", "মুয়াজ্জিন", "শিক্ষক", "চিকিৎসক", "চাকরিজীবী",
+   "সরকারি চাকরিজীবী", "বেসরকারি চাকরিজীবী", "বেকার", "কৃষক",
+   "শ্রমিক", "ব্যবসায়ী", "গৃহিণী", "ছাত্র", "ইঞ্জিনিয়ার",
+   "আইনজীবী", "নার্স", "পুলিশ", "সেনা সদস্য", "রাজমিস্ত্রি",
+   "দর্জি", "ফ্রিল্যান্সার", "সাংবাদিক", "শিল্পী", "কর্মচারী",
+   "রাঁধুনি", "অন্যান্য"
+];
 
-   // 👇 Track selected member type
-   const [memberType, setMemberType] = useState(null);
+export default function LifetimeMemberForm() {
+   const methods = useForm({
+      defaultValues: {
+         donationAmount: 100000,
+         donnerName: "",
+         gender: "male",
+         donarEmail: "",
+         donarReference: "",
+      }
+   });
+   const { handleSubmit, register, formState: { errors } } = methods;
 
-   // 🧮 Auto-set donation amount based on member type
-   useEffect(() => {
-      if (memberType === "lifetime") setValue("donationAmount", 100000);
-      else if (memberType === "donor") setValue("donationAmount", 50000);
-      else setValue("donationAmount", "");
-   }, [memberType, setValue]);
+   const [memberType, setMemberType] = useState("lifetime");
+   const [amount, setAmount] = useState("100000");
+
+   const handleCheckDonationType = (type) => {
+      setMemberType(type);
+      setAmount(type === "lifetime" ? "100000" : "50000");
+   };
 
    const onSubmit = (data) => {
       console.log("Submitted Data:", data);
    };
 
    return (
-      <section className="font-noto py-10 px-4 md:px-8 lg:px-12 bg-base-100 text-base-content transition-all duration-300">
+      <section className="font-noto py-10 md:px-8 lg:px-12 bg-base-100 text-base-content transition-all duration-300">
          <div className="grid lg:grid-cols-2 gap-10">
-            {/* Left Side - Info Section */}
+            {/* Left Side */}
             <div className="space-y-6">
-               <h2 className="text-3xl font-bold text-green-700 dark:text-green-400">
+               <h2 className="text-2xl md:text-3xl font-semibold title">
                   আজীবন ও দাতা সদস্য হবার নিয়ম
                </h2>
                <p className="text-base md:text-lg leading-relaxed opacity-90">
@@ -34,61 +48,53 @@ const LifetimeMemberForm = () => {
                </p>
 
                <div className="overflow-hidden rounded-2xl shadow-md">
-                  <iframe
+                  {/* <iframe
                      className="w-full aspect-video"
                      src="https://www.youtube.com/embed/FRAoIxlQBkU?si=G_2AVDoax5Mju2zw"
                      title="YouTube video player"
-                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                      allowFullScreen
-                  ></iframe>
+                  ></iframe> */}
                </div>
 
                <p className="opacity-80">
                   আজীবন ও দাতা সদস্যগণ প্রতিষ্ঠানের কল্যাণার্থে যে কোনো সুপরামর্শ দিতে পারবেন।
                </p>
 
-               <div className="bg-base-200 p-5 rounded-2xl space-y-4">
-                  <p>
-                     আস-সুন্নাহ ফাউন্ডেশনের নীতি ও আদর্শের সঙ্গে একমত এরকম যে কেউ আজীবন সদস্য ও দাতা সদস্য হওয়ার জন্য আবেদন করতে পারবেন।
+               <div className="bg-base-200 px-4 py-6 rounded-2xl space-y-4">
+                  <p className="subtitle">
+                     আস-সুন্নাহ ফাউন্ডেশনের নীতি ও আদর্শের সঙ্গে একমত এরকম যে কেউ আজীবন সদস্য ও দাতা সদস্য হতে পারেন।
                   </p>
+
                   <div className="bg-base-300 p-4 rounded-xl">
-                     <h3 className="text-lg font-bold mb-1 text-green-700 dark:text-green-300">
-                        আজীবন সদস্য
-                     </h3>
-                     <p>
-                        এককালীন কমপক্ষে এক লক্ষ বা তদূর্ধ টাকা ফাউন্ডেশনের তহবিলে দান করলে আজীবন সদস্য হবেন।
-                     </p>
+                     <h3 className="text-lg font-bold mb-1">আজীবন সদস্য</h3>
+                     <p>এককালীন কমপক্ষে এক লক্ষ বা তদূর্ধ টাকা দান করলে আজীবন সদস্য হবেন।</p>
                   </div>
                   <div className="bg-base-300 p-4 rounded-xl">
-                     <h3 className="text-lg font-bold mb-1 text-green-700 dark:text-green-300">
-                        দাতা সদস্য
-                     </h3>
-                     <p>
-                        এককালীন কমপক্ষে পঞ্চাশ হাজার বা তদূর্ধ টাকা দান করলে দাতা সদস্য হবেন।
-                     </p>
+                     <h3 className="text-lg font-bold mb-1">দাতা সদস্য</h3>
+                     <p>এককালীন কমপক্ষে পঞ্চাশ হাজার বা তদূর্ধ টাকা দান করলে দাতা সদস্য হবেন।</p>
                   </div>
                </div>
             </div>
 
             {/* Right Side - Form */}
-            <div className=" rounded-2xl shadow-sm ">
+            <div className="rounded-2xl shadow-md bg-base-100">
                <header className="bg-green-700 text-white text-center p-6 md:p-10 rounded-t-2xl">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-2 font-hind text-gray-100">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">
                      সদস্য আবেদন
                   </h2>
                   <p className="text-sm md:text-base opacity-90">
-                     আপনি যদি ফাউন্ডেশনের ধারা মোতাবেক সকল শর্তাবলি মেনে সদস্য হতে ইচ্ছুক হন, তাহলে নিচের ফরমটি পূরণ করুন।
+                     ফাউন্ডেশনের শর্তাবলি মেনে সদস্য হতে নিচের ফরমটি পূরণ করুন।
                   </p>
                </header>
 
                <FormProvider {...methods}>
                   <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-10 space-y-6">
-                     {/* Member Type Selection */}
-                     <div className="grid grid-cols-2 gap-4">
+                     {/* Member Type Buttons */}
+                     <div className="grid grid-cols-2 gap-3">
                         <button
                            type="button"
-                           onClick={() => setMemberType("lifetime")}
-                           className={`p-3 rounded-xl border transition font-semibold ${memberType === "lifetime"
+                           onClick={() => handleCheckDonationType("lifetime")}
+                           className={`p-3 rounded-xl border font-semibold transition ${memberType === "lifetime"
                               ? "bg-green-600 text-white"
                               : "bg-base-100 hover:bg-base-300"
                               }`}
@@ -97,8 +103,8 @@ const LifetimeMemberForm = () => {
                         </button>
                         <button
                            type="button"
-                           onClick={() => setMemberType("donor")}
-                           className={`p-3 rounded-xl border transition font-semibold ${memberType === "donor"
+                           onClick={() => handleCheckDonationType("donor")}
+                           className={`p-3 rounded-xl border font-semibold transition ${memberType === "donor"
                               ? "bg-green-600 text-white"
                               : "bg-base-100 hover:bg-base-300"
                               }`}
@@ -108,20 +114,31 @@ const LifetimeMemberForm = () => {
                      </div>
 
                      {/* Donation Amount */}
-                     <RHFInput
-                        label="দানকৃত পরিমাণ (টাকা)"
-                        name="donationAmount"
-                        type="number"
-                        required
-                        disabled
-                     />
+                     <div>
+                        <label className="block mb-2 font-medium label">
+                           অনুদানের পরিমাণ <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                           {...register("donationAmount", { required: "অনুদানের পরিমাণ দিন" })}
+                           className={` input input-lg rounded-lg px-3 py-2 w-full bg-base-200 
+                              ${errors?.donationAmount
+                                 ? "border border-red-400 focus:border-red-500"
+                                 : "border-transparent hover:border-green-700 focus:border-green-700"
+                              }  transition-all duration-300 focus:outline-none `}
+                           type="number"
+                           value={amount}
+                           onChange={(e) => setAmount(e.target.value)}
+                        />
+                        {errors?.donationAmount && (
+                           <p className="text-red-500 text-sm mt-1">{errors.donationAmount.message}</p>
+                        )}
+                     </div>
 
-                     {/* Name */}
                      <RHFInput label="নাম" name="donnerName" type="text" required />
 
                      {/* Gender */}
                      <div>
-                        <label className="block mb-2 font-medium">
+                        <label className="block mb-2 font-medium label">
                            আমি একজন <span className="text-red-600">*</span>
                         </label>
                         <div className="flex gap-6">
@@ -129,8 +146,9 @@ const LifetimeMemberForm = () => {
                               <input
                                  type="radio"
                                  value="male"
-                                 {...methods.register("gender", { required: true })}
+                                 {...register("gender", { required: true })}
                                  className="radio radio-success"
+                                 defaultChecked
                               />
                               পুরুষ
                            </label>
@@ -138,7 +156,7 @@ const LifetimeMemberForm = () => {
                               <input
                                  type="radio"
                                  value="female"
-                                 {...methods.register("gender", { required: true })}
+                                 {...register("gender", { required: true })}
                                  className="radio radio-success"
                               />
                               নারী
@@ -146,66 +164,57 @@ const LifetimeMemberForm = () => {
                         </div>
                      </div>
 
-                     {/* Email */}
                      <RHFInput label="ইমেইল" name="donarEmail" type="email" required />
 
                      {/* Profession & Reference */}
-                     <div className="grid md:grid-cols-2 gap-4">
-
+                     <div className="grid md:grid-cols-2 gap-4 place-items-center">
+                        <div className="w-full">
+                           <label className={`mb-2 label ${errors.profession && "text-red-600"}`}>পেশা <span className="text-red-600">*</span></label>
+                           <select
+                              {...register("profession", { required: "আপনার পেশা নির্বাচন করুন" })}
+                              className={`select select-lg border-0 w-full bg-base-200 ${errors.profession ? "border-red-500" : "border-gray-300"}`}
+                           >
+                              <option className="opacity-30" value="">নির্বাচন করুন</option>
+                              {professionsOptions.map((po, idx) => (
+                                 <option key={idx} className="opacity-70" value={po}>{po}</option>
+                              ))}
+                           </select>
+                           {errors.profession && <p className="text-red-500 mt-0.5">{errors.profession?.message}</p>}
+                        </div>
                         <RHFInput label="রেফারেন্স" name="donarReference" type="text" />
                      </div>
-
-                     {/* Payment Method */}
-                     <div className="space-y-2">
-                        <label className="block font-medium">
-                           যে মাধ্যমে প্রদান করতে চান <span className="text-red-600">*</span>
+                     {/* Payment Section */}
+                     <div className="space-y-4">
+                        <label className="font-medium label">
+                           প্রদান মাধ্যম <span className="text-red-600">*</span>
                         </label>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                           <label className="btn btn-outline w-full justify-center">
-                              <input
-                                 type="radio"
-                                 {...methods.register("paymentMethod", { required: true })}
-                                 value="online"
-                                 className="hidden"
-                              />
-                              অনলাইন পেমেন্ট
-                           </label>
-                           <label className="btn btn-outline w-full justify-center">
-                              <input
-                                 type="radio"
-                                 {...methods.register("paymentMethod")}
-                                 value="bankTransfer"
-                                 className="hidden"
-                              />
-                              ব্যাংক ট্রান্সফার
-                           </label>
-                           <label className="btn btn-outline w-full justify-center">
-                              <input
-                                 type="radio"
-                                 {...methods.register("paymentMethod")}
-                                 value="bankDeposit"
-                                 className="hidden"
-                              />
-                              ব্যাংক ডিপোজিট
-                           </label>
+                        <div className="grid sm:grid-cols-3 gap-x-3">
+                           {["অনলাইন পেমেন্ট", "ব্যাংক ট্রান্সফার", "ব্যাংক ডিপোজিট"].map((method, i) => (
+                              <label key={i} className="btn btn-outline w-full justify-center">
+                                 <input
+                                    type="radio"
+                                    {...register("paymentMethod", { required: true })}
+                                    value={method}
+                                    className="hidden"
+                                 />
+                                 {method}
+                              </label>
+                           ))}
                         </div>
 
-                        {/* Payment Gateway */}
-                        <div className="bg-base-300 p-4 rounded-xl mt-3">
-                           <label className="flex items-center gap-2 cursor-pointer">
+                        <div className="bg-base-200 p-4 rounded-xl flex items-center ">
+                           <label className=" flex *:gap-3 cursor-pointer font-onset">
                               <input
                                  type="radio"
                                  value="sslcommerz"
-                                 {...methods.register("gateway")}
-                                 className="radio radio-success"
+                                 {...register("gateway")}
+                                 className="radio radio-success me-1"
                                  defaultChecked
-                              />
-                              sslcommerz
+                              /> SSLCOMMARZ
                            </label>
                         </div>
                      </div>
 
-                     {/* Submit */}
                      <button
                         type="submit"
                         className="w-full py-3 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-xl shadow-lg transition duration-300"
@@ -214,8 +223,7 @@ const LifetimeMemberForm = () => {
                      </button>
 
                      <p className="text-sm opacity-70 leading-relaxed">
-                        সম্মানীয় সদস্যদের সকল তথ্য আমাদের কাছে আমানত। কোনো তথ্য পাবলিকলি প্রকাশ করা হবে না ইনশাআল্লাহ্।
-                        তথাপি ফাউন্ডেশনের আপডেট জানানো ও মতামত নেবার জন্য যোগাযোগ সম্পর্কিত তথ্যগুলো আমরা সংগ্রহ করছি।
+                        সকল তথ্য নিরাপদ রাখা হবে। কোনো তথ্য পাবলিকলি প্রকাশ করা হবে না ইনশাআল্লাহ্।
                      </p>
                   </form>
                </FormProvider>
@@ -223,6 +231,4 @@ const LifetimeMemberForm = () => {
          </div>
       </section>
    );
-};
-
-export default LifetimeMemberForm;
+}
