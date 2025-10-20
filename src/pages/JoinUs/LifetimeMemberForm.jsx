@@ -113,7 +113,7 @@ export default function LifetimeMemberForm() {
                </header>
 
                <FormProvider {...methods}>
-                  <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-10 space-y-6">
+                  <form onSubmit={handleSubmit(onSubmit)} className="p-4 sm:p-5 md:p-10 space-y-6">
                      {/* Member Type Buttons */}
                      <div className="grid grid-cols-2 gap-3">
                         <button
@@ -234,13 +234,13 @@ export default function LifetimeMemberForm() {
                         <label className="font-medium label">
                            অর্থ প্রদানের মাধ্যম <span className="text-red-600">*</span>
                         </label>
-                        <div className="grid sm:grid-cols-3 gap-x-3 shadow-xs shadow-green-300 p-3 rounded-xl">
+                        <div className="grid grid-cols-3 gap-x-1 md:gap-x-3 shadow-xs shadow-green-300 p-3 rounded-xl">
                            {paymentMethods.map((m, idx) => (
                               <button
                                  type="button"
                                  onClick={() => setSelectedPayment(m.method)}
                                  key={idx}
-                                 className={` p-2 rounded-selector   transition-all duration-300 
+                                 className={` p-2 text-xs md:text-base rounded-selector transition-all duration-300 
                                     ${selectedPayment === m.method
                                        ? "bg-green-700 text-white shadow-md"
                                        : "bg-base-100 hover:bg-base-300"

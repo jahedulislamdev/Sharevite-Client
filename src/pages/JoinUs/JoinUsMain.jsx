@@ -54,12 +54,12 @@ const JoinUsMain = () => {
          </div>
 
          {/* Tabs */}
-         <nav className="flex justify-between md:justify-center gap-x-1 sm:gap-x-5 md:gap-x-10 p-4 mb-6 shadow-xs rounded-2xl shadow-green-700 mx-auto">
+         <nav className="flex justify-between md:justify-center gap-x-1 sm:gap-x-5 md:gap-x-10 p-4 mb-6 shadow-xs rounded-2xl shadow-green-200 mx-auto">
             {joinOptions.map((opt) => (
                <button
                   key={opt.id}
                   onClick={() => setSelectedForm(opt.form)}
-                  className={`py-2 px-2 md:px-10 rounded-lg font-hind text-xs sm:text-lg font-semibold transition-all duration-300 ${selectedForm === opt.form
+                  className={`py-2 px-2 md:px-10 rounded-lg font-hind text-sm sm:text-lg font-semibold transition-all duration-300 ${selectedForm === opt.form
                      ? "bg-green-700 text-white shadow-md"
                      : "bg-base-200 hover:bg-base-300"
                      }`}
