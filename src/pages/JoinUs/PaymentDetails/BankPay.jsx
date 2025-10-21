@@ -38,20 +38,20 @@ const BankPay = () => {
             <div className="space-y-2">
                <p className="flex items-center gap-2">
                   <FaHashtag className="text-green-600 text-xl" />
-                  <span className="font-semibold">Account No:</span>{" "}
-                  <span className="text-gray-700">1781500117092</span>
+                  <span className="font-semibold opacity-70 ">Account No:</span>{" "}
+                  <span >1781500117092</span>
                </p>
 
                <p className="flex items-center gap-2">
                   <FaHashtag className="text-green-600 text-xl" />
-                  <span className="font-semibold">Routing No:</span>{" "}
-                  <span className="text-gray-700">225261187</span>
+                  <span className="font-semibold opacity-70 ">Routing No:</span>{" "}
+                  <span >225261187</span>
                </p>
 
                <p className="flex items-center gap-2">
                   <FaKey className="text-green-600 text-xl" />
-                  <span className="font-semibold">Swift Code:</span>{" "}
-                  <span className="text-gray-700">CIBLBDDHXXX</span>
+                  <span className="font-semibold opacity-70 ">Swift Code:</span>{" "}
+                  <span >CIBLBDDHXXX</span>
                </p>
             </div>
          </div>

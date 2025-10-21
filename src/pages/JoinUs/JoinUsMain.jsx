@@ -6,8 +6,8 @@ import LifetimeMemberForm from "./LifetimeMemberForm";
 import JobNotice from "./Career/JobNotice";
 
 const joinOptions = [
-   { id: 1, title: "স্বেচ্ছাসেবক", form: "volunteer" },
    { id: 2, title: "নিয়মিত দাতা", form: "regulerDoner" },
+   { id: 1, title: "স্বেচ্ছাসেবক", form: "volunteer" },
    { id: 3, title: "আজীবন সদস্য", form: "lifetimeMember" },
    { id: 4, title: "ক্যারিয়ার", form: "career" },
 ];

@@ -15,8 +15,11 @@
 .title {
     @apply bg-gradient-to-r from-green-400 to-green-800 bg-clip-text text-transparent font-hind;
 }
-.note {
+.note-sm {
     @apply border-s-3 border-orange-500 py-2.5 px-4 bg-[#ffa6000d] rounded-e-lg font-hind text-sm leading-relaxed;
+}
+.note-lg {
+    @apply border-s-3 border-orange-500 py-2.5 px-4 bg-[#ffa6000d] rounded-e-lg font-hind text-lg leading-relaxed;
 }
 .subtitle {
     @apply opacity-60 font-noto;
@@ -32,4 +35,7 @@
 } */
 .scrollbar-hide {
     scrollbar-width: none;
+}
+.input-style {
+    @apply input input-lg rounded-lg px-3 py-2 w-full bg-base-200 border-transparent hover:border-green-700 focus:border-green-700 transition-all duration-300 focus:outline-none;
 }

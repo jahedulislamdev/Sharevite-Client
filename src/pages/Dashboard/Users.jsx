@@ -82,14 +82,14 @@ const Users = () => {
                                  <label htmlFor="showUserDetails" className="p-2 bg-sky-700 rounded-full cursor-pointer inline-block"><IoMdEye className="size-5" /></label>
                                  <button onClick={() => handleDeleteUser(user.email)} className="p-2 bg-red-600 rounded-full cursor-pointer inline-block"><MdDelete className="size-5" /></button>
                               </td>
-                              <input type="checkbox" id="showUserDetails" className="modal-toggle" />
+                              {/* <input type="checkbox" id="showUserDetails" className="modal-toggle" />
                               <div className="modal" role="dialog">
                                  <div className="modal-box">
                                     <h3 className="text-lg font-bold">Hello!</h3>
                                     <p className="py-4">This modal works with a hidden checkbox!</p>
                                  </div>
                                  <label className="modal-backdrop" htmlFor="showUserDetails">Close</label>
-                              </div>
+                              </div> */}
                            </motion.tr>
                         ))
                      }

@@ -70,12 +70,12 @@ export default function LifetimeMemberForm() {
                </p>
 
                <div className="overflow-hidden rounded-2xl shadow-md">
-                  {/* <iframe
+                  <iframe
                      className="w-full aspect-video"
                      src="https://www.youtube.com/embed/FRAoIxlQBkU?si=G_2AVDoax5Mju2zw"
                      title="YouTube video player"
                      allowFullScreen
-                  ></iframe> */}
+                  ></iframe>
                </div>
 
                <p className="opacity-80">
@@ -87,11 +87,11 @@ export default function LifetimeMemberForm() {
                      আস-সুন্নাহ ফাউন্ডেশনের নীতি ও আদর্শের সঙ্গে একমত এরকম যে কেউ আজীবন সদস্য ও দাতা সদস্য হতে পারেন।
                   </p>
 
-                  <div className="note">
+                  <div className="note-sm">
                      <h3 className="text-lg font-semibold title">আজীবন সদস্য</h3>
                      <p>এককালীন কমপক্ষে এক লক্ষ বা তদূর্ধ টাকা দান করলে আজীবন সদস্য হবেন।</p>
                   </div>
-                  <div className="note">
+                  <div className="note-sm">
                      <h3 className="text-lg font-semibold title">দাতা সদস্য</h3>
                      <p>এককালীন কমপক্ষে পঞ্চাশ হাজার বা তদূর্ধ টাকা দান করলে দাতা সদস্য হবেন।</p>
                   </div>
@@ -223,7 +223,7 @@ export default function LifetimeMemberForm() {
                            <input
                               type="text"
                               {...register("donarReference")}
-                              className="input input-lg w-full bg-base-200 border border-gray-300 focus:border-green-500 outline-none"
+                              className=" input-style"
                               placeholder="রেফারেন্স লিখুন"
                            />
                         </div>
@@ -263,7 +263,7 @@ export default function LifetimeMemberForm() {
                         দান করুন
                      </button>
 
-                     <p className="note">
+                     <p className="note-sm">
                         আমাদের সম্মানিত দাতাদের সকল তথ্য নিরাপদ রাখা হবে। কোনো তথ্য কখনো জনসম্মুখে প্রকাশ করা হবে না ইনশাআল্লাহ্।
                      </p>
                   </form>
