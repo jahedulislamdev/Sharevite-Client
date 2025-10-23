@@ -48,15 +48,15 @@ const AddCampaign = () => {
    const { mutate: postCampaign } = usePostData("/campaigns", "নতুন ক্যাম্পেইন সফল ভাবে তৈরি হয়েছে!", "allCampaigns");
 
    // image upload hooks
-   const { fileInputRef, handleImageChange, removeImage } = useHostImg(5);
+   const { fileInputRef, files, handleImageChange, removeImage } = useHostImg(5);
 
    // form Submit handler
    const onSubmitForm = async (data) => {
-      console.log("hitting")
+      // console.log("hitting")
       try {
          setLoading(true);
          // call postimg api
-         const postImages = await postImg(data);
+         const postImages = await postImg(files);
          console.log(postImages)
 
          // combine uploaded image url with form data

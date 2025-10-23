@@ -1,4 +1,3 @@
-
 const listOfAmount = [
    { label: "10", value: 10 },
    { label: "20", value: 20 },
@@ -8,15 +7,16 @@ const listOfAmount = [
    { label: "other", value: "setValue" },
 ]
 const Daily = ({ amount, setAmount }) => {
-   const isSelected = listOfAmount.find(l => l.value === amount)
-   console.log({ amount, isSelected })
-
    return (
       <div className="grid grid-cols-3 py-6 px-4 font-onset gap-3 shadow-sm shadow-green-200 my-5 rounded-2xl">
          {
-            listOfAmount.map((li, idx) => <button onClick={() => setAmount(li.value)} className={`btn btn-lg font-normal ${amount === li.value && 'bg-green-700 text-white'}`} key={idx}>{li.label}</button>)
+            listOfAmount.map((li, idx) =>
+               <button
+                  onClick={() => setAmount(li.value)}
+                  className={`btn btn-lg font-normal ${amount === li.value && 'bg-green-700 text-white'}`}
+                  key={idx}>{li.label}
+               </button>)
          }
-
       </div>
    );
 };

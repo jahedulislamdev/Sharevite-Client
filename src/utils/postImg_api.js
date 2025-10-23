@@ -4,14 +4,13 @@ import axios from "axios";
 const imgHostingSecret = import.meta.env.VITE_IMG_HOSTING_KEY;
 const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingSecret}`;
 
-const postImg = async (data) => {
-    const images = data.images || [];
-    // console.log(images);
+const postImg = async (files) => {
+    // console.log(files);
     const uploadedImages = await Promise.all(
-        images.map(async (img) => {
+        files.map(async (file) => {
             try {
                 const formData = new FormData();
-                formData.append("image", img);
+                formData.append("image", file);
 
                 const res = await axios.post(imgHostingApi, formData, {
                     headers: {
