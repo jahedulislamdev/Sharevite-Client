@@ -27,15 +27,15 @@ const RegulerDonatorForm = () => {
    const methods = useForm();
    const { register, handleSubmit, formState: { errors } } = methods;
    const [amountList, setAmountList] = useState("daily");
-   const [amount, setAmount] = useState("");
+   const [amount, setAmount] = useState(10);
    const [selectedMethod, setSelectedMethod] = useState("bkash");
    const { user } = useAuthContext();
 
    // render Daily / Monthly Amount Components
    const renderAmountList = () => {
       switch (amountList) {
-         case "daily": return <Daily setAmount={setAmount} />;
-         case "monthly": return <Monthly setAmount={setAmount} />;
+         case "daily": return <Daily amount={amount} setAmount={setAmount} />;
+         case "monthly": return <Monthly amount={amount} setAmount={setAmount} />;
          default: return null;
       }
    };

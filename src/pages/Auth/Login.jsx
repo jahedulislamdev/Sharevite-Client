@@ -38,7 +38,7 @@ const Login = () => {
 
    return (
       <div className="flex items-start justify-center my-9 md:h-screen font-noto">
-         <div className="w-full max-w-sm rounded-xl shadow shadow-green-400 p-8">
+         <div className="w-full max-w-sm rounded-xl shadow-xs shadow-green-400 p-8">
             {/* Title */}
             <h2 className="text-2xl font-semibold text-center mb-6 title">লগইন</h2>
             {/* Google Button */}

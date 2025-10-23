@@ -53,7 +53,7 @@ const Registration = () => {
 
    return (
       <div className="flex items-center justify-center mt-5 mb-10 font-noto">
-         <div className="w-full max-w-sm md:max-w-md rounded-xl shadow shadow-green-400 p-8">
+         <div className="w-full max-w-sm md:max-w-md rounded-xl shadow-xs shadow-green-400 p-8">
             {/* Title */}
             <h2 className="text-2xl font-bold text-center mb-6 title">রেজিস্ট্রেশন</h2>
 
@@ -84,7 +84,7 @@ const Registration = () => {
                   <input
                      type="email"
                      placeholder="you@example.com"
-                     className={`input focus:outline-0 w-full ${errors.userEmail ? "border-red-700" : ""}`}
+                     className={`input focus:outline-0 font-onset w-full ${errors.userEmail ? "border-red-700" : ""}`}
                      {...register("userEmail", { required: "আপনার ই-মেইল দিন।", pattern: { value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, message: "সঠিক ইমেইল দিন" } })}
                   />
                   <p className="mt-1 text-red-600 font-extralight text-sm">{errors.userEmail?.message}</p>
@@ -118,7 +118,7 @@ const Registration = () => {
                <div className="form-control">
                   <label className="label">
                      <span className="label-text flex items-center gap-2">
-                        <FaImage /> ছবি ইউআরএল<span className="text-error">*</span>
+                        <FaImage /> ছবি URL<span className="text-error">*</span>
                      </span>
                   </label>
                   <input
