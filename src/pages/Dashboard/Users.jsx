@@ -76,10 +76,10 @@ const Users = () => {
                                  </div>
                               </td>
                               <td >{user.name}</td>
-                              <td className=" "><span className={`badge badge-primary badge-soft ${user?.role === "admin" && "badge-success"}`} >{user?.role === "admin" ? "admin" : "User"}</span></td>
+                              <td className=" "><span className={`badge badge-primary badge-soft capitalize ${user?.role === "admin" && "badge-success"}`} >{user?.role}</span></td>
                               <td>{user.email}</td>
                               <td className=" space-x-2 text-white">
-                                 <label htmlFor="showUserDetails" className="p-2 bg-sky-700 rounded-full cursor-pointer inline-block"><IoMdEye className="size-5" /></label>
+                                 <button className="p-2 bg-sky-100 text-black rounded-full cursor-pointer inline-block"><IoMdEye className="size-5" /></button>
                                  <button onClick={() => handleDeleteUser(user.email)} className="p-2 bg-red-600 rounded-full cursor-pointer inline-block"><MdDelete className="size-5" /></button>
                               </td>
                               {/* <input type="checkbox" id="showUserDetails" className="modal-toggle" />

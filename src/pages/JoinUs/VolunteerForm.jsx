@@ -8,6 +8,7 @@ import RHFSelect from './../../Components/Form/RHFSelect';
 import postImg from './../../utils/postImg_api';
 import { useState } from "react";
 import usePostData from "../../hooks/usePostData";
+import { useNavigate } from "react-router-dom";
 
 const rules =
    [
@@ -19,10 +20,15 @@ const rules =
 const VolunteerForm = () => {
    const methods = useForm();
    const { register, formState: { errors } } = methods;
+   // call custom selector hook
    const presentAddress = useAddressSelector();
    const permanentAddress = useAddressSelector();
+
+   // call hosting img hook
    const { fileInputRef, files, handleImageChange, previewImage } = useHostImg(1, 2);
    const [loading, setLoading] = useState(false);
+   const navigate = useNavigate()
+   // call post data hook
    const { mutate: postVolunteerData } = usePostData('/volunteers', "আবেদন সফল ভাবে প্রেরণ করা হয়েছে!", "allVolunteers")
 
    const onSubmitVolunteerForm = async (data) => {
@@ -32,7 +38,8 @@ const VolunteerForm = () => {
          // console.log({ ...data, profile }); 
          const updatedData = { ...data, profileURL }
          postVolunteerData(updatedData)
-         setLoading(false)
+         setLoading(false);
+         navigate('/')
       } catch (error) {
          console.error(error)
       }
@@ -93,7 +100,7 @@ const VolunteerForm = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-7">
                      <RHFInput type="text" name="occupation" label="বর্তমান পেশা" required />
                      <RHFInput type="text" name="organization" label=" প্রতিষ্ঠানের নাম" required />
-                     <RHFInput type="text" name="workAddress" label="কর্মস্থলের ঠিকানা" className="md:col-span-2" required />
+                     <RHFInput type="text" name="workAddress" label="প্রতিষ্ঠানের ঠিকানা" className="md:col-span-2" required />
                   </div>
                </section>
 
@@ -188,15 +195,15 @@ const VolunteerForm = () => {
                </section>
 
                {/*  social media links */}
-               <section className="p-5 rounded-lg shadow-xs shadow-green-700/50">
+               <section className="p-5 rounded-lg shadow-xs shadow-green-700/50 ">
                   <h3 className="text-xl title font-semibold mb-4 border-l-4 pl-3 border-pink-500">
                      সোশ্যাল মিডিয়া সংক্রান্ত তথ্য
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 md:gap-x-7">
-                     <RHFInput name="facebook" label="ফেসবুক আইডির লিঙ্ক" required />
-                     <RHFInput name="linkedin" label="লিঙ্কডইন আইডির লিঙ্ক" />
-                     <RHFInput name="whatsapp" label="হোয়াটসঅ্যাপ নম্বর" required />
-                     <RHFInput name="telegram" label="টেলিগ্রাম নম্বর" />
+                     <RHFInput type="url" name="facebook" label="ফেসবুক আইডির লিঙ্ক" required />
+                     <RHFInput type="url" name="linkedin" label="লিঙ্কডইন আইডির লিঙ্ক" />
+                     <RHFInput type="number" name="whatsapp" label="হোয়াটসঅ্যাপ নম্বর" required />
+                     <RHFInput type="number" name="telegram" label="টেলিগ্রাম নম্বর" />
                   </div>
                </section>
 
@@ -210,7 +217,7 @@ const VolunteerForm = () => {
                         <label className={` label block mb-2 ${errors.educationMedium && "text-red-500"}`}>পড়াশুনার মাধ্যম <span className="text-red-500">*</span></label>
                         <select
                            {...register("educationMedium", { required: "পড়াশুনার মাধ্যম সিলেক্ট করুন" })}
-                           className={`select select-lg outline-0 ${errors.educationMedium && "border-red-500 "}`} >
+                           className={`select outline-0  ${errors.educationMedium && "border-red-500 "}`} >
                            <option value="">সিলেক্ট করুন</option>
                            {["আধুনিক", "মাদ্রাসা", "প্রযুক্তি শিক্ষা"].map((o, idx) => <option key={idx} value={o}>{o}</option>)}
                         </select>
@@ -220,10 +227,10 @@ const VolunteerForm = () => {
                         <label className={` label block mb-2 ${errors.educationLevel && "text-red-500"}`} >শিক্ষার স্তর <span className="text-red-500">*</span></label>
                         <select
                            {...register("educationLevel", { required: "শিক্ষার স্তর সিলেক্ট করুন" })}
-                           className={`select select-lg outline-0 ${errors.educationLevel && "border-red-500 "}`}
+                           className={`select  outline-0 font-onset ${errors.educationLevel && "border-red-500 "}`}
                         >
                            <option value="">সিলেক্ট করুন</option>
-                           {["SSC/Equivalent", "HSC/Equivalent", "Graduate", "Post Graduate"].map((o, idx) => <option key={idx} value={o}>{o}</option>)}
+                           {["SSC/Equivalent", "HSC/Equivalent", "Bachelor", "Graduate", "Post Graduate"].map((o, idx) => <option key={idx} value={o}>{o}</option>)}
                         </select>
                         {errors.educationLevel && <p className="text-red-500 mt-1 ">{errors.educationLevel?.message}</p>}
                      </div>
@@ -268,7 +275,7 @@ const VolunteerForm = () => {
                {/* Submit*/}
                <button
                   type="submit"
-                  className="bg-green-700 font-hind hover:bg-green-800 text-white px-10 py-3 rounded-lg text-lg font-semibold shadow-md transition-all duration-300"
+                  className="bg-green-700 font-hind w-64 hover:bg-green-800 text-white px-10 py-3 rounded-lg text-lg font-semibold shadow-md transition-all duration-300"
                >
                   {loading ? <span className="loading loading-spinner loading-md"></span> : "আবেদন করুন"}
                </button>

@@ -78,12 +78,12 @@ const Campaigns = () => {
                      <td>
                         <div className="flex flex-wrap gap-1 font-hind">
                            {cam.location.map((l, i) => (
-                              <span
+                              <p
                                  key={i}
-                                 className="px-2 py-0.5 rounded-xl bg-base-200 text-green-700 text-xs"
+                                 className="flex gap-x-1 px-2 py-0.5 rounded-xl bg-base-200  text-xs"
                               >
-                                 <CiLocationOn /> {l.tag}
-                              </span>
+                                 <CiLocationOn className="text-red-600" /> {l.tag}
+                              </p>
                            ))}
                         </div>
                      </td>
@@ -122,8 +122,8 @@ const Campaigns = () => {
                      </td>
                      {/* Actions */}
                      <td className="space-x-2 text-white">
-                        <button onClick={() => navigate(`/dashboard/campaign/edit/${cam._id}`)} className="p-2 bg-sky-700 rounded-full cursor-pointer"><BiSolidEdit className="size-5" /></button>
-                        <button onClick={() => handleDeleteCampaigns(cam._id)} className="p-2 bg-red-600 rounded-full cursor-pointer inline-block"><MdDelete className="size-5" /></button>
+                        <button onClick={() => navigate(`/dashboard/campaign/edit/${cam._id}`)} className="p-2 bg-sky-200 text-black rounded-full cursor-pointer"><BiSolidEdit className="size-5" /></button>
+                        <button onClick={() => handleDeleteCampaigns(cam._id)} className="p-2 bg-red-500 rounded-full cursor-pointer inline-block"><MdDelete className="size-5" /></button>
                      </td>
                   </tr>
                ))}

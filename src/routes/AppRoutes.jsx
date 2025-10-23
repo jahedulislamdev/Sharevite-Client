@@ -17,6 +17,7 @@ import AdminRoutes from './AdminRoutes';
 import App from "../App";
 import Blog from "../pages/Blogs/Blog";
 import JoinUsMain from "../pages/JoinUs/JoinUsMain";
+import Volunteers from "../pages/Dashboard/Volunteers";
 
 
 const router = createBrowserRouter([
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
          { path: "campaign/edit/:id", element: <EditCampaigns /> },
          { path: "users", element: <Users /> },
          { path: "reports", element: <Reports /> },
+         { path: "volunteers", element: <Volunteers /> }
       ]
    }
 ])

@@ -117,7 +117,7 @@ const AddCampaign = () => {
             <div>
                <label className="block mb-2 font-semibold">ক্যাটাগরি *</label>
                <select
-                  className={`select select-lg border ${errors.category ? "border-red-600" : "border-gray-400"} w-full focus:outline-0`}
+                  className={`select select-lg border outline-0 ${errors.category ? "border-red-600" : "border-gray-400"} w-full focus:outline-0`}
                   {...register("category", { required: "যেকোন একটি ক্যাটাগরি নির্বাচন করুন" })}
                >
                   <option value="">ক্যাটাগরি নির্বাচন করুন</option>

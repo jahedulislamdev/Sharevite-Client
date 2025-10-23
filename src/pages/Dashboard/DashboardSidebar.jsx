@@ -39,7 +39,7 @@ const dashboardNavLinks = [
       children: [
          { label: "All Users", path: "users", icon: <MdPeople /> },
          { label: "Roles & Permissions", path: "users/roles", icon: <FaUsersCog /> },
-         { label: "Volunteers", path: "users/volunteers", icon: <MdVolunteerActivism /> }
+         { label: "Volunteers", path: "volunteers", icon: <MdVolunteerActivism /> }
       ],
    },
    {
