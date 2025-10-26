@@ -35,13 +35,6 @@ export default function VolunteersTable() {
 
    };
 
-
-
-
-
-
-
-
    const [query, setQuery] = useState('');
    const [occupationFilter, setOccupationFilter] = useState('All');
    const [educationFilter, setEducationFilter] = useState('All');

@@ -28,11 +28,6 @@ const Campaigns = () => {
       }).then((result) => {
          if (result.isConfirmed) {
             deleteCampaign(id);
-            Swal.fire({
-               title: "Deleted!",
-               text: "Your file has been deleted.",
-               icon: "success"
-            });
          }
       });
 
