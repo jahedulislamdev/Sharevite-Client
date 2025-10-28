@@ -1,17 +1,9 @@
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import RHFInput from "../../Components/Form/RHFInput";
 import OnlinePay from "./PaymentDetails/OnlinePay";
 import BankPay from "./PaymentDetails/BankPay";
+import { professionsOptions } from "./plans";
 
-const professionsOptions = [
-   "ইমাম", "মুয়াজ্জিন", "শিক্ষক", "চিকিৎসক", "চাকরিজীবী",
-   "সরকারি চাকরিজীবী", "বেসরকারি চাকরিজীবী", "বেকার", "কৃষক",
-   "শ্রমিক", "ব্যবসায়ী", "গৃহিণী", "ছাত্র", "ইঞ্জিনিয়ার",
-   "আইনজীবী", "নার্স", "পুলিশ", "সেনা সদস্য", "রাজমিস্ত্রি",
-   "দর্জি", "ফ্রিল্যান্সার", "সাংবাদিক", "শিল্পী", "কর্মচারী",
-   "রাঁধুনি", "অন্যান্য"
-];
 const paymentMethods = [
    { title: "অনলাইন পেমেন্ট", method: "onlinePay" },
    { title: "ব্যাংক ট্রান্সফার", method: "bankTransfer" },
@@ -24,19 +16,15 @@ export default function LifetimeMemberForm() {
          donationAmount: 100000,
          donnerName: "",
          gender: "male",
-         donarEmail: "",
-         donarReference: "",
+         donorEmail: "",
+         donorReference: "",
+         donorType: "lifetimeMember"
       }
    });
-   const { handleSubmit, register, formState: { errors } } = methods;
 
-   const [memberType, setMemberType] = useState("lifetime");
-   const [amount, setAmount] = useState("100000");
+   const { handleSubmit, register, setValue, watch, formState: { errors } } = methods;
 
-   const handleCheckDonationType = (type) => {
-      setMemberType(type);
-      setAmount(type === "lifetime" ? "100000" : "50000");
-   };
+   const donorType = watch("donorType")
 
    //  showing payment system details conditionally 
    const [selectedPayment, setSelectedPayment] = useState("onlinePay")
@@ -50,15 +38,14 @@ export default function LifetimeMemberForm() {
          case "bankTransfer":
             return <BankPay />;
       }
-   }
-
+   };
 
    const onSubmit = (data) => {
       console.log("Submitted Data:", data);
    };
 
    return (
-      <section className="font-noto py-10 md:px-8 lg:px-12 bg-base-100 text-base-content transition-all duration-300">
+      <section className="font-noto py-10 md:px-8 lg:px-12 bg-base-100 text-base-content">
          <div className="grid lg:grid-cols-2 gap-10">
             {/* Left Side */}
             <div className="space-y-6">
@@ -70,12 +57,12 @@ export default function LifetimeMemberForm() {
                </p>
 
                <div className="overflow-hidden rounded-2xl shadow-md">
-                  <iframe
+                  {/* <iframe
                      className="w-full aspect-video"
                      src="https://www.youtube.com/embed/FRAoIxlQBkU?si=G_2AVDoax5Mju2zw"
                      title="YouTube video player"
                      allowFullScreen
-                  ></iframe>
+                  ></iframe> */}
                </div>
 
                <p className="opacity-80">
@@ -116,26 +103,28 @@ export default function LifetimeMemberForm() {
                   <form onSubmit={handleSubmit(onSubmit)} className="p-4 sm:p-5 md:p-10 space-y-6">
                      {/* Member Type Buttons */}
                      <div className="grid grid-cols-2 gap-3">
-                        <button
-                           type="button"
-                           onClick={() => handleCheckDonationType("lifetime")}
-                           className={`p-3 rounded-xl font-semibold transition ${memberType === "lifetime"
-                              ? "bg-green-600 text-white"
-                              : "bg-base-200 hover:bg-base-300"
-                              }`}
-                        >
-                           আজীবন সদস্য
-                        </button>
-                        <button
-                           type="button"
-                           onClick={() => handleCheckDonationType("donor")}
-                           className={`p-3 rounded-xl font-semibold transition ${memberType === "donor"
-                              ? "bg-green-600 text-white"
-                              : "bg-base-200 hover:bg-base-300"
-                              }`}
-                        >
-                           দাতা সদস্য
-                        </button>
+                        {
+                           ["lifetimeMember", "donor"].map(type => (
+                              <button
+                                 key={type}
+                                 type="button"
+                                 onClick={() => {
+                                    setValue("donorType", type)
+                                    if (type === "lifetimeMember") {
+                                       setValue("donationAmount", 100000)
+                                    } else if (type === "donor") {
+                                       setValue("donationAmount", 50000)
+                                    }
+                                 }}
+                                 className={`p-3 rounded-xl font-semibold transition ${donorType === type
+                                    ? "bg-green-600 text-white"
+                                    : "bg-base-200 hover:bg-base-300"
+                                    }`}
+                              >
+                                 {type === "lifetimeMember" ? "আজীবন সদস্য" : "দাতা সদস্য"}
+                              </button>
+                           ))
+                        }
                      </div>
 
                      {/* Donation Amount */}
@@ -144,23 +133,46 @@ export default function LifetimeMemberForm() {
                            অনুদানের পরিমাণ <span className="text-red-600">*</span>
                         </label>
                         <input
-                           {...register("donationAmount", { required: "অনুদানের পরিমাণ দিন" })}
-                           className={` input input-lg rounded-lg px-3 py-2 w-full bg-base-200 
-                              ${errors?.donationAmount
-                                 ? "border border-red-400 focus:border-red-500"
-                                 : "border-transparent hover:border-green-700 focus:border-green-700"
-                              }  transition-all duration-300 focus:outline-none `}
                            type="number"
-                           value={amount}
-                           onChange={(e) => setAmount(e.target.value)}
+                           {...register("donationAmount", {
+                              required: "অনুদানের পরিমাণ দিন",
+                              setValueAs: (v) => v === "" ? "" : Number(v),
+                              validate: (v) => {
+                                 if (donorType === "lifetimeMember") {
+                                    return v === "" || Number(v) >= 100000 || `নুন্যতম ${100000} টাকা হতে হবে`;
+                                 }
+                                 if (donorType === "donor") {
+                                    return v === "" || Number(v) >= 50000 || `নুন্যতম ${50000} টাকা হতে হবে`;
+                                 }
+                                 return true;
+                              }
+
+                           })}
+                           className="input-style"
                         />
                         {errors?.donationAmount && (
                            <p className="text-red-500 text-sm mt-1">{errors.donationAmount.message}</p>
                         )}
                      </div>
-                     <div className=" px-3 md:px-6 py-3 md:py-4 rounded-2xl shadow-xs shadow-green-300">
-                        <RHFInput label="ব্যাক্তির নাম" name="donnerName" type="text" required />
-                        <RHFInput label="ইমেইল" name="donarEmail" type="email" required />
+                     <div className=" px-3 md:px-6 py-3 md:py-4 rounded-2xl shadow-xs shadow-green-300 space-y-4">
+                        <div>
+                           <label className="label">নাম <span className="text-red-600">*</span></label>
+                           <input
+                              type="text"
+                              className="input-style"
+                              {...register("donnerName", { required: "সদস্য প্রার্থীর নাম দিন" })}
+                           />
+                           {errors.donnerName && <p className="text-red-500">{errors.donnerName.message}</p>}
+                        </div>
+                        <div>
+                           <label className="label">ইমেইল  <span className="text-red-600">*</span></label>
+                           <input
+                              type="email"
+                              className="input-style"
+                              {...register("donorEmail", { required: "সদস্য প্রার্থীর ইমেইল দিন" })}
+                           />
+                           {errors.donorEmail && <p className="text-red-500">{errors.donorEmail.message}</p>}
+                        </div>
                      </div>
 
                      {/* Gender */}
@@ -200,7 +212,7 @@ export default function LifetimeMemberForm() {
                            </label>
                            <select
                               {...register("profession", { required: "আপনার পেশা নির্বাচন করুন" })}
-                              className={`select select-lg w-full bg-base-200 border ${errors.profession ? "border-red-500" : "border-gray-300"
+                              className={`select select-lg outline-0 w-full bg-base-200 border ${errors.profession ? "border-red-500" : "border-gray-300"
                                  }`}
                            >
                               <option className="opacity-30" value="">
@@ -222,7 +234,7 @@ export default function LifetimeMemberForm() {
                            <label className="mb-2 label">রেফারেন্স</label>
                            <input
                               type="text"
-                              {...register("donarReference")}
+                              {...register("donorReference")}
                               className=" input-style"
                               placeholder="রেফারেন্স লিখুন"
                            />
