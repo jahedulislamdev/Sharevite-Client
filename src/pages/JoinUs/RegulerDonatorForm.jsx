@@ -3,6 +3,7 @@ import Daily from "./PaymentDetails/Daily";
 import Monthly from "./PaymentDetails/Monthly";
 import { FormProvider, useForm } from "react-hook-form";
 import { useAuthContext } from "../../hooks/useContext";
+import RHFInput from "../../Components/Form/RHFInput";
 
 
 // Payment Methods
@@ -23,26 +24,29 @@ const paymentMethods = [
       alt: "Card",
    },
 ];
+
 const RegulerDonatorForm = () => {
-   const methods = useForm();
-   const { register, handleSubmit, formState: { errors } } = methods;
-   const [amountList, setAmountList] = useState("daily");
-   const [amount, setAmount] = useState(10);
-   const [selectedMethod, setSelectedMethod] = useState("bkash");
    const { user } = useAuthContext();
+
+   const methods = useForm();
+   const { register, handleSubmit, setValue, watch, formState: { errors } } = methods;
+   const amount = watch("donationAmount");
+
+   const [amountList, setAmountList] = useState("daily");
+   const [selectedMethod, setSelectedMethod] = useState("bkash");
 
    // render Daily / Monthly Amount Components
    const renderAmountList = () => {
       switch (amountList) {
-         case "daily": return <Daily amount={amount} setAmount={setAmount} />;
-         case "monthly": return <Monthly amount={amount} setAmount={setAmount} />;
+         case "daily": return <Daily setValue={setValue} amount={amount} />;
+         case "monthly": return <Monthly setValue={setValue} amount={amount} />;
          default: return null;
       }
    };
 
    // Submit Handler
    const handleDonarForm = (data) => {
-      console.log({ ...data, amount });
+      console.log(data)
    };
 
 
@@ -56,12 +60,12 @@ const RegulerDonatorForm = () => {
          <div className="grid md:grid-cols-2 font-noto gap-x-10">
             {/* Left Side Content */}
             <div className="space-y-4 mt-10">
-               <iframe
+               {/* <iframe
                   className="w-full aspect-video rounded-2xl"
                   src="https://www.youtube.com/embed/KVjKMEAerhQ?si=PPN4CjY9U2k_sDxK"
                   title="YouTube video player"
                   allowFullScreen
-               />
+               /> */}
                <div className="bg-base-200 rounded-lg p-8 text-xl font-semibold text-center">
                   আল্লাহর কাছে সর্বাধিক প্রিয় আমল হলো, যা সদাসর্বদা নিয়মিত করা হয়, যদিও তা অল্প হয়। (সহীহ বুখারী, হাদীস ৬৪৬৪)
                </div>
@@ -122,9 +126,9 @@ const RegulerDonatorForm = () => {
                            </label>
                            <input
                               type="number"
-                              {...register("donationAmount", { required: "অনুদানের পরিমাণ দিন" })}
+                              {...register("donationAmount", { required: "অনুদানের পরিমাণ দিন", valueAsNumber: true })}
                               value={amount}
-                              onChange={(e) => setAmount(e.target.value)}
+                              onChange={(e) => setValue(e.target.value)}
                               placeholder="অনুদানের পরিমাণ লিখুন"
                               className={`w-full rounded-lg border px-4 py-2.5 bg-base-200 focus:outline-none focus:ring-2 transition-all duration-300 
                               ${errors?.donationAmount
@@ -139,20 +143,11 @@ const RegulerDonatorForm = () => {
                            )}
                         </div>
 
-                        {/* Donor Info */}
+                        {/* Donor name */}
                         <div>
-                           <label className="label mb-2">
-                              ব্যাক্তির নাম
-                           </label>
-                           <input
-                              type="text"
-                              {...register("donorName")}
-                              value={user?.displayName || ""}
-                              readOnly={user}
-                              className="w-full font-onset rounded-lg bg-base-200 px-4 py-2.5 text-base opacity-70 cursor-not-allowed"
-                           />
+                           <RHFInput label={'ব্যাক্তির নাম'} name={"donorName"} />
                         </div>
-
+                        {/* donor email */}
                         <div>
                            <label className="label mb-2">
                               ইমেইল / মোবাইল <span className="text-red-600">*</span>
@@ -165,7 +160,7 @@ const RegulerDonatorForm = () => {
                               className="w-full font-onset rounded-lg bg-base-200 px-4 py-2.5 text-base opacity-70 cursor-not-allowed"
                            />
                         </div>
-
+                        {/* another donar name */}
                         <div>
                            <label className="label mb-2">
                               অন্য কারো পক্ষ থেকে দান করে থাকলে তার নাম লিখুন
