@@ -1,48 +1,26 @@
-import { useState } from "react";
-import Daily from "./PaymentDetails/Daily";
-import Monthly from "./PaymentDetails/Monthly";
 import { FormProvider, useForm } from "react-hook-form";
 import { useAuthContext } from "../../hooks/useContext";
 import RHFInput from "../../Components/Form/RHFInput";
-
-
-// Payment Methods
-const paymentMethods = [
-   {
-      value: "bkash",
-      img: "https://static.vecteezy.com/system/resources/previews/068/764/270/non_2x/bkash-logo-mobile-banking-app-icon-transparent-background-free-png.png",
-      alt: "bKash",
-   },
-   {
-      value: "nagad",
-      img: "https://static.vecteezy.com/system/resources/previews/068/894/449/non_2x/nagan-logo-horizontal-bangla-mobile-banking-app-icon-transparent-background-free-png.png",
-      alt: "Nagad",
-   },
-   {
-      value: "card",
-      img: "https://cdn-icons-png.flaticon.com/512/6963/6963703.png",
-      alt: "Card",
-   },
-];
+import { paymentMethods, plans } from "./plans";
 
 const RegulerDonatorForm = () => {
    const { user } = useAuthContext();
 
-   const methods = useForm();
-   const { register, handleSubmit, setValue, watch, formState: { errors } } = methods;
-   const amount = watch("donationAmount");
-
-   const [amountList, setAmountList] = useState("daily");
-   const [selectedMethod, setSelectedMethod] = useState("bkash");
-
-   // render Daily / Monthly Amount Components
-   const renderAmountList = () => {
-      switch (amountList) {
-         case "daily": return <Daily setValue={setValue} amount={amount} />;
-         case "monthly": return <Monthly setValue={setValue} amount={amount} />;
-         default: return null;
+   const methods = useForm({
+      defaultValues: {
+         planType: "daily",
+         donationAmount: "",
+         selectedAmount: null,
+         paymentMethod: "bkash"
       }
-   };
+   });
+   const { register, handleSubmit, setValue, watch, formState: { errors } } = methods;
+
+   const planType = watch("planType");
+   const planList = plans[planType];
+   const minDonationAmount = planList[0]?.value;
+   const selectedAmount = watch("selectedAmount")
+   const selectedPlaymentMethod = watch("paymentMethod")
 
    // Submit Handler
    const handleDonarForm = (data) => {
@@ -89,52 +67,80 @@ const RegulerDonatorForm = () => {
                </header>
 
                <div className="px-5">
-                  {/* Daily / Monthly Toggle */}
+                  {/* Daily / Monthly Plan switch btn */}
                   <div className="grid grid-cols-2 gap-3 mb-6">
-                     <button
-                        type="button"
-                        onClick={() => setAmountList("daily")}
-                        className={`p-3 rounded-xl font-semibold transition ${amountList === "daily"
-                           ? "bg-green-600 text-white"
-                           : "bg-base-200 hover:bg-base-300"
-                           }`}
-                     >
-                        দৈনিক
-                     </button>
-                     <button
-                        type="button"
-                        onClick={() => setAmountList("monthly")}
-                        className={`p-3 rounded-xl font-semibold transition ${amountList === "monthly"
-                           ? "bg-green-600 text-white"
-                           : "bg-base-200 hover:bg-base-300"
-                           }`}
-                     >
-                        মাসিক
-                     </button>
+                     {["daily", "monthly"].map(type => (
+                        <button
+                           key={type}
+                           type="button"
+                           onClick={() => {
+                              setValue("planType", type)
+                              // reset donationamount and selectedAmount when plan changes
+                              setValue("donationAmount", "")
+                              setValue("selectedAmount", null)
+                           }}
+                           className={`p-3 rounded-xl font-semibold transition ${type === planType
+                              ? "bg-green-600 text-white"
+                              : "bg-base-200 hover:bg-base-300"
+                              }`}
+                        >
+                           {type === "daily" ? "দৈনিক" : "মাসিক"}
+                        </button>
+                     ))}
                   </div>
 
-                  {/* Render Dynamic Amount Fields */}
-                  {renderAmountList()}
+                  {/* show planList according to the Switched Plan */}
+                  <div className="grid grid-cols-3 gap-3 shadow-sm shadow-green-200 p-4 rounded-2xl font-onset ">
+                     {
+                        planList?.map((li, idx) => (
+                           <button
+                              type="button"
+                              key={idx}
+                              onClick={() => {
+                                 setValue("donationAmount", li.value)
+                                 setValue("selectedAmount", li.value)
+                              }}
+                              className={`py-3 rounded-xl transition-all duration-300 ${li.value === selectedAmount ? "bg-[#0080002b] font-medium " : "bg-base-200"
+                                 }`}
+                           >
+                              {li.value}
+                           </button>
+                        ))
+                     }
+                     {/* other button (user can put custom value of selecting this button) */}
+                     <button
+                        onClick={() => {
+                           setValue("donationAmount", " ")
+                           setValue("selectedAmount", null)
+                        }}
+                        className={`py-3 rounded-xl transition-all duration-300 ${selectedAmount === null ? "bg-[#0080002b] font-medium" : "bg-base-200"
+                           }`}
+                     >
+                        Other
+                     </button>
+                  </div>
 
                   {/* Donation Form */}
                   <FormProvider {...methods}>
                      <form onSubmit={handleSubmit(handleDonarForm)} className="space-y-6">
                         {/* Donation Amount */}
                         <div>
-                           <label className="label mb-2">
+                           <label className="label m-2">
                               অনুদানের পরিমাণ <span className="text-red-600">*</span>
                            </label>
                            <input
                               type="number"
-                              {...register("donationAmount", { required: "অনুদানের পরিমাণ দিন", valueAsNumber: true })}
-                              value={amount}
-                              onChange={(e) => setValue(e.target.value)}
+                              disabled={selectedAmount !== null}
+                              {...register("donationAmount", {
+                                 required: "অনুদানের পরিমাণ দিন",
+                                 setValueAs: (v) => (v === "" ? "" : Number(v)),
+                                 validate: (v) => (v === "") || (Number(v) >= minDonationAmount) || `ন্যূনতম পরিমাণ ${minDonationAmount} টাকা`,
+                                 onChange: () => setValue("selectedAmount", null)
+
+                              })}
                               placeholder="অনুদানের পরিমাণ লিখুন"
-                              className={`w-full rounded-lg border px-4 py-2.5 bg-base-200 focus:outline-none focus:ring-2 transition-all duration-300 
-                              ${errors?.donationAmount
-                                    ? "border-red-400 focus:ring-red-400"
-                                    : "border-transparent hover:border-green-600 focus:ring-green-600"
-                                 }`}
+                              className={`input-style w-full ${selectedAmount !== null && " cursor-not-allowed"
+                                 } `}
                            />
                            {errors?.donationAmount && (
                               <p className="text-red-500 text-sm mt-1">
@@ -147,6 +153,7 @@ const RegulerDonatorForm = () => {
                         <div>
                            <RHFInput label={'ব্যাক্তির নাম'} name={"donorName"} />
                         </div>
+
                         {/* donor email */}
                         <div>
                            <label className="label mb-2">
@@ -157,9 +164,10 @@ const RegulerDonatorForm = () => {
                               {...register("donatorEmailOrPhone")}
                               value={user?.email || ""}
                               readOnly={user}
-                              className="w-full font-onset rounded-lg bg-base-200 px-4 py-2.5 text-base opacity-70 cursor-not-allowed"
+                              className="w-full font-onset rounded-lg bg-base-200 px-4 py-2.5 focus:outline-0 opacity-70 cursor-not-allowed"
                            />
                         </div>
+
                         {/* another donar name */}
                         <div>
                            <label className="label mb-2">
@@ -168,7 +176,7 @@ const RegulerDonatorForm = () => {
                            <input
                               type="text"
                               {...register("anotherDonatorName")}
-                              className="w-full rounded-lg bg-base-200 px-4 py-2.5 text-base"
+                              className="input-style"
                            />
                         </div>
 
@@ -178,12 +186,14 @@ const RegulerDonatorForm = () => {
                               পেমেন্ট মাধ্যম <span className="text-red-600">*</span>
                            </label>
                            <div className="flex flex-wrap gap-5">
-                              {paymentMethods.map((method) => (
+                              {paymentMethods?.map((method) => (
                                  <label
                                     key={method.value}
-                                    onClick={() => setSelectedMethod(method.value)}
+                                    onClick={() => {
+                                       setValue("paymentMethod", method.value)
+                                    }}
                                     className={`flex items-center justify-center gap-3 rounded-xl px-6 py-4 cursor-pointer border transition-all duration-300 shadow-sm 
-                                       ${selectedMethod === method.value
+                                       ${selectedPlaymentMethod === method.value
                                           ? "border-green-500 bg-green-50 shadow-md scale-105"
                                           : "border-transparent bg-base-200 opacity-60 hover:opacity-90"
                                        }`}
@@ -192,14 +202,13 @@ const RegulerDonatorForm = () => {
                                        type="radio"
                                        value={method.value}
                                        {...register("paymentMethod", { required: true })}
-                                       checked={selectedMethod === method.value}
-                                       onChange={() => setSelectedMethod(method.value)}
+                                       checked={selectedPlaymentMethod === method.value}
                                        className="hidden"
                                     />
                                     <img
                                        src={method.img}
                                        alt={method.alt}
-                                       className={`w-10 h-10 object-contain transition-transform duration-300 ${selectedMethod === method.value ? "scale-110" : "scale-100"
+                                       className={`w-10 h-10 object-contain transition-transform duration-300 ${selectedPlaymentMethod === method.value ? "scale-110" : "scale-100"
                                           }`}
                                     />
                                  </label>
@@ -219,7 +228,7 @@ const RegulerDonatorForm = () => {
                </div>
             </div>
          </div>
-      </section>
+      </section >
    );
 };
 
