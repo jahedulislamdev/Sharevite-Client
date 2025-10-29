@@ -9,6 +9,8 @@ import postImg from './../../utils/postImg_api';
 import { useState } from "react";
 import usePostData from "../../hooks/usePostData";
 import { useNavigate } from "react-router-dom";
+import PhoneInp from "../../Components/Form/Phone/RHFPhoneInput";
+import RHFPhoneInput from "../../Components/Form/Phone/RHFPhoneInput";
 
 const rules =
    [
@@ -87,7 +89,9 @@ const VolunteerForm = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-7" >
                      <RHFInput type="text" name="fullName" label="নাম" required />
                      <RHFInput type="text" name="fatherName" label="পিতার নাম" required />
-                     <RHFInput type="number" name="phoneNumber" label="মোবাইল নম্বর" required />
+                     <div>
+                        <RHFPhoneInput name="phone" label="মোবাইল নম্বর" required />
+                     </div>
                      <RHFInput type="email" name="email" label="ই-মেইল" required />
                   </div>
                </section>

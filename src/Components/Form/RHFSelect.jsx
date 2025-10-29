@@ -35,7 +35,7 @@ const RHFSelect = ({
                      onchange(selectedOption || null)
                   }}
                   disabled={disabled || options.length === 0}
-                  className={`select outline-0 select-bordered w-full ${hasError ? "border-red-500" : "border-gray-300"}`}
+                  className={`select select-lg outline-0 select-bordered w-full ${hasError ? "border-red-500" : "border-gray-300"}`}
 
                >
                   <option value="">সিলেক্ট করুন</option>
