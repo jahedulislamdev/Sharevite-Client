@@ -8,7 +8,7 @@ export default function RHFInput({ name, label, type = "text", placeholder, requ
    return (
       <div className="mb-4">
          <label
-            className={`block mt-4 mb-1 font-semibold label ${hasError ? "text-red-600" : ""}`}
+            className={`block mb-1 mt-1 font-semibold label ${hasError ? "text-red-600" : ""}`}
          >
             {label} {required && <span className="text-red-500">*</span>}
          </label>

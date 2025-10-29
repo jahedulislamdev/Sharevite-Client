@@ -26,7 +26,7 @@
     background: #f3f4f6 !important;
 }
 .react-tel-input .search-box {
-    padding: 8px 12px;
+    padding: 8px 12px !important;
     border: 1px solid #d1d5db;
     border-radius: 6px;
     width: 90%;

@@ -55,7 +55,7 @@ const VolunteerForm = () => {
             <div className="space-y-3 py-5 flex-1 p-5">
                <h2 className="font-semibold font-hind text-xl">আমাদের সহযোগী হোন</h2>
                <p className="subtitle text-lg">এই ফাউন্ডেশনের স্বেচ্ছাসেবক হয়ে সমাজ পরিবর্তনের সাথী হোন। আল্লাহর সন্তুষ্টির উদ্দেশ্যে নিজেকে নিয়োজিত করুন মানবসেবায়।</p>
-               <img className="w-full md:w-[600px] h-[200px] md:h-[300px] object-center rounded-2xl" src="https://floatingdoctors.com/wp-content/uploads/2022/11/20170503DSC00033-2-1024x683.jpg" alt="volunteerBanner" />
+               <img className="w-full md:w-[600px] h-[200px] md:h-[300px] object-cover object-center rounded-2xl" src="https://placehold.co/600x300" alt="volunteerBanner" />
             </div>
             <div className="flex-1 p-5 space-y-5">
                <h2 className="text-2xl font-semibold title">স্বেচ্ছাসেবক হওয়ার নিয়ম ও শর্তাবলি:</h2>
@@ -149,7 +149,9 @@ const VolunteerForm = () => {
                         onchange={presentAddress?.setSelectedUnion}
                         options={presentAddress.unions?.map(d => d.bn_name)}
                         value={presentAddress.selectedUnion} />
-                     <RHFInput name="fullPresentAddress" label="পূর্ণ ঠিকানা" className="md:col-span-2" />
+                     <div className="mt-2">
+                        <RHFInput name="fullPresentAddress" label="পূর্ণ ঠিকানা" />
+                     </div>
                   </div>
                </section>
 
@@ -194,7 +196,9 @@ const VolunteerForm = () => {
                         onchange={permanentAddress?.setSelectedUnion}
                         options={permanentAddress.unions?.map(d => d.bn_name)}
                         value={permanentAddress.selectedUnion} />
-                     <RHFInput name="fullPermanentAddress" label="পূর্ণ ঠিকানা" className="md:col-span-2" />
+                     <div className="mt-2">
+                        <RHFInput name="fullPermanentAddress" label="পূর্ণ ঠিকানা" />
+                     </div>
                   </div>
                </section>
 
@@ -216,7 +220,7 @@ const VolunteerForm = () => {
                   <h3 className="text-xl title font-semibold mb-4 border-l-4 pl-3 border-l-green-800">
                      শিক্ষাগত যোগ্যতা
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 md:gap-x-7">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-x-5 md:gap-x-7">
                      <div>
                         <label className={` label block mb-2 ${errors.educationMedium && "text-red-500"}`}>পড়াশুনার মাধ্যম <span className="text-red-500">*</span></label>
                         <select
@@ -231,10 +235,10 @@ const VolunteerForm = () => {
                         <label className={` label block mb-2 ${errors.educationLevel && "text-red-500"}`} >শিক্ষার স্তর <span className="text-red-500">*</span></label>
                         <select
                            {...register("educationLevel", { required: "শিক্ষার স্তর সিলেক্ট করুন" })}
-                           className={`select select-lg outline-0 font-onset ${errors.educationLevel && "border-red-500 "}`}
+                           className={`select font-noto select-lg outline-0 ${errors.educationLevel && "border-red-500 "}`}
                         >
-                           <option value="">সিলেক্ট করুন</option>
-                           {["SSC/Equivalent", "HSC/Equivalent", "Bachelor", "Graduate", "Post Graduate"].map((o, idx) => <option key={idx} value={o}>{o}</option>)}
+                           <option value="" className="font-noto">সিলেক্ট করুন</option>
+                           {["SSC/Equivalent", "HSC/Equivalent", "Bachelor", "Graduate", "Post Graduate"].map((o, idx) => <option className="font-onset" key={idx} value={o}>{o}</option>)}
                         </select>
                         {errors.educationLevel && <p className="text-red-500 mt-1 ">{errors.educationLevel?.message}</p>}
                      </div>
