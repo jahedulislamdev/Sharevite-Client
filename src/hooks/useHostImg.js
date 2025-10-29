@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 const useHostImg = (maxFiles, maxSizeMB) => {
@@ -85,9 +85,9 @@ const useHostImg = (maxFiles, maxSizeMB) => {
         setFiles([]);
         if (fileInputRef.current) fileInputRef.current.value = "";
     };
-    useEffect(() => {
-        console.log(files);
-    }, [files]);
+    // useEffect(() => {
+    //     console.log(files);
+    // }, [files]);
     // return necessary things
     return {
         previewImage,

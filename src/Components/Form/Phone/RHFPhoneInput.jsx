@@ -26,6 +26,7 @@ const RHFPhoneInput = ({ name, label, required = false }) => {
                   country={"bd"}
                   value={value}
                   onChange={onChange}
+                  enableSearch
                />
             )}
          />

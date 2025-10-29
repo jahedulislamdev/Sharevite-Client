@@ -37,9 +37,9 @@ const VolunteerForm = () => {
       try {
          setLoading(true)
          const profileURL = await postImg(files)
-         // console.log({ ...data, profile }); 
-         const updatedData = { ...data, profileURL }
-         postVolunteerData(updatedData)
+         console.log({ ...data, profileURL });
+         // const updatedData = { ...data, profileURL }
+         // postVolunteerData(updatedData)
          setLoading(false);
          navigate('/')
       } catch (error) {
@@ -221,7 +221,7 @@ const VolunteerForm = () => {
                         <label className={` label block mb-2 ${errors.educationMedium && "text-red-500"}`}>পড়াশুনার মাধ্যম <span className="text-red-500">*</span></label>
                         <select
                            {...register("educationMedium", { required: "পড়াশুনার মাধ্যম সিলেক্ট করুন" })}
-                           className={`select outline-0  ${errors.educationMedium && "border-red-500 "}`} >
+                           className={`select select-lg outline-0  ${errors.educationMedium && "border-red-500 "}`} >
                            <option value="">সিলেক্ট করুন</option>
                            {["আধুনিক", "মাদ্রাসা", "প্রযুক্তি শিক্ষা"].map((o, idx) => <option key={idx} value={o}>{o}</option>)}
                         </select>
@@ -231,7 +231,7 @@ const VolunteerForm = () => {
                         <label className={` label block mb-2 ${errors.educationLevel && "text-red-500"}`} >শিক্ষার স্তর <span className="text-red-500">*</span></label>
                         <select
                            {...register("educationLevel", { required: "শিক্ষার স্তর সিলেক্ট করুন" })}
-                           className={`select  outline-0 font-onset ${errors.educationLevel && "border-red-500 "}`}
+                           className={`select select-lg outline-0 font-onset ${errors.educationLevel && "border-red-500 "}`}
                         >
                            <option value="">সিলেক্ট করুন</option>
                            {["SSC/Equivalent", "HSC/Equivalent", "Bachelor", "Graduate", "Post Graduate"].map((o, idx) => <option key={idx} value={o}>{o}</option>)}
