@@ -1,3 +1,6 @@
+/* --------------------------- */
+/* Default (Light Mode) Styles */
+/* --------------------------- */
 .react-tel-input {
     width: 100% !important;
     border: none !important;
@@ -7,6 +10,7 @@
     height: 48px !important;
     border-radius: 0.5rem !important;
     background: #f3f4f6 !important;
+    color: #000 !important;
     border: 1px solid transparent !important;
     padding-left: 50px !important;
     font-size: 1rem !important;
@@ -18,23 +22,74 @@
 }
 .react-tel-input .form-control:focus {
     border-color: #16a34a !important;
-    background: #f9fafb !important;
-    outline: none !important;
     box-shadow: 0 0 0 2px #16a34a20 !important;
 }
+
 .react-tel-input .selected-flag {
     background: #f3f4f6 !important;
 }
+
 .react-tel-input .search-box {
     padding: 8px 12px !important;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    width: 90%;
-    margin: 8px auto;
-    background: #f9fafb;
+    border: 1px solid #d1d5db !important;
+    border-radius: 6px !important;
+    width: 90% !important;
+    margin: 8px auto !important;
+}
+.react-tel-input .search-box:focus {
+    border-color: #16a34a !important;
+    outline: none !important;
+}
+.country-list .search.search-emoji {
+    font-size: 17px !important ;
 }
 
-.react-tel-input .search-box:focus {
-    border-color: #16a34a;
-    outline: none;
+/* --------------------------- */
+/* Dark Mode (DaisyUI Theme)   */
+/* --------------------------- */
+[data-theme="dark"] .react-tel-input .form-control {
+    background: #191e24 !important; /* gray-800 */
+    color: #f3f4f6 !important;
+    border-color: #191e24 !important; /* gray-700 */
+}
+
+[data-theme="dark"] .react-tel-input .form-control:hover {
+    border-color: #16a34a !important;
+}
+
+[data-theme="dark"] .react-tel-input .form-control:focus {
+    border-color: #16a34a !important;
+    box-shadow: 0 0 0 2px #16a34a40 !important;
+}
+
+[data-theme="dark"] .react-tel-input .selected-flag {
+    background: #191e24 !important;
+}
+
+[data-theme="dark"] .react-tel-input .search-box {
+    background: #1f2937 !important;
+    border-color: #4b5563 !important;
+    color: #f3f4f6 !important;
+}
+[data-theme="dark"] .react-tel-input .flag-dropdown {
+    border: 1px solid #000000b6;
+}
+[data-theme="dark"] .react-tel-input .search-box:focus {
+    border-color: #16a34a !important;
+}
+[data-theme="dark"] .country-list {
+    background: #191e24;
+    padding: 0 20px 20px 20px;
+    max-height: 280px;
+}
+[data-theme="dark"] .country-list .search {
+    background: #191e24;
+}
+[data-theme="dark"] .country-list .country:hover {
+    background: #4076b931;
+    border-radius: 5px;
+}
+[data-theme="dark"] .country-list .country.highlight {
+    background: #4076b931;
+    border-radius: 5px;
 }

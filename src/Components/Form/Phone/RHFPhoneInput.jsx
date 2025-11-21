@@ -4,13 +4,18 @@ import "react-phone-input-2/lib/style.css";
 import "./phoneinput.css";
 
 const RHFPhoneInput = ({ name, label, required = false }) => {
-   const { control, formState: { errors } } = useFormContext();
+   const {
+      control,
+      formState: { errors },
+   } = useFormContext();
+
    const hasError = !!errors[name];
 
    return (
       <div className="mb-4">
          <label
-            className={`block mb-1 font-semibold label ${hasError ? "text-red-600" : ""}`}
+            className={`block mb-1 font-semibold label ${hasError ? "text-red-600" : ""
+               }`}
          >
             {label} {required && <span className="text-red-500">*</span>}
          </label>
@@ -27,7 +32,8 @@ const RHFPhoneInput = ({ name, label, required = false }) => {
                   value={value}
                   onChange={onChange}
                   enableSearch
-                  searchPlaceholder="Search your country "
+                  searchPlaceholder="Search your country"
+                  inputClass={hasError ? "border-red-500" : "bg-base-300"}
                />
             )}
          />
