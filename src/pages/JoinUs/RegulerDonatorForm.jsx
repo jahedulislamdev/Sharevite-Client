@@ -31,7 +31,7 @@ const RegulerDonatorForm = () => {
    return (
       <section>
          {/* Top Info Badge */}
-         <div className="badge badge-soft badge-xs sm:badge-md md:badge-lg badge-primary font-semibold p-6">
+         <div className=" font-semibold p-4 bg-green-300/20 rounded-md text-center ">
             If you have any difficulty understanding anything related to recurring donations or face any issue, please email us at support@foundationname.org
          </div>
 
