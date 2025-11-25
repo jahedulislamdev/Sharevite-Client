@@ -21,6 +21,7 @@ const Navbar = () => {
       <NavLink className={`hover:bg-[#06510c17] transition-colors duration-500 py-1 px-3 rounded-xl`} to={'/'}>হোম</NavLink>
       <NavLink className={`hover:bg-[#06510c17] transition-colors duration-500 py-1 px-3 rounded-xl`} to={'/projects'}>চলমান প্রকল্প</NavLink>
       <NavLink className={`hover:bg-[#06510c17] transition-colors duration-500 py-1 px-3 rounded-xl`} to={'/blog'}>ব্লগ</NavLink>
+      <NavLink className={`hover:bg-[#06510c17] transition-colors duration-500 py-1 px-3 rounded-xl`} to={'/joinus'}>যুক্ত হউন</NavLink>
       {isAdmin && (<NavLink className={`hover:bg-[#06510c17] transition-colors duration-500 py-1 px-3 rounded-xl`} to={'/dashboard'}>ড্যাশবোর্ড</NavLink>)}
    </>
 

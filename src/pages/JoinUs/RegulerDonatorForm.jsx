@@ -162,9 +162,8 @@ const RegulerDonatorForm = () => {
                            <input
                               type="text"
                               {...register("donatorEmailOrPhone")}
-                              value={user?.email || ""}
                               readOnly={user}
-                              className="w-full font-onset rounded-lg bg-base-200 px-4 py-2.5 focus:outline-0 opacity-70 cursor-not-allowed"
+                              className="w-full font-onset rounded-lg bg-base-200 px-4 py-2.5 focus:outline-0 opacity-70"
                            />
                         </div>
 
